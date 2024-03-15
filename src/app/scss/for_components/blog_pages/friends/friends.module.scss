@@ -4,6 +4,10 @@ $page-width: 885px;
 $page-padding: 25px;
 $page-radius: 20px 20px 0 0;
 
+$route-gap: 20px;
+
+$users-gap: 20px;
+
 .page {
   width: $page-width;
   padding: $page-padding;
@@ -11,7 +15,16 @@ $page-radius: 20px 20px 0 0;
   background-color: $white-color;
   border-radius: $page-radius;
 
-  .route {
 
+  .route {
+    display: flex;
+    flex-flow: column;
+    gap: $route-gap;
+  }
+
+  .users {
+    display: flex;
+    flex-flow: column;
+    gap:$users-gap;
   }
 }
