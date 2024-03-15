@@ -20,8 +20,8 @@
 }
 .route .post_data .post_photos {
   display: grid;
-  row-gap: 10px;
-  column-gap: 10px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 .route .post_data .post_photos .post_photo {
   width: min-content/3;

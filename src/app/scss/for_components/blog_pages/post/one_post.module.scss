@@ -38,8 +38,8 @@ $one-post-buttons-height: 19px;
 
     .post_photos {
       display: grid;
-      row-gap: $post-photo-gap;
-      column-gap: $post-photo-gap;
+      flex-wrap: wrap;
+      gap: $post-photo-gap;
 
       .post_photo {
         width: $post-photo-size;
