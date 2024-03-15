@@ -1,6 +1,8 @@
+
+const MAIN= '/pages'
 export const Main_path = {
-    AUTH: '/auth',
-    PROFILE: '/profile',
-    SETTINGS: '/settings',
-    FRIENDS: '/friends'
+    AUTH: MAIN + '/auth',
+    PROFILE: MAIN + '/profile',
+    SETTINGS: MAIN + '/settings',
+    FRIENDS: MAIN + '/friends'
 }
