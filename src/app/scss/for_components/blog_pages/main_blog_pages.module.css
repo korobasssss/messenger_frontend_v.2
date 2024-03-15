@@ -5,7 +5,6 @@
 }
 .page .route {
   display: flex;
-  justify-self: center;
   gap: 25px;
 }
 

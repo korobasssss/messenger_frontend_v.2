@@ -1,0 +1,37 @@
+
+$route-gap: 15px;
+
+$avatar-size: 75px;
+
+$data-gap: 10px;
+
+$subscriber-buttons-gap: 15px;
+
+.rout {
+  display: flex;
+  gap: $route-gap;
+
+
+  .avatar {
+    width: $avatar-size;
+    height: $avatar-size;
+  }
+
+  .data_and_buttons {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+
+    .data {
+      display: flex;
+      flex-flow: column;
+      gap: $data-gap;
+    }
+  }
+}
+
+.subscribersButtons {
+  display: flex;
+  gap: $subscriber-buttons-gap;
+}

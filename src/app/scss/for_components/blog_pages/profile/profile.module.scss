@@ -3,12 +3,13 @@
 $width: 615px;
 $radius: 20px;
 
+$route-gap: 15px;
 $aside-gap: 25px;
 
 
 .route {
   display: flex;
-  gap: $aside-gap;
+  gap: $route-gap;
 
   .center {
     width: $width;

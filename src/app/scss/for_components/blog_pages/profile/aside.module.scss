@@ -38,19 +38,6 @@ $friend-photo-radius: 50px;
     flex-flow: column;
     gap: $route-gap;
 
-    .header {
-      display: flex;
-      gap: $header-gap;
-
-      .name {
-        font-weight: $name-weight;
-        font-size: $name-size;
-      }
-
-      .count {
-        color: $not_important_data_color;
-      }
-    }
 
     .photos {
       display: grid;
@@ -86,4 +73,19 @@ $friend-photo-radius: 50px;
       }
     }
   }
+}
+
+.header {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: $header-gap;
+}
+
+.name {
+  font-weight: $name-weight;
+  font-size: $name-size;
+}
+
+.count {
+  color: $not_important_data_color;
 }
