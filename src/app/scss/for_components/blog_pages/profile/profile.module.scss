@@ -1,0 +1,17 @@
+@import '@/app/scss/global/color';
+
+$width: 615px;
+$radius: 20px;
+
+.root {
+  width: $width;
+
+  display: flex;
+  flex-flow: column;
+
+
+  background-color: $white-color;
+  border-radius: $radius;
+
+  overflow-y: auto;
+}

@@ -11,14 +11,13 @@ import main_blog_pages_scss from '@/app/scss/for_components/blog_pages/main_blog
 
 export const Main_page = () => {
     const pathname = usePathname()
-    const pathname_block = pathname.split('/')[1]
 
     return (
         <section className={main_blog_pages_scss.route}>
             <NavigationComponent/>
-            {pathname_block === Main_path.PROFILE ? <ProfileComponent/> :
-             pathname_block === Main_path.FRIENDS ? <FriendsComponent/> :
-             pathname_block === Main_path.SETTINGS ? <SettingsComponent/> : null}
+            {pathname === Main_path.PROFILE ? <ProfileComponent/> :
+             pathname === Main_path.FRIENDS ? <FriendsComponent/> :
+             pathname === Main_path.SETTINGS ? <SettingsComponent/> : null}
         </section>
     )
 }

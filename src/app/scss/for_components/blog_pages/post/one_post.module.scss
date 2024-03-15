@@ -1,0 +1,69 @@
+$route-gap: 15px;
+$header-gap: 10px;
+
+$avatar-size: 50px;
+
+$post-gap: 10px;
+$post-photo-size: min-content / 3;
+$post-photo-gap: 10px;
+
+$post-buttons-gap: 25px;
+$one-post-buttons-gap: 10px;
+$one-post-buttons-height: 19px;
+
+.route {
+  display: flex;
+  flex-flow: column;
+  gap: $route-gap;
+
+  .header {
+    display: flex;
+    gap: $header-gap;
+
+    align-items: center;
+
+    .avatar {
+      width: $avatar-size;
+      height: $avatar-size;
+
+      object-fit: cover;
+    }
+  }
+
+  .post_data {
+    display: flex;
+    flex-flow: column;
+    gap: $post-gap;
+
+
+    .post_photos {
+      display: grid;
+      row-gap: $post-photo-gap;
+      column-gap: $post-photo-gap;
+
+      .post_photo {
+        width: $post-photo-size;
+        height: $post-photo-size;
+      }
+    }
+
+
+    .footer {
+      height: min-content;
+      display: flex;
+      justify-content: space-between;
+
+      .buttons {
+        display: flex;
+        gap: $post-buttons-gap;
+
+        .button {
+          height: $one-post-buttons-height;
+
+          display: flex;
+          gap: $one-post-buttons-gap;
+        }
+      }
+    }
+  }
+}
