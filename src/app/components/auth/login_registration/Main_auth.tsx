@@ -1,4 +1,4 @@
-export const ActivationComponent = () => {
+export const Main_AuthComponent = () => {
     return (
         <main>
 
