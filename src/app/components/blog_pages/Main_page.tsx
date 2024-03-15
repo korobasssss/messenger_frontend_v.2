@@ -18,12 +18,15 @@ export const Main_page = () => {
     console.log(currPathname)
 
     return (
-        <section className={main_blog_pages_scss.route}>
-            <NavigationComponent/>
-            {currPathname === Main_path.PROFILE ? <ProfileComponent/> :
-             currPathname === Main_path.FRIENDS ? <FriendsComponent/> :
-             currPathname === Photo_path.USER_PHOTO? <PhotoComponent/> :
-             currPathname === Main_path.SETTINGS ? <SettingsComponent/> : null}
+        <section className={main_blog_pages_scss.page}>
+            <main className={main_blog_pages_scss.route}>
+                <NavigationComponent/>
+                {currPathname === Main_path.PROFILE ? <ProfileComponent/> :
+                    currPathname === Main_path.FRIENDS ? <FriendsComponent/> :
+                        currPathname === Photo_path.USER_PHOTO ? <PhotoComponent/> :
+                            currPathname === Main_path.SETTINGS ? <SettingsComponent/> : null}
+            </main>
         </section>
+
     )
 }

@@ -1,5 +1,9 @@
-.route {
+.page {
   padding: 50px 0;
+  display: grid;
+  justify-items: center;
+}
+.page .route {
   display: flex;
   justify-self: center;
   gap: 25px;

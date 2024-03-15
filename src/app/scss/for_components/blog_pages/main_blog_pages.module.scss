@@ -1,11 +1,14 @@
 $padding: 50px 0;
 $gap: 25px;
 
-.route {
+.page {
   padding: $padding;
+  display: grid;
+  justify-items: center;
 
-  display: flex;
-  justify-self: center;
-  gap: $gap;
-
+  .route {
+    display: flex;
+    justify-self: center;
+    gap: $gap;
+  }
 }
