@@ -1,0 +1,45 @@
+.route {
+  display: flex;
+  flex-flow: column;
+  gap: 15px;
+}
+.route .header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.route .header .avatar {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+.route .post_data {
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+}
+.route .post_data .post_photos {
+  display: grid;
+  row-gap: 10px;
+  column-gap: 10px;
+}
+.route .post_data .post_photos .post_photo {
+  width: min-content/3;
+  height: min-content/3;
+}
+.route .post_data .footer {
+  height: min-content;
+  display: flex;
+  justify-content: space-between;
+}
+.route .post_data .footer .buttons {
+  display: flex;
+  gap: 25px;
+}
+.route .post_data .footer .buttons .button {
+  height: 19px;
+  display: flex;
+  gap: 10px;
+}
+
+/*# sourceMappingURL=one_post.module.css.map */

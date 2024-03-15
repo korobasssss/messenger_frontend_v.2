@@ -1,0 +1,78 @@
+@import '@/app/scss/global/color';
+
+$radius: 20px;
+$cover-height: 185px;
+$border: 1px solid $chat-border-color;
+
+$padding: 20px;
+
+$avatar-section-height: 45px;
+
+$avatar-position: -80px;
+$avatar-border: 3px solid $white-color;
+$avatar-border-radius: 60px;
+$avatar-size: 120px;
+
+$user-data-gap: 20px;
+
+
+.route {
+  border-bottom: $border;
+
+  .cover_section {
+    width: 100%;
+    height: $cover-height;
+
+    .cover_img {
+      height: 100%;
+      width: 100%;
+
+      object-fit: contain;
+
+      border-radius: $radius;
+    }
+  }
+
+  .user_data {
+
+    padding: $padding;
+
+    display: flex;
+    flex-flow: column;
+    gap: $user-data-gap;
+
+    .user_nameNick {
+      height: min-content;
+
+      display: flex;
+      gap: $user-data-gap;
+
+
+      .avatar_section {
+        height: $avatar-section-height;
+
+        .avatar_img {
+          position: relative;
+          top: $avatar-position;
+
+          border-radius: $avatar-border-radius;
+          border: $avatar-border;
+          width: $avatar-size;
+          height: $avatar-size;
+
+          object-fit: cover;
+        }
+      }
+
+      .data_and_button {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: $user-data-gap;
+
+      }
+    }
+
+  }
+}

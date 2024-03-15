@@ -1,5 +1,5 @@
 
-const MAIN= '/pages'
+export const MAIN= '/pages'
 export const Main_path = {
     AUTH: MAIN + '/auth',
     PROFILE: MAIN + '/profile',

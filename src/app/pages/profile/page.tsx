@@ -1,7 +1,7 @@
 import {Main_page} from "@/app/components/blog_pages/Main_page";
 
-const Friends = () => {
+const Profile = () => {
     return <Main_page/>
 }
 
-export default Friends
+export default Profile

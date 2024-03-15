@@ -3,6 +3,7 @@ import {useRouter} from "next/navigation";
 import {Auth_path} from "@/app/paths/auth";
 
 import '@/app/scss/global/globals.scss'
+import {Profile_path} from "@/app/paths/profile";
 
 export const LoginComponent = () => {
     const router = useRouter()
@@ -13,7 +14,7 @@ export const LoginComponent = () => {
                     <input placeholder={'Электронный адрес или никнейм'}/>
                     <input placeholder={'Пароль'}/>
                 </section>
-                <button className={'button_main_color'} onClick={() => router.push(Auth_path.LOGIN)}>
+                <button className={'button_main_color'} onClick={() => router.push(Profile_path.PROFILE_USER)}>
                     Войти
                 </button>
             </section>
