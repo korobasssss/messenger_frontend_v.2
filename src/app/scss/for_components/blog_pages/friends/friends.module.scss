@@ -1,0 +1,17 @@
+@import "@/app/scss/global/color";
+
+$page-width: 885px;
+$page-padding: 25px;
+$page-radius: 20px 20px 0 0;
+
+.page {
+  width: $page-width;
+  padding: $page-padding;
+
+  background-color: $white-color;
+  border-radius: $page-radius;
+
+  .route {
+
+  }
+}
