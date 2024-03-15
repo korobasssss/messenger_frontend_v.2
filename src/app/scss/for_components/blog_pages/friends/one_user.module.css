@@ -1,0 +1,25 @@
+.rout {
+  display: flex;
+  gap: 15px;
+}
+.rout .avatar {
+  width: 75px;
+  height: 75px;
+}
+.rout .data_and_buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.rout .data_and_buttons .data {
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+}
+
+.subscribersButtons {
+  display: flex;
+  gap: 15px;
+}
+
+/*# sourceMappingURL=one_user.module.css.map */

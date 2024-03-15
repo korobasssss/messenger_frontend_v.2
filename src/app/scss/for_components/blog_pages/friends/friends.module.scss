@@ -2,14 +2,20 @@
 
 $page-width: 885px;
 $page-padding: 25px;
-$page-radius: 20px 20px 0 0;
+$page-radius: 20px;
 
 $route-gap: 20px;
 
 $users-gap: 20px;
 
+$no-users-weight: 600;
+$no-users-size: 1em;
+
+$no-friends-gap: 10px;
+
 .page {
   width: $page-width;
+  height: 100%;
   padding: $page-padding;
 
   background-color: $white-color;
@@ -26,5 +32,25 @@ $users-gap: 20px;
     display: flex;
     flex-flow: column;
     gap:$users-gap;
+  }
+
+  .no_users {
+    display: grid;
+    justify-content: center;
+
+    font-size: $no-users-size;
+    font-weight: $no-users-weight;
+
+
+    .no_friends {
+      display: flex;
+      gap: $no-friends-gap;
+
+
+      .find_friends {
+        color: $dark-purple-color;
+        font-weight: $no-users-weight;
+      }
+    }
   }
 }

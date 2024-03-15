@@ -25,6 +25,10 @@ export const Header_friendsComponent = () => {
                 router.push(Friends_path.SUBSCRIBERS_USER)
                 break
             }
+            case 3 : {
+                router.push(Friends_path.SEARCH)
+                break
+            }
         }
 
     }, [isActiveIndex, router])
@@ -57,7 +61,8 @@ export const Header_friendsComponent = () => {
                     </button>
                 </li>
             </ul>
-            <button className={'button_3rd_plane ' + aside_scss.header}>
+            <button className={'button_3rd_plane ' + aside_scss.header}
+                    onClick={() => setActiveIndex(3)}>
                 <Image src={search_icon} alt={'search'}/>
             </button>
         </nav>
