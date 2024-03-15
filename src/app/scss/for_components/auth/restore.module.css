@@ -1,0 +1,30 @@
+.route {
+  display: flex;
+  flex-flow: column;
+  gap: 20px;
+}
+
+.important_part {
+  font-weight: 700;
+}
+
+.user_data {
+  display: flex;
+  gap: 15px;
+}
+
+.user_avatar {
+  width: 55px;
+  height: 55px;
+}
+
+.name {
+  font-size: 1em;
+}
+
+.buttons_section {
+  display: flex;
+  gap: 20px;
+}
+
+/*# sourceMappingURL=restore.module.css.map */
