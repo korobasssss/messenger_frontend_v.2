@@ -1,0 +1,11 @@
+$padding: 50px 0;
+$gap: 25px;
+
+.route {
+  padding: $padding;
+
+  display: flex;
+  justify-self: center;
+  gap: $gap;
+
+}
