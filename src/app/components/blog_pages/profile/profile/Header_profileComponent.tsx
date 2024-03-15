@@ -12,7 +12,7 @@ export const Header_profileComponent = () => {
     const [isButtonHover, setButtonHover] = useState(false)
 
     return (
-        <header className={header_profile_scss.root}>
+        <header className={header_profile_scss.route}>
             <section className={header_profile_scss.cover_section}>
                 <Image src={default_cover} className={header_profile_scss.cover_img} alt={'user cover'}/>
             </section>

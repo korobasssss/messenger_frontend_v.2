@@ -8,16 +8,22 @@ import {FriendsComponent} from "@/app/components/blog_pages/friends/friends/Frie
 import {SettingsComponent} from "@/app/components/blog_pages/settings/settings/SettingsComponent";
 
 import main_blog_pages_scss from '@/app/scss/for_components/blog_pages/main_blog_pages.module.scss'
+import {PhotoComponent} from "@/app/components/blog_pages/profile/photo/PhotoComponent";
+import {Photo_path} from "@/app/paths/photo";
 
 export const Main_page = () => {
     const pathname = usePathname()
+    const currPathname = '/' + pathname.split('/')[1] + '/' + pathname.split('/')[2]
+
+    console.log(currPathname)
 
     return (
         <section className={main_blog_pages_scss.route}>
             <NavigationComponent/>
-            {pathname === Main_path.PROFILE ? <ProfileComponent/> :
-             pathname === Main_path.FRIENDS ? <FriendsComponent/> :
-             pathname === Main_path.SETTINGS ? <SettingsComponent/> : null}
+            {currPathname === Main_path.PROFILE ? <ProfileComponent/> :
+             currPathname === Main_path.FRIENDS ? <FriendsComponent/> :
+             currPathname === Photo_path.USER_PHOTO? <PhotoComponent/> :
+             currPathname === Main_path.SETTINGS ? <SettingsComponent/> : null}
         </section>
     )
 }

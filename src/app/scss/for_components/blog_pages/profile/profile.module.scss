@@ -3,15 +3,28 @@
 $width: 615px;
 $radius: 20px;
 
-.root {
-  width: $width;
+$aside-gap: 25px;
 
+
+.route {
   display: flex;
-  flex-flow: column;
+  gap: $aside-gap;
 
+  .center {
+    width: $width;
 
-  background-color: $white-color;
-  border-radius: $radius;
+    display: flex;
+    flex-flow: column;
 
-  overflow-y: auto;
+    background-color: $white-color;
+    border-radius: $radius;
+
+    overflow-y: auto;
+  }
+
+  .aside {
+    display: flex;
+    flex-flow: column;
+    gap: $aside-gap;
+  }
 }
