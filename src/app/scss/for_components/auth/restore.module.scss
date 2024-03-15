@@ -1,0 +1,33 @@
+$gap_section: 20px;
+$gap_button: 20px;
+$avatar_size: 55px;
+$name-font-size: 1em;
+
+.route {
+  display: flex;
+  flex-flow: column;
+  gap: $gap_section;
+}
+
+.important_part {
+  font-weight: 700;
+}
+
+.user_data {
+  display: flex;
+  gap: 15px;
+}
+
+.user_avatar {
+  width: $avatar_size;
+  height: $avatar_size;
+}
+
+.name {
+  font-size: $name-font-size;
+}
+
+.buttons_section {
+  display: flex;
+  gap: $gap_button;
+}

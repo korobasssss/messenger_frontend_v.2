@@ -8,7 +8,7 @@ export const Auth_path = {
     FORGOT_PASSWORD :
         Main_path.AUTH + `/account/recovery`,
     RESTORE:
-        Main_path.AUTH + `/account/restore/[id]`,
+        Main_path.AUTH + `/account/restore`,
     ACTIVATION:
         Main_path.AUTH + '/account/activation',
     SUCCESSFUL_REGISTRATION:

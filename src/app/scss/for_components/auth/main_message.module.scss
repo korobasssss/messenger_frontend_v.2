@@ -1,0 +1,41 @@
+@import "@/app/scss/global/color";
+@import "@/app/scss/global/main_values";
+
+$width: 611px;
+$gap-sections: 20px;
+$padding: 50px;
+
+$header-size: 1.5em;
+$header-weight: 700;
+
+.page {
+  height: 100%;
+
+  display: grid;
+  justify-items: center;
+  align-items: center;
+
+  .route {
+    display: flex;
+    width: $width;
+    background-color: $white-color;
+
+    border-radius: $auth-block-border-radius;
+
+    .sections {
+      padding: 50px;
+      display: grid;
+      gap: $gap-sections;
+      justify-items: center;
+
+      .header {
+        font-size: $header-size;
+        font-weight: $header-weight;
+      }
+
+      .p {
+        text-align: center;
+      }
+    }
+  }
+}
