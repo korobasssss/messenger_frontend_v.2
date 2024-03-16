@@ -1,5 +1,8 @@
 @import "@/app/scss/global/color";
 
+$border: 1px solid $chat-border-color;
+$padding: 25px;
+
 $route-gap: 15px;
 $header-gap: 10px;
 
@@ -27,6 +30,9 @@ $one-post-input-gap: 10px;
   display: flex;
   flex-flow: column;
   gap: $route-gap;
+
+  border-top: $border;
+  padding: $padding 0;
 
   .header {
     display: flex;

@@ -8,6 +8,9 @@ export const PostsComponent = () => {
             <li>
                 <OnePostComponent/>
             </li>
+            <li>
+                <OnePostComponent/>
+            </li>
         </ul>
     )
 }
