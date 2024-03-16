@@ -1,0 +1,7 @@
+
+$comments-gap: 25px;
+.comments {
+  display: flex;
+  flex-flow: column;
+  gap: $comments-gap;
+}

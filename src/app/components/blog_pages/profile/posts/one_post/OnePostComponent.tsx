@@ -7,13 +7,17 @@ import Image from "next/image";
 
 import '@/app/scss/global/globals.scss'
 import one_post_scss from '@/app/scss/for_components/blog_pages/post/one_post.module.scss'
+import {useRouter} from "next/navigation";
+import {Profile_path} from "@/app/paths/profile";
 
 export const OnePostComponent = () => {
+    const router = useRouter()
+
     return (
         <section className={one_post_scss.route}>
             <header className={one_post_scss.header}>
                 <Image src={default_avatar} className={one_post_scss.avatar} alt={'user avatar'}/>
-                <section>
+                <section className={one_post_scss.name_nickname}>
                     <div className={'name_small'}>Другой</div>
                     <div className={'nickname'}>@name</div>
                 </section>
@@ -37,7 +41,8 @@ export const OnePostComponent = () => {
                             <Image src={not_like_icon} alt={'not like'}/>
                             <div>1</div>
                         </button>
-                        <button className={'button_3rd_plane ' + one_post_scss.button}>
+                        <button className={'button_3rd_plane ' + one_post_scss.button}
+                                onClick={() => router.push(Profile_path.PROFILE_ONE_POST)}>
                             <Image src={comment_icon} alt={'comment'}/>
                             <div>0</div>
                         </button>

@@ -1,15 +1,24 @@
+@import "@/app/scss/global/color";
+
 $route-gap: 15px;
 $header-gap: 10px;
 
 $avatar-size: 50px;
+
+$name-nickname-gap: 5px;
 
 $post-gap: 10px;
 $post-photo-size: min-content / 3;
 $post-photo-gap: 10px;
 
 $post-buttons-gap: 25px;
-$one-post-buttons-gap: 10px;
+$one-post-buttons-gap: 5px;
 $one-post-buttons-height: 19px;
+
+$main-padding: 25px 25px 25px 15px;
+
+$one-post-input-border: 1px solid $chat-border-color;
+$one-post-input-gap: 10px;
 
 .route {
   display: flex;
@@ -29,41 +38,64 @@ $one-post-buttons-height: 19px;
       object-fit: cover;
     }
   }
+}
 
-  .post_data {
-    display: flex;
-    flex-flow: column;
-    gap: $post-gap;
+.post_data {
 
+  display: flex;
+  flex-flow: column;
+  gap: $post-gap;
 
-    .post_photos {
-      display: grid;
-      row-gap: $post-photo-gap;
-      column-gap: $post-photo-gap;
-
-      .post_photo {
-        width: $post-photo-size;
-        height: $post-photo-size;
-      }
-    }
+  padding: $main-padding;
 
 
-    .footer {
-      height: min-content;
-      display: flex;
-      justify-content: space-between;
+  .post_photos {
+    display: grid;
+    flex-wrap: wrap;
+    gap: $post-photo-gap;
 
-      .buttons {
-        display: flex;
-        gap: $post-buttons-gap;
-
-        .button {
-          height: $one-post-buttons-height;
-
-          display: flex;
-          gap: $one-post-buttons-gap;
-        }
-      }
+    .post_photo {
+      width: $post-photo-size;
+      height: $post-photo-size;
     }
   }
+}
+
+.input_section {
+  border-top: $one-post-input-border;
+  border-bottom: $one-post-input-border;
+
+  display: flex;
+  gap: $one-post-input-gap;
+  align-items: center;
+
+  .input {
+    width: 100%;
+    border: none
+  }
+}
+
+.footer {
+  height: min-content;
+  display: flex;
+  justify-content: space-between;
+  gap: $one-post-buttons-gap;
+
+  .buttons {
+    display: flex;
+    gap: $post-buttons-gap;
+
+    .button {
+      height: $one-post-buttons-height;
+
+      display: flex;
+      gap: $one-post-buttons-gap;
+    }
+  }
+}
+
+.name_nickname {
+  display: flex;
+  flex-flow: column;
+  gap: $name-nickname-gap;
 }

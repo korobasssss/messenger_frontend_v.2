@@ -14,9 +14,6 @@ $button-height: 45px;
 
 $avatar-border: 2px solid $avatar-border-color;
 
-$z-index-low: 1;
-$z-index-up: 3;
-
 $name-font-size: 1.5em;
 $name-font-size_small: 1em;
 $name-font-weight: 700;
@@ -27,3 +24,15 @@ $nickname-font-size: 0.9em;
 $chat-border: 1px solid $chat-border-color;
 
 $font-family: "Inter", sans-serif;
+
+$scrollbar-w: 5px;
+$scrollbar-radius: 2px;
+
+
+//z-index
+$dark-bgc-z-index: 3;
+$modal-window-z-index: 1;
+
+
+
+
