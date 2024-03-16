@@ -1,0 +1,16 @@
+
+
+$comments-gap: 25px;
+$min-height: 191px;
+
+
+.comments {
+height: $min-height;
+
+  display: flex;
+  flex-flow: column;
+  gap: $comments-gap;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+}

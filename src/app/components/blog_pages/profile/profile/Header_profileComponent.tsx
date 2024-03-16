@@ -7,6 +7,7 @@ import Image from "next/image";
 import header_profile_scss from '@/app/scss/for_components/blog_pages/profile/header_profile.module.scss'
 import '@/app/scss/global/globals.scss'
 import {useState} from "react";
+import one_post_scss from "@/app/scss/for_components/blog_pages/post/one_post.module.scss";
 
 export const Header_profileComponent = () => {
     const [isButtonHover, setButtonHover] = useState(false)
@@ -22,8 +23,7 @@ export const Header_profileComponent = () => {
                         <Image src={default_avatar} className={header_profile_scss.avatar_img} alt={'user avatar'}/>
                     </section>
                     <section className={header_profile_scss.data_and_button}>
-
-                        <section>
+                        <section className={one_post_scss.name_nickname}>
                             <div className={'name'}>Другой</div>
                             <div className={'nickname'}>@name</div>
                         </section>

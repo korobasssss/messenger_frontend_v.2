@@ -1,0 +1,10 @@
+.comments {
+  height: 191px;
+  display: flex;
+  flex-flow: column;
+  gap: 25px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/*# sourceMappingURL=comments.module.css.map */

@@ -8,6 +8,7 @@ import {SubscribersButtonsComponent} from "@/app/components/blog_pages/friends/s
 import {SearchButtonsComponent} from "@/app/components/blog_pages/friends/search/SearchComponent";
 
 import one_user_scss from '@/app/scss/for_components/blog_pages/friends/one_user.module.scss'
+import one_post_scss from "@/app/scss/for_components/blog_pages/post/one_post.module.scss";
 
 export const OneUser = () => {
     const pathname = usePathname()
@@ -17,7 +18,7 @@ export const OneUser = () => {
             <Image src={default_avatar} className={one_user_scss.avatar} alt={'user avatar'}/>
             <section className={one_user_scss.data_and_buttons}>
                 <section className={one_user_scss.data}>
-                    <header>
+                    <header className={one_post_scss.name_nickname}>
                         <div className={'name_small'}>Другой</div>
                         <div className={'nickname'}>@name</div>
                     </header>

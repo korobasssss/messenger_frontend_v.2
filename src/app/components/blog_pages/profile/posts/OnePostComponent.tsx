@@ -13,7 +13,7 @@ export const OnePostComponent = () => {
         <section className={one_post_scss.route}>
             <header className={one_post_scss.header}>
                 <Image src={default_avatar} className={one_post_scss.avatar} alt={'user avatar'}/>
-                <section>
+                <section className={one_post_scss.name_nickname}>
                     <div className={'name_small'}>Другой</div>
                     <div className={'nickname'}>@name</div>
                 </section>

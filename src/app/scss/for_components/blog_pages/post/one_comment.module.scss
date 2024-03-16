@@ -1,0 +1,74 @@
+@import "@/app/scss/global/color";
+@import "@/app/scss/global/main_values";
+
+$user-post-data-gap: 10px;
+
+$user-avatar-size: 45px;
+$user-name-nickname-gap: 5px;
+
+$edit-padding: 15px 30px 15px 30px;
+$edit-w: 28px;
+$edit-g: 5px;
+$edit-border: 1px solid $chat-border-color;
+$edit-gap: 1px;
+$edit-border-radius: 10px;
+$edit-button-weight: 600;
+
+.user_post_data {
+  display: flex;
+  gap: $user-post-data-gap;
+
+  .user_avatar {
+    width: $user-avatar-size;
+    height: $user-avatar-size;
+  }
+
+  .info {
+    display: flex;
+    flex-flow: column;
+    gap: $user-post-data-gap;
+
+    .user_data {
+      display: flex;
+      gap: $user-name-nickname-gap;
+    }
+
+    .user_data_with_edit {
+      height: min-content;
+
+      display: flex;
+      justify-content: space-between;
+
+
+      .edit_section {
+
+        display: flex;
+        flex-flow: column;
+        gap: $edit-gap;
+
+        width: $edit-w ;
+        height: $edit-g;
+
+
+        .edit {
+          display: flex;
+          justify-self: end;
+
+          position: relative;
+
+          .edit_button {
+            position: absolute;
+            font-weight: $edit-button-weight;
+
+            padding: $edit-padding;
+
+            border: $edit-border;
+            border-radius: $edit-border-radius;
+
+            background-color: $white-color;
+          }
+        }
+      }
+    }
+  }
+}

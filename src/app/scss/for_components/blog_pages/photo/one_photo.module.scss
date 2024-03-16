@@ -1,0 +1,73 @@
+@import "@/app/scss/global/color";
+
+$route-radius: 20px;
+
+$photo-radius: 20px 0px 0px 20px;
+
+$main-gap: 25px;
+$main-padding: 25px 25px 25px 15px;
+
+$user-post-data-gap: 10px;
+$post-width: 328px;
+$post-gap: 10px;
+
+$user-avatar-size: 45px;
+$user-name-nickname-gap: 5px;
+
+.page {
+  overflow-y: auto;
+
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+
+  display: grid;
+  align-items: center;
+  justify-items: center;
+
+  .dark_bgc {
+    width: 100vw;
+    height: 100vh;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+
+    background-color: $black-color;
+    opacity: 0.4;
+  }
+
+  .route {
+    position: absolute;
+
+    display: flex;
+
+    background-color: $white-color;
+    border-radius: $route-radius;
+
+    .photo {
+      width: 100%;
+      height: 100%;
+
+      border-radius: $photo-radius;
+    }
+
+
+  }
+}
+
+.post_data {
+  min-width: $post-width;
+  width: $post-width;
+
+  display: flex;
+  flex-flow: column;
+  gap: $post-gap;
+
+  padding: $main-padding;
+
+}
+
