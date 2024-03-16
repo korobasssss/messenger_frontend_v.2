@@ -1,5 +1,4 @@
 import one_photo_scss from "@/app/scss/for_components/blog_pages/photo/one_photo.module.scss";
-import {Photo_path} from "@/app/paths/photo";
 import {useRouter} from "next/navigation";
 import {Profile_path} from "@/app/paths/profile";
 import {OnePostComponent} from "@/app/components/blog_pages/profile/posts/one_post/OnePostComponent";
@@ -8,6 +7,8 @@ import Image from "next/image";
 import sent_comment_icon from "@/assets/icons/post/sent_comment_icon.svg";
 import {CommentsComponent} from "@/app/components/blog_pages/profile/posts/comment/CommentsComponent";
 
+import one_opened_post_scss from '@/app/scss/for_components/blog_pages/post/one_opened_post.module.scss'
+
 export const OneOpenedPostComponent = () => {
     const route = useRouter()
     return (
@@ -15,8 +16,8 @@ export const OneOpenedPostComponent = () => {
             <section className={one_photo_scss.dark_bgc}
                      onClick={() => route.push(Profile_path.PROFILE_USER)}>
             </section>
-            <section className={one_photo_scss.route}>
-                <section className={one_photo_scss.post_data}>
+            <section className={one_opened_post_scss.route}>
+                <section className={one_opened_post_scss.post_data}>
                     <OnePostComponent/>
                     <section className={one_post_scss.input_section}>
                         <input className={one_post_scss.input} placeholder={'Написать комментарий'}/>
