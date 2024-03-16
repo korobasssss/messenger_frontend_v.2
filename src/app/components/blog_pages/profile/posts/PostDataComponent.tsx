@@ -15,6 +15,9 @@ export const PostDataComponent = () => {
                     <div className={'nickname'}>@name</div>
                 </header>
                 <p>Текст поста, к которому относится фотография</p>
+                <p>Текст поста, к которому относится фотография</p>
+                <p>Текст поста, к которому относится фотография</p>
+                <p>Текст поста, к которому относится фотография</p>
                 <footer className={one_post_scss.footer}>
                     <section className={one_post_scss.buttons}>
                         <button className={'button_3rd_plane ' + one_post_scss.button}>

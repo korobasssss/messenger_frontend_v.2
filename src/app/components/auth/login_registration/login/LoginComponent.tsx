@@ -8,7 +8,7 @@ import {Profile_path} from "@/app/paths/profile";
 export const LoginComponent = () => {
     const router = useRouter()
     return (
-        <main>
+        <main className={authReg.rout}>
             <section className={authReg.form}>
                 <section className={authReg.inputs}>
                     <input placeholder={'Электронный адрес или никнейм'}/>

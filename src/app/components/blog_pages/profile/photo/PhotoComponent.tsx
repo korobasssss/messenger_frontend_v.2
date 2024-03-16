@@ -3,6 +3,9 @@ import '@/app/scss/global/globals.scss'
 
 import back_icon from '@/assets/icons/photo/back_icon.svg'
 import default_photo from '@/assets/icons/post/default_post_icon.svg'
+import one from '@/assets/common/1.jpg'
+import two from '@/assets/common/2.jpg'
+import three from '@/assets/common/3.jpg'
 import Image from "next/image";
 import {usePathname, useRouter} from "next/navigation";
 import {Profile_path} from "@/app/paths/profile";
@@ -28,19 +31,29 @@ export const PhotoComponent = () => {
             </header>
             <ul className={photo_scss.photo}>
                 <li>
-                    <button className={'button_3rd_plane'} onClick={() => router.push(Photo_path.ONE_PHOTO)}>
-                        <Image src={default_photo} alt={'user photo'}/>
-                    </button>
+                    <section className={photo_scss.one_photo} onClick={() => router.push(Photo_path.ONE_PHOTO)}>
+                        <Image src={one} alt={'user photo'}/>
+                    </section>
                 </li>
                 <li>
-                    <button className={'button_3rd_plane'} onClick={() => router.push(Photo_path.ONE_PHOTO)}>
-                        <Image src={default_photo} alt={'user photo'}/>
-                    </button>
+                    <section className={photo_scss.one_photo} onClick={() => router.push(Photo_path.ONE_PHOTO)}>
+                        <Image src={two} alt={'user photo'}/>
+                    </section>
                 </li>
                 <li>
-                    <button className={'button_3rd_plane'} onClick={() => router.push(Photo_path.ONE_PHOTO)}>
-                        <Image src={default_photo} alt={'user photo'}/>
-                    </button>
+                    <section className={photo_scss.one_photo} onClick={() => router.push(Photo_path.ONE_PHOTO)}>
+                        <Image src={three} alt={'user photo'}/>
+                    </section>
+                </li>
+                <li>
+                    <section className={photo_scss.one_photo} onClick={() => router.push(Photo_path.ONE_PHOTO)}>
+                        <Image src={three} alt={'user photo'}/>
+                    </section>
+                </li>
+                <li>
+                    <section className={photo_scss.one_photo} onClick={() => router.push(Photo_path.ONE_PHOTO)}>
+                        <Image src={three} alt={'user photo'}/>
+                    </section>
                 </li>
             </ul>
 

@@ -12,10 +12,13 @@ $data-gap: 5px;
 $header-padding: 0 0 15px 10px;
 
 $photo-gap: 15px;
+$photo-size: 275px;
+$photo-border-radius: 10px;
 
 $border: 1px solid $chat-border-color;
 
 .page {
+
   display: flex;
   flex-flow: column;
   gap: $page-gap;
@@ -50,5 +53,18 @@ $border: 1px solid $chat-border-color;
     flex-wrap: wrap;
 
     gap: $photo-gap;
+  }
+}
+
+.one_photo {
+  width: $photo-size;
+  height: $photo-size;
+
+  img {
+    width: 100%;
+    height: 100%;
+
+    border-radius: $photo-border-radius;
+    object-fit: cover;
   }
 }

@@ -6,9 +6,10 @@ $user-post-data-gap: 10px;
 $user-avatar-size: 45px;
 $user-name-nickname-gap: 5px;
 
-$edit-padding: 15px 30px 15px 30px;
-$edit-w: 28px;
-$edit-g: 5px;
+$max-post-text: 400px;
+
+$edit-padding: 10px 15px;
+$edit-h: 5px;
 $edit-border: 1px solid $chat-border-color;
 $edit-gap: 1px;
 $edit-border-radius: 10px;
@@ -46,8 +47,7 @@ $edit-button-weight: 600;
         flex-flow: column;
         gap: $edit-gap;
 
-        width: $edit-w ;
-        height: $edit-g;
+        height: $edit-h;
 
 
         .edit {
@@ -58,6 +58,8 @@ $edit-button-weight: 600;
 
           .edit_button {
             position: absolute;
+            left: -70px;
+
             font-weight: $edit-button-weight;
 
             padding: $edit-padding;
