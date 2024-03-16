@@ -6,6 +6,7 @@ import {Friends_profileComponent} from "@/app/components/blog_pages/profile/prof
 import {usePathname} from "next/navigation";
 import {Profile_path} from "@/app/paths/profile";
 import {OneOpenedPostComponent} from "@/app/components/blog_pages/profile/posts/one_post/OneOpenedPostComponent";
+import {CreatePostButtonComponent} from "@/app/components/blog_pages/profile/posts/create_post/CreatePostButtonComponent";
 import {CreatePostComponent} from "@/app/components/blog_pages/profile/posts/create_post/CreatePostComponent";
 
 export const ProfileComponent = () => {
@@ -20,10 +21,12 @@ export const ProfileComponent = () => {
             <aside className={profile_scss.aside}>
                 <Photo_profileComponent/>
                 <Friends_profileComponent/>
-                <CreatePostComponent/>
+                <CreatePostButtonComponent/>
             </aside>
             {pathname === Profile_path.PROFILE_ONE_POST ?
                 <OneOpenedPostComponent/>
+            : pathname === Profile_path.PROFILE_CREATE_POST ?
+                <CreatePostComponent/>
             : null}
         </main>
     )

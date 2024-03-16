@@ -4,5 +4,6 @@ export const Profile_path = {
     PROFILE_USER:
         Main_path.PROFILE,
     PROFILE_ONE_POST:
-        Main_path.PROFILE + '/post'
+        Main_path.PROFILE + '/post',
+    PROFILE_CREATE_POST: Main_path.PROFILE + '/post/new'
 }

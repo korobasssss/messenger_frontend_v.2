@@ -1,11 +1,10 @@
 @import "@/app/scss/global/color";
 @import "@/app/scss/global/main_values";
 
-$route-radius: 5px;
 $route-w: 932px;
 $route-h: 604px;
 
-$photo-radius: $route-radius 0px 0px $route-radius;
+$photo-radius: $modal-window-radius 0px 0px $modal-window-radius;
 $photo-min-size: 400px;
 $photo-w: 604px;
 $photo-h: $route-h;
@@ -60,7 +59,7 @@ $user-name-nickname-gap: 5px;
     display: flex;
 
     background-color: $white-color;
-    border-radius: $route-radius;
+    border-radius: $modal-window-radius;
 
     .photo {
       width: $photo-w;

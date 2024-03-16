@@ -54,33 +54,32 @@ $one-post-input-gap: 10px;
   display: flex;
   flex-flow: column;
   gap: $post-gap;
+}
 
+.post_photos124 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $post-photo-gap;
 
-  .post_photos124 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: $post-photo-gap;
+  .post_photo {
+    width: $post-photo-size-1-2;
+    height: $post-photo-size-1-2;
 
-    .post_photo {
-      width: $post-photo-size-1-2;
-      height: $post-photo-size-1-2;
-
-      object-fit: cover;
-    }
+    object-fit: cover;
   }
+}
 
-  .post_photos356 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: $post-photo-gap;
-    row-gap: $post-photo-gap;
+.post_photos356 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: $post-photo-gap;
+  row-gap: $post-photo-gap;
 
-    .post_photo {
-      width: $post-photo-size-3-5-6;
-      height: $post-photo-size-3-5-6;
+  .post_photo {
+    width: $post-photo-size-3-5-6;
+    height: $post-photo-size-3-5-6;
 
-      object-fit: cover;
-    }
+    object-fit: cover;
   }
 }
 

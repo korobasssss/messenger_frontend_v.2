@@ -17,7 +17,7 @@ export const OneOpenedPostComponent = () => {
                      onClick={() => route.push(Profile_path.PROFILE_USER)}>
             </section>
             <section className={one_opened_post_scss.route}>
-                <section className={one_opened_post_scss.post_data}>
+                <section className={one_opened_post_scss.post_data + ' scrollBar'}>
                     <OnePostComponent/>
                     <section className={one_post_scss.input_section}>
                         <input className={one_post_scss.input} placeholder={'Написать комментарий'}/>

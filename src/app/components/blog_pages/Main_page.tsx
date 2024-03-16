@@ -10,6 +10,7 @@ import {SettingsComponent} from "@/app/components/blog_pages/settings/settings/S
 import main_blog_pages_scss from '@/app/scss/for_components/blog_pages/main_blog_pages.module.scss'
 import {PhotoComponent} from "@/app/components/blog_pages/profile/photo/PhotoComponent";
 
+
 export const Main_page = () => {
     const pathname = usePathname()
     const currPathname = '/' + pathname.split('/')[1] + '/' + pathname.split('/')[2]

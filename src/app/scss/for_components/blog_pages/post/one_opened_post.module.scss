@@ -1,7 +1,6 @@
 @import "@/app/scss/global/color";
 @import "@/app/scss/global/main_values";
 
-$route-radius: 5px;
 $route-w: 636px;
 $route-h: 722px;
 
@@ -16,7 +15,7 @@ $post-gap: 10px;
   position: absolute;
 
   background-color: $white-color;
-  border-radius: $route-radius;
+  border-radius: $modal-window-radius;
 }
 
 .post_data {
@@ -30,18 +29,4 @@ $post-gap: 10px;
   gap: $post-gap;
 
   padding: $main-padding;
-}
-
-.post_data::-webkit-scrollbar {
-  width: $scrollbar-w;
-}
-
-.post_data::-webkit-scrollbar-track {
-  background: $scrollbar-bgc;
-  border-radius: $scrollbar-radius;
-}
-
-.post_data::-webkit-scrollbar-thumb {
-  background: $scrollbar-color;
-  border-radius: $scrollbar-radius;
 }

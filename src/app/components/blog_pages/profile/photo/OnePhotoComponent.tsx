@@ -27,7 +27,7 @@ export const OnePhotoComponent = () => {
             <section className={one_photo_scss.dark_bgc} onClick={() => route.push(Photo_path.USER_PHOTO)}></section>
             <section className={one_photo_scss.route}>
                 <Image src={two} alt={'user photo'} className={one_photo_scss.photo}/>
-                <section className={one_opened_post_scss.post_data + ' ' + one_photo_scss.post_width}>
+                <section className={one_opened_post_scss.post_data + ' ' + one_photo_scss.post_width + ' scrollBar'}>
                     <PostDataComponent_forModalWindow/>
                     <section className={one_post_scss.input_section}>
                         <input className={one_post_scss.input} placeholder={'Написать комментарий'}/>
