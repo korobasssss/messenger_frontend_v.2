@@ -1,0 +1,32 @@
+@import "@/app/scss/global/color";
+@import "@/app/scss/global/main_values";
+
+$route-w: 636px;
+$route-h: 722px;
+
+$main-padding: 25px 15px 25px 15px;
+
+$post-gap: 10px;
+
+.route {
+  width: $route-w;
+  height: $route-h;
+
+  position: absolute;
+
+  background-color: $white-color;
+  border-radius: $modal-window-radius;
+}
+
+.post_data {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+
+  display: flex;
+  flex-flow: column;
+  gap: $post-gap;
+
+  padding: $main-padding;
+}

@@ -23,13 +23,26 @@ export const OnePostComponent = () => {
                 </section>
             </header>
             <main className={one_post_scss.post_data}>
-                <ul className={one_post_scss.post_photos}>
+                <ul className={one_post_scss.post_photos356}>
                     <li>
                         <Image src={default_post_icon} className={one_post_scss.post_photo} alt={'post photo'}/>
                     </li>
                     <li>
                         <Image src={default_post_icon} className={one_post_scss.post_photo} alt={'post photo'}/>
                     </li>
+                    <li>
+                        <Image src={default_post_icon} className={one_post_scss.post_photo} alt={'post photo'}/>
+                    </li>
+                    <li>
+                        <Image src={default_post_icon} className={one_post_scss.post_photo} alt={'post photo'}/>
+                    </li>
+                    <li>
+                        <Image src={default_post_icon} className={one_post_scss.post_photo} alt={'post photo'}/>
+                    </li>
+                    <li>
+                        <Image src={default_post_icon} className={one_post_scss.post_photo} alt={'post photo'}/>
+                    </li>
+
                 </ul>
                 <p>Lorem ipsum dolor sit amet consectetur. Cras facilisis diam lacus massa ultricies volutpat vitae.
                     Natoque consequat ut id nulla a faucibus scelerisque in. Ullamcorper dignissim blandit enim sed

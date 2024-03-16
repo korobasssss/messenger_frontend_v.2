@@ -1,5 +1,8 @@
 @import "@/app/scss/global/color";
 
+$border: 1px solid $chat-border-color;
+$padding: 25px;
+
 $route-gap: 15px;
 $header-gap: 10px;
 
@@ -8,14 +11,17 @@ $avatar-size: 50px;
 $name-nickname-gap: 5px;
 
 $post-gap: 10px;
-$post-photo-size: min-content / 3;
+$post-photo-size-1-2-4: 290px;
+$post-photo-size-3-5-6: 185px;
+$post-photo-size-1-2: min-content / 3;
+$post-photo-size-1-2: min-content / 3;
+$post-photo-size-1-2: min-content / 3;
 $post-photo-gap: 10px;
 
 $post-buttons-gap: 25px;
 $one-post-buttons-gap: 5px;
 $one-post-buttons-height: 19px;
 
-$main-padding: 25px 25px 25px 15px;
 
 $one-post-input-border: 1px solid $chat-border-color;
 $one-post-input-gap: 10px;
@@ -24,6 +30,9 @@ $one-post-input-gap: 10px;
   display: flex;
   flex-flow: column;
   gap: $route-gap;
+
+  border-top: $border;
+  padding: $padding 0;
 
   .header {
     display: flex;
@@ -45,19 +54,32 @@ $one-post-input-gap: 10px;
   display: flex;
   flex-flow: column;
   gap: $post-gap;
+}
 
-  padding: $main-padding;
+.post_photos124 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $post-photo-gap;
 
+  .post_photo {
+    width: $post-photo-size-1-2;
+    height: $post-photo-size-1-2;
 
-  .post_photos {
-    display: grid;
-    flex-wrap: wrap;
-    gap: $post-photo-gap;
+    object-fit: cover;
+  }
+}
 
-    .post_photo {
-      width: $post-photo-size;
-      height: $post-photo-size;
-    }
+.post_photos356 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: $post-photo-gap;
+  row-gap: $post-photo-gap;
+
+  .post_photo {
+    width: $post-photo-size-3-5-6;
+    height: $post-photo-size-3-5-6;
+
+    object-fit: cover;
   }
 }
 

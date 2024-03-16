@@ -1,0 +1,70 @@
+@import "@/app/scss/global/color";
+@import "@/app/scss/global/main_values";
+
+$route-w: 650px;
+$route-padding: 25px 35px 25px 35px;
+
+$route-gap: 15px;
+
+$input-min-height: 150px;
+
+$main-buttons-gap: 20px;
+
+.button {
+  display: flex;
+  gap: 5px;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.route {
+  position: absolute;
+
+  width: $route-w;
+
+  display: flex;
+  flex-flow: column;
+  gap: $route-gap;
+
+  padding: $route-padding;
+
+  background-color: $white-color;
+  border-radius: $modal-window-radius;
+
+
+  .input {
+    border: none;
+
+    width: 100%;
+    height: $input-min-height;
+
+    word-wrap: break-word;
+
+    resize: none;
+
+    overflow-y: auto;
+  }
+
+  .input:focus {
+    font-size: $font-size-input-button;
+    outline: none;
+  }
+
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+
+    .main_buttons_section {
+      display: flex;
+      gap: $main-buttons-gap;
+
+      align-items: center;
+    }
+  }
+}
+
+.hidden {
+  display: none;
+}

@@ -12,7 +12,7 @@ export const OneCommentComponent = () => {
     const [isHover, setHover] = useState(false)
 
     return (
-        <header className={one_comment_scss.user_post_data}>
+        <section className={one_comment_scss.user_post_data}>
             <Image src={default_avatar} className={one_comment_scss.user_avatar} alt={'user avatar'}/>
             <section className={one_comment_scss.info}>
                 <header className={one_comment_scss.user_data_with_edit}>
@@ -41,7 +41,7 @@ export const OneCommentComponent = () => {
                     <div>7 ноября, 13:21</div>
                 </footer>
             </section>
-        </header>
+        </section>
 
     )
 }

@@ -8,6 +8,8 @@ $aside-gap: 25px;
 
 
 .route {
+  overflow-x: hidden;
+
   display: flex;
   gap: $route-gap;
 

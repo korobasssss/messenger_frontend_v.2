@@ -5,7 +5,7 @@ import one_post_scss from "@/app/scss/for_components/blog_pages/post/one_post.mo
 import not_like_icon from "@/assets/icons/post/not_like_icon.svg";
 import comment_icon from "@/assets/icons/post/comment_icon.svg";
 
-export const PostDataComponent = () => {
+export const PostDataComponent_forModalWindow = () => {
     return (
         <header className={one_comment_scss.user_post_data}>
             <Image src={default_avatar} className={one_comment_scss.user_avatar} alt={'user avatar'}/>

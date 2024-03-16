@@ -1,21 +1,20 @@
 @import "@/app/scss/global/color";
 @import "@/app/scss/global/main_values";
 
-$route-radius: 5px;
 $route-w: 932px;
 $route-h: 604px;
 
-$photo-radius: $route-radius 0px 0px $route-radius;
+$photo-radius: $modal-window-radius 0px 0px $modal-window-radius;
 $photo-min-size: 400px;
-$photo-w: 633px;
+$photo-w: 604px;
 $photo-h: $route-h;
 
 $main-gap: 25px;
 $main-padding: 25px 15px 25px 15px;
 
 $user-post-data-gap: 10px;
-$post-width: 328px;
 $post-gap: 10px;
+$post-w: 328px;
 
 $user-avatar-size: 45px;
 $user-name-nickname-gap: 5px;
@@ -46,6 +45,10 @@ $user-name-nickname-gap: 5px;
     opacity: 0.4;
   }
 
+  .post_width {
+    width: $post-w;
+  }
+
   .route {
 
     width: $route-w;
@@ -56,7 +59,7 @@ $user-name-nickname-gap: 5px;
     display: flex;
 
     background-color: $white-color;
-    border-radius: $route-radius;
+    border-radius: $modal-window-radius;
 
     .photo {
       width: $photo-w;
@@ -70,33 +73,3 @@ $user-name-nickname-gap: 5px;
     }
   }
 }
-
-.post_data {
-  height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  width: $post-width;
-
-  display: flex;
-  flex-flow: column;
-  gap: $post-gap;
-
-  padding: $main-padding;
-
-}
-
-.post_data::-webkit-scrollbar {
-  width: $scrollbar-w;
-}
-
-.post_data::-webkit-scrollbar-track {
-  background: $scrollbar-bgc;
-  border-radius: $scrollbar-radius;
-}
-
-.post_data::-webkit-scrollbar-thumb {
-  background: $scrollbar-color;
-  border-radius: $scrollbar-radius;
-}
-

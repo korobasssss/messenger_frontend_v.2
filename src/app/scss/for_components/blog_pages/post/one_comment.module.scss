@@ -25,6 +25,8 @@ $edit-button-weight: 600;
   }
 
   .info {
+    width: 100%;
+
     display: flex;
     flex-flow: column;
     gap: $user-post-data-gap;
