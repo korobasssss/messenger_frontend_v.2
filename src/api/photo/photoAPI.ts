@@ -5,9 +5,9 @@ import {
     SetAvatarInterfaceAPI, SetCoverInterfaceAPI, SetPostPhotoInterfaceAPI
 } from "@/api/photo/photoIntefraceAPI";
 
-export const Photo = {
+export const PhotoAPI = {
 
-    async GetPhotoAxios(data: GetPhotoInterfaceAPI) {
+    async GetPhotoAPI(data: GetPhotoInterfaceAPI) {
         try {
             const response = await instance.get(
                 Paths.BLOG + `/photo/${data.id}`
@@ -18,7 +18,7 @@ export const Photo = {
         }
     },
 
-    async DeleteAvatarPhotoAxios(data: DeleteAvatarPhotoInterfaceAPI) {
+    async DeleteAvatarPhotoAPI(data: DeleteAvatarPhotoInterfaceAPI) {
         try {
             const response = await instance.delete(
                 Paths.FILE + '/social',
@@ -39,7 +39,7 @@ export const Photo = {
         }
     },
 
-    async SetAvatarAxios(data: SetAvatarInterfaceAPI) {
+    async SetAvatarAPI(data: SetAvatarInterfaceAPI) {
         let formDataAvatar = new FormData()
         formDataAvatar.append('file', data.input_avatarUrl)
         formDataAvatar.append('url', 'undefined')
@@ -56,7 +56,7 @@ export const Photo = {
         }
     },
 
-    async DeleteCoverPhotoAxios(data: DeleteCoverPhotoInterfaceAPI) {
+    async DeleteCoverPhotoAPI(data: DeleteCoverPhotoInterfaceAPI) {
         try {
             const response = await instance.delete(
                 Paths.FILE + '/social',
@@ -73,7 +73,7 @@ export const Photo = {
         }
     },
 
-    async SetCoverAxios(data: SetCoverInterfaceAPI) {
+    async SetCoverAPI(data: SetCoverInterfaceAPI) {
         let formDataCover = new FormData()
         formDataCover.append('file', data.input_coverUrl)
         formDataCover.append('url', 'undefined')
@@ -90,7 +90,7 @@ export const Photo = {
         }
     },
 
-    async GetPhotoCountAxios() {
+    async GetPhotoCountAPI() {
         try {
             const response = await instance.get(
                 Paths.BLOG + `/photo/count/${localStorage.getItem('idUser')}`
@@ -101,7 +101,7 @@ export const Photo = {
         }
     },
 
-    async SetPostPhotoAxios(data: SetPostPhotoInterfaceAPI) {
+    async SetPostPhotoAPI(data: SetPostPhotoInterfaceAPI) {
         let formData = new FormData()
         formData.append('file', data.input_postPhoto)
         formData.append('postId', data.postId)
@@ -117,7 +117,7 @@ export const Photo = {
         }
     },
 
-    async DeletePhotoPostAxios(data: DeletePhotoPostInterfaceAPI) {
+    async DeletePhotoPostAPI(data: DeletePhotoPostInterfaceAPI) {
         try {
             const response = await instance.delete(
                 Paths.FILE + '/blog',

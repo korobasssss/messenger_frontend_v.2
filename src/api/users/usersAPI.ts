@@ -1,8 +1,8 @@
 import {instance, Paths} from "@/api/api_init";
 import {ActionUsersInterfaceAPI} from "@/api/users/usersInterface";
 
-export const Users = {
-    async GetSearchAxios() {
+export const UsersAPI = {
+    async GetSearchAPI() {
         try {
             const response = await instance.get(
                 Paths.SOCIAL + '/users'
@@ -13,7 +13,7 @@ export const Users = {
         }
     },
 
-    async GetSubscribersAxios() {
+    async GetSubscribersAPI() {
         try {
             const response = await instance.get(
                 Paths.SOCIAL + `/relation/subscribers/${localStorage.getItem('idUser')}`
@@ -24,7 +24,7 @@ export const Users = {
         }
     },
 
-    async GetSubscriptionsAxios() {
+    async GetSubscriptionsAPI() {
         try {
             const response = await instance.get(
                 Paths.SOCIAL + `/relation/subscriptions/${localStorage.getItem('idUser')}`
@@ -35,7 +35,7 @@ export const Users = {
         }
     },
 
-    async GetFriendsAxios() {
+    async GetFriendsAPI() {
         try {
             const response = await instance.get(
                 Paths.SOCIAL + `/relation/friends/${localStorage.getItem('idUser')}`
@@ -46,7 +46,7 @@ export const Users = {
         }
     },
 
-    async GetRandomFriendsAxios() {
+    async GetRandomFriendsAPI() {
         try {
             const response = await instance.get(
                 Paths.SOCIAL + `/relation/friends/random/${localStorage.getItem('idUser')}`
@@ -57,7 +57,7 @@ export const Users = {
         }
     },
 
-    async GetCountFriendsAxios() {
+    async GetCountFriendsAPI() {
         try {
             const response = await instance.get(
                 Paths.SOCIAL + `/count/friends/${localStorage.getItem('idUser')}`
@@ -68,7 +68,7 @@ export const Users = {
         }
     },
 
-    async GetCountSubscriptionsAxios() {
+    async GetCountSubscriptionsAPI() {
         try {
             const response = await instance.get(
                 Paths.SOCIAL + `/count/subscriptions/${localStorage.getItem('idUser')}`
@@ -79,7 +79,7 @@ export const Users = {
         }
     },
 
-    async GetCountSubscribersAxios() {
+    async GetCountSubscribersAPI() {
         try {
             const response = await instance.get(
                 Paths.SOCIAL + `/count/subscribers/${localStorage.getItem('idUser')}`
@@ -90,7 +90,7 @@ export const Users = {
         }
     },
 
-    async ActionUsersAxios(data: ActionUsersInterfaceAPI) {
+    async ActionUsersAPI(data: ActionUsersInterfaceAPI) {
         try {
             const response = await instance.post(
                 Paths.SOCIAL + `/action`,

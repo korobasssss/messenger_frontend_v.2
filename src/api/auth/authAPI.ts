@@ -6,7 +6,7 @@ import {
     DeleteAccountInterfaceAPI
 } from "@/api/auth/authInterfaceAPI";
 
-export const Auth = {
+export const AuthAPI = {
 
     async AuthorizationAPI(data: RegistrationOrAuthorizationAxiosInterface) {
         try {

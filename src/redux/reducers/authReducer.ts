@@ -2,9 +2,14 @@ const SET_USER_DATA = 'SET_USER_DATA'
 const SET_EMAIL_DATA = 'SET_EMAIL_DATA'
 const SET_NICKNAME_DATA = 'SET_NICKNAME_DATA'
 
+const SET_MESSAGE = 'SET_MESSAGE'
+const CLEAR_MESSAGE = 'CLEAR_MESSAGE'
+
 const initialState = {
-    email: "",
-    nickname: ""
+    email: '',
+    nickname: '',
+
+    message: ''
 }
 
 export const authReducer = (state = initialState, action : any) => {
@@ -30,6 +35,18 @@ export const authReducer = (state = initialState, action : any) => {
             return stateCopy
         }
 
+        case SET_MESSAGE : {
+            stateCopy.message = action.message
+
+            return stateCopy
+        }
+
+        case CLEAR_MESSAGE : {
+            stateCopy.message = ''
+
+            return stateCopy
+        }
+
         default : {
             return stateCopy
         }
@@ -51,5 +68,16 @@ export const setEmail = (email : string) => {
 export const setNickname = (nickname : string) => {
     return {
         type: SET_NICKNAME_DATA, nickname
+    }
+}
+
+export const setMessage = (message : string) => {
+    return {
+        type: SET_MESSAGE, message
+    }
+}
+export const clearMessage = () => {
+    return {
+        type: CLEAR_MESSAGE
     }
 }

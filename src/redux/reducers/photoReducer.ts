@@ -1,4 +1,5 @@
 const SET_USER_PHOTO = 'SET_USER_PHOTO'
+const SET_USER_COUNT_PHOTO = 'SET_USER_COUNT_PHOTO'
 
 const initialState = {
     photoUrl: [
@@ -16,7 +17,11 @@ export const photoReducer = (state = initialState, action : any) => {
         case SET_USER_PHOTO : {
             stateCopy = {...state, photoUrl: [...action.photoUrl]}
 
-            stateCopy.countPhoto = stateCopy.photoUrl.length
+            return stateCopy
+        }
+
+        case SET_USER_COUNT_PHOTO : {
+            stateCopy.countPhoto = action.countPhoto
 
             return stateCopy
         }
@@ -30,5 +35,11 @@ export const photoReducer = (state = initialState, action : any) => {
 export const setPhotoUrl = (photoUrl : []) => {
     return {
         type: SET_USER_PHOTO, photoUrl
+    }
+}
+
+export const setCountPhoto = (countPhoto : number) => {
+    return {
+        type: SET_USER_COUNT_PHOTO, countPhoto
     }
 }

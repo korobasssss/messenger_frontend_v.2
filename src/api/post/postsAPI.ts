@@ -7,9 +7,9 @@ import {
     NewPostInterfaceAPI, SetCommentInterfaceAPI
 } from "@/api/post/postsInterface";
 
-export const Blog = {
+export const BlogAPI = {
 
-    async DeleteCommentAxios(props: DeleteCommentInterfaceAPI) {
+    async DeleteCommentAPI(props: DeleteCommentInterfaceAPI) {
         try {
             const response = await instance.delete(
                 Paths.BLOG + `/comment/${props.commentId}`
@@ -20,7 +20,7 @@ export const Blog = {
         }
     },
 
-    async DeletePostAxios(data: DeletePostInterfaceAPI) {
+    async DeletePostAPI(data: DeletePostInterfaceAPI) {
         try {
             const response = await instance.delete(
                 Paths.BLOG + `/post/${data.postId}`
@@ -31,7 +31,7 @@ export const Blog = {
         }
     },
 
-    async EditPostAxios(data: EditPostInterfaceAPI) {
+    async EditPostAPI(data: EditPostInterfaceAPI) {
         try {
             const response = await instance.put(
                 Paths.BLOG + `/post`,
@@ -46,7 +46,7 @@ export const Blog = {
         }
     },
 
-    async GetCommentsAxios(data: GetCommentsInterfaceAPI) {
+    async GetCommentsAPI(data: GetCommentsInterfaceAPI) {
         try {
             const response = await instance.get(
                 Paths.BLOG + `/comment/${data.postId}`
@@ -57,7 +57,7 @@ export const Blog = {
         }
     },
 
-    async GetPostDataAxios(data: GetPostDataInterfaceAPI) {
+    async GetPostDataAPI(data: GetPostDataInterfaceAPI) {
         try {
             const response = await instance.get(
                 Paths.BLOG + `/post/${data.postId}`
@@ -68,7 +68,7 @@ export const Blog = {
         }
     },
 
-    async GetPostsAxios() {
+    async GetPostsAPI() {
         try {
             const response = await instance.get(
                 Paths.BLOG + `/user/${localStorage.getItem('idUser')}`
@@ -79,7 +79,7 @@ export const Blog = {
         }
     },
 
-    async LikeCommentAxios(data: LikeCommentInterfaceAPI) {
+    async LikeCommentAPI(data: LikeCommentInterfaceAPI) {
         try {
             const response = await instance.put(
                 Paths.BLOG + '/comment/like',
@@ -93,7 +93,7 @@ export const Blog = {
         }
     },
 
-    async LikePostAxios(data: LikePostInterfaceAPI) {
+    async LikePostAPI(data: LikePostInterfaceAPI) {
         try {
             const response = await instance.put(
                 Paths.BLOG + '/post/like',
@@ -107,7 +107,7 @@ export const Blog = {
         }
     },
 
-    async NewPostAxios(data: NewPostInterfaceAPI) {
+    async NewPostAPI(data: NewPostInterfaceAPI) {
         try {
             const response = await instance.post(
                 Paths.BLOG + '/post/create',
@@ -121,7 +121,7 @@ export const Blog = {
         }
     },
 
-    async SetCommentAxios(data: SetCommentInterfaceAPI) {
+    async SetCommentAPI(data: SetCommentInterfaceAPI) {
         try {
             const response = await instance.post(
                 Paths.BLOG + '/comment/create',

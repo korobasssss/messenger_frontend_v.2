@@ -5,9 +5,9 @@ import {
 } from "@/api/profile/profileInterface";
 import {instance, Paths} from "@/api/api_init";
 
-export const Profile = {
+export const ProfileAPI = {
 
-    async RegistrationSocialAxios(data: RegistrationSocialInterfaceAPI) {
+    async RegistrationSocialAPI(data: RegistrationSocialInterfaceAPI) {
         try {
             debugger
             const response = await instance.post(
@@ -24,7 +24,7 @@ export const Profile = {
         }
     },
 
-    async ProfileGetDataAxios(data: ProfileGetDataInterfaceAPI) {
+    async ProfileGetDataAPI(data: ProfileGetDataInterfaceAPI) {
         try {
             const response = await instance.get(
                 Paths.SOCIAL + `/data/${data.id}`
@@ -35,7 +35,7 @@ export const Profile = {
         }
     },
 
-    async ChangeProfileDataAxios(data: ChangeProfileDataInterfaceAPI) {
+    async ChangeProfileDataAPI(data: ChangeProfileDataInterfaceAPI) {
         try {
             const response = await instance.post(
                 Paths.SOCIAL + '/data',
