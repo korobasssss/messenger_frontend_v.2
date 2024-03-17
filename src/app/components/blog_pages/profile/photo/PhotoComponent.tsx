@@ -2,17 +2,14 @@ import photo_scss from '@/app/scss/for_components/blog_pages/photo/photo.module.
 import '@/app/scss/global/globals.scss'
 
 import back_icon from '@/assets/icons/photo/back_icon.svg'
-import default_photo from '@/assets/icons/post/default_post_icon.svg'
-import one from '@/assets/common/1.jpg'
-import two from '@/assets/common/2.jpg'
-import three from '@/assets/common/3.jpg'
 import Image from "next/image";
 import {usePathname, useRouter} from "next/navigation";
 import {Profile_path} from "@/app/paths/profile";
 import {Photo_path} from "@/app/paths/photo";
-import {OnePhotoComponent} from "@/app/components/blog_pages/profile/photo/OnePhotoComponent";
+import {NameInterface, OnePhoto, Photo_profileInterfaceComponent} from "@/app/interfaces/photo/photoInterface";
+import {OnePhotoComponent} from "@/app/components/blog_pages/profile/photo/onePhoto/OnePhotoComponent";
 
-export const PhotoComponent = () => {
+export const PhotoComponent = (props: Photo_profileInterfaceComponent & NameInterface) => {
     const router = useRouter()
     const pathname = usePathname()
 
@@ -25,36 +22,21 @@ export const PhotoComponent = () => {
                 </button>
 
                 <section className={photo_scss.userData}>
-                    <div className={'name_small'}>Имя</div>
-                    <div className={'nickname'}>6 фото</div>
+                    <div className={'name_small'}>{props.name}</div>
+                    <div className={'nickname'}>{props.countPhoto} фото</div>
                 </section>
             </header>
             <ul className={photo_scss.photo}>
-                <li>
-                    <section className={photo_scss.one_photo} onClick={() => router.push(Photo_path.ONE_PHOTO)}>
-                        <Image src={one} alt={'user photo'}/>
-                    </section>
-                </li>
-                <li>
-                    <section className={photo_scss.one_photo} onClick={() => router.push(Photo_path.ONE_PHOTO)}>
-                        <Image src={two} alt={'user photo'}/>
-                    </section>
-                </li>
-                <li>
-                    <section className={photo_scss.one_photo} onClick={() => router.push(Photo_path.ONE_PHOTO)}>
-                        <Image src={three} alt={'user photo'}/>
-                    </section>
-                </li>
-                <li>
-                    <section className={photo_scss.one_photo} onClick={() => router.push(Photo_path.ONE_PHOTO)}>
-                        <Image src={three} alt={'user photo'}/>
-                    </section>
-                </li>
-                <li>
-                    <section className={photo_scss.one_photo} onClick={() => router.push(Photo_path.ONE_PHOTO)}>
-                        <Image src={three} alt={'user photo'}/>
-                    </section>
-                </li>
+                {props.photoUrl.map((onePhoto: OnePhoto, index) => {
+                    return (
+                        <li key={onePhoto.url}>
+                            <section className={photo_scss.one_photo}
+                                     onClick={() => router.push(Photo_path.ONE_PHOTO)}>
+                                <Image src={onePhoto.url} alt={'user photo'}/>
+                            </section>
+                        </li>
+                    )
+                })}
             </ul>
 
             {pathname === Photo_path.ONE_PHOTO ? <OnePhotoComponent/> : null}

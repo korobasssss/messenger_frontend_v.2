@@ -1,13 +1,14 @@
 import one_photo_scss from "@/app/scss/for_components/blog_pages/photo/one_photo.module.scss";
 import {useRouter} from "next/navigation";
 import {Profile_path} from "@/app/paths/profile";
-import {OnePostComponent} from "@/app/components/blog_pages/profile/posts/one_post/OnePostComponent";
+import {OnePostComponent} from "@/app/components/blog_pages/profile/posts/one_post/one_post/OnePostComponent";
 import one_post_scss from "@/app/scss/for_components/blog_pages/post/one_post.module.scss";
 import Image from "next/image";
 import sent_comment_icon from "@/assets/icons/post/sent_comment_icon.svg";
-import {CommentsComponent} from "@/app/components/blog_pages/profile/posts/comment/CommentsComponent";
+import {CommentsComponent} from "@/app/components/blog_pages/profile/posts/comment/comments/CommentsComponent";
 
 import one_opened_post_scss from '@/app/scss/for_components/blog_pages/post/one_opened_post.module.scss'
+import {CommentsContainer} from "@/app/components/blog_pages/profile/posts/comment/comments/CommentsContainer";
 
 export const OneOpenedPostComponent = () => {
     const route = useRouter()
@@ -25,7 +26,7 @@ export const OneOpenedPostComponent = () => {
                             <Image src={sent_comment_icon} alt={'send comment'}/>
                         </button>
                     </section>
-                    <CommentsComponent/>
+                    <CommentsContainer/>
                 </section>
             </section>
         </section>

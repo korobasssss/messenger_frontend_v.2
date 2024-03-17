@@ -1,6 +1,6 @@
 import {SetPhotoInterface} from "@/api/photo/photoIntefraceAPI";
 import {Dispatch} from "redux";
-import {setComments, setPosts} from "@/redux/reducers/postsReducer";
+import {setComments, setOneCommentUserData, setOnePostOpened, setPosts} from "@/redux/reducers/postsReducer";
 import {BlogAPI} from "@/api/post/postsAPI";
 import {PhotoAPI} from "@/api/photo/photoAPI";
 import {clearMessage, setMessage} from "@/redux/reducers/authReducer";
@@ -29,23 +29,14 @@ export const postsThunk = {
         }
     },
 
-    GetOnePostData(postId: string) { // todo what
+    GetOnePostData(postId: string) {
         return (dispatch: Dispatch) => {
             BlogAPI.GetPostDataAPI({
                 postId: postId
             }).then(response => {
                 switch (response[0]) {
                     case 200: {
-                        let post = {
-                            postId: response[1].postId,
-                            time: response[1].time,
-                            text: response[1].text,
-                            photoUrl: response[1].photoUrl,
-                            likeCount: response[1].likeCount,
-                            commentCount: response[1].commentCount,
-                            isLiked: response[1].isLiked
-                        }
-                        dispatch(setPosts([]))
+                        dispatch(setOnePostOpened(response[1]))
                         break
                     }
                     case 401 : {
@@ -227,7 +218,7 @@ export const postsThunk = {
         }
     },
 
-    LikePost(postId: string, isLiked: boolean, likeCount: string) {
+    LikePost(postId: string) {
         return (dispatch: Dispatch) => {
             BlogAPI.LikePostAPI({
                 postId: postId
@@ -248,7 +239,7 @@ export const postsThunk = {
         }
     },
 
-    LikeComment(commentId: string, isLiked: boolean, likeCount: string) {
+    LikeComment(commentId: string) {
         return (dispatch: Dispatch) => {
             BlogAPI.LikeCommentAPI({
                 commentId: commentId
@@ -290,7 +281,7 @@ export const postsThunk = {
         }
     },
 
-    DeleteComment(commentId: string, postId: string, commentsCount: string) {
+    DeleteComment(commentId: string) {
         return (dispatch: Dispatch) => {
             BlogAPI.DeleteCommentAPI({
                 commentId: commentId
@@ -313,30 +304,23 @@ export const postsThunk = {
 
     GetOneCommentData(userId: string, commentId: string) {
         return (dispatch: Dispatch) => {
-            AuthAPI.AuthDataAPI({
+            ProfileAPI.ProfileGetDataAPI({
                 id: userId as string
-            }).then(response => {
-                switch (response[0]) {
+            }).then(responseSocial => {
+                switch (responseSocial[0]) {
                     case 200 : {
-                        ProfileAPI.ProfileGetDataAPI({
-                            id: userId as string
-                        }).then(responseSocial => {
-                            switch (responseSocial[0]) {
-                                case 200 : {
-                                    break
-                                }
-                                case 400: {
-                                    break
-                                }
-                                case 401 : {
-                                    localStorage.setItem('token', '')
-                                    break
-                                }
-                            }
-                        })
+                        dispatch(setOneCommentUserData(
+                            commentId, responseSocial[1].name,responseSocial[1].avatarUrl))
+                        break
+                    }
+                    case 400: {
+                        break
+                    }
+                    case 401 : {
+                        localStorage.setItem('token', '')
+                        break
                     }
                 }
-
             })
         }
     }

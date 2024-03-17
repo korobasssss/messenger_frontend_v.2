@@ -1,12 +1,10 @@
+import {OnePhoto} from "@/app/interfaces/photo/photoInterface";
+
 const SET_USER_PHOTO = 'SET_USER_PHOTO'
 const SET_USER_COUNT_PHOTO = 'SET_USER_COUNT_PHOTO'
 
-const initialState = {
-    photoUrl: [
-        {postId: '', photoId: '', url: ''},
-        {postId: '', photoId: '', url: ''},
-        {postId: '', photoId: '', url: ''}
-    ],
+const initialState: {photoUrl: OnePhoto[], countPhoto: number} = {
+    photoUrl: [],
     countPhoto: 0
 }
 

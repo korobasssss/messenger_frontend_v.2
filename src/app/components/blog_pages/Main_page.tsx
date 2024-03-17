@@ -3,12 +3,13 @@
 import {Main_path} from "@/app/paths/main";
 import {NavigationComponent} from "@/app/components/blog_pages/navigation/NavigationComponent";
 import {usePathname} from "next/navigation";
-import {ProfileComponent} from "@/app/components/blog_pages/profile/profile/ProfileComponent";
 import {FriendsComponent} from "@/app/components/blog_pages/friends/FriendsComponent";
 import {SettingsComponent} from "@/app/components/blog_pages/settings/settings/SettingsComponent";
 
 import main_blog_pages_scss from '@/app/scss/for_components/blog_pages/main_blog_pages.module.scss'
 import {PhotoComponent} from "@/app/components/blog_pages/profile/photo/PhotoComponent";
+import {ProfileContainer} from "@/app/components/blog_pages/profile/profile/profile/ProfileContainer";
+import {PhotoContainer} from "@/app/components/blog_pages/profile/photo/PhotoContainer";
 
 
 export const Main_page = () => {
@@ -21,9 +22,9 @@ export const Main_page = () => {
         <section className={main_blog_pages_scss.page}>
             <main className={main_blog_pages_scss.route}>
                 <NavigationComponent/>
-                {currPathname === Main_path.PROFILE ? <ProfileComponent/> :
+                {currPathname === Main_path.PROFILE ? <ProfileContainer/> :
                     currPathname === Main_path.FRIENDS ? <FriendsComponent/> :
-                        currPathname === Main_path.PHOTO ? <PhotoComponent/> :
+                        currPathname === Main_path.PHOTO ? <PhotoContainer/> :
                             currPathname === Main_path.SETTINGS ? <SettingsComponent/> : null}
             </main>
         </section>

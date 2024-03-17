@@ -1,35 +1,34 @@
 import one_comment_scss from "@/app/scss/for_components/blog_pages/post/one_comment.module.scss";
 import Image from "next/image";
-import default_avatar from "@/assets/common/default_avatar.svg";
 import one_post_scss from "@/app/scss/for_components/blog_pages/post/one_post.module.scss";
 import not_like_icon from "@/assets/icons/post/not_like_icon.svg";
 import comment_icon from "@/assets/icons/post/comment_icon.svg";
+import {OnePostComponentInterface, UserDataForPostInterface} from "@/app/interfaces/photo/photoInterface";
+import TimeComponent from "@/app/components/blog_pages/time/TimeComponent";
 
-export const PostDataComponent_forModalWindow = () => {
+export const PostDataComponent_forModalWindow = (props: OnePostComponentInterface & UserDataForPostInterface) => {
     return (
         <header className={one_comment_scss.user_post_data}>
-            <Image src={default_avatar} className={one_comment_scss.user_avatar} alt={'user avatar'}/>
+            <Image src={props.avatarUrl} className={one_comment_scss.user_avatar} alt={'user avatar'}/>
             <section className={one_comment_scss.info}>
                 <header className={one_comment_scss.user_data}>
-                    <div className={'name_small'}>Другой</div>
-                    <div className={'nickname'}>@name</div>
+                    <div className={'name_small'}>{props.name}</div>
+                    <div className={'nickname'}>@{props.nickname}</div>
                 </header>
-                <p>Текст поста, к которому относится фотография</p>
-                <p>Текст поста, к которому относится фотография</p>
-                <p>Текст поста, к которому относится фотография</p>
-                <p>Текст поста, к которому относится фотография</p>
+                <p>{props.onePostOpened.text}</p>
                 <footer className={one_post_scss.footer}>
                     <section className={one_post_scss.buttons}>
-                        <button className={'button_3rd_plane ' + one_post_scss.button}>
+                        <button className={'button_3rd_plane ' + one_post_scss.button}
+                        onClick={() => props.likePost()}>
                             <Image src={not_like_icon} alt={'not like'}/>
-                            <div>1</div>
+                            <div>{props.onePostOpened.likeCount}</div>
                         </button>
                         <button className={'button_3rd_plane ' + one_post_scss.button}>
                             <Image src={comment_icon} alt={'comment'}/>
-                            <div>0</div>
+                            <div>{props.onePostOpened.commentCount}</div>
                         </button>
                     </section>
-                    <div>7 ноября, 13:21</div>
+                    <TimeComponent time={props.onePostOpened.time}/>
                 </footer>
             </section>
         </header>

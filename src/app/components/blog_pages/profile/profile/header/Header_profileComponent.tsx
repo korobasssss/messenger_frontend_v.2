@@ -11,8 +11,9 @@ import {useState} from "react";
 import one_post_scss from "@/app/scss/for_components/blog_pages/post/one_post.module.scss";
 import {useRouter} from "next/navigation";
 import {Profile_path} from "@/app/paths/profile";
+import {HeaderComponentInterface} from "@/app/interfaces/profile/profileInterface";
 
-export const Header_profileComponent = () => {
+export const Header_profileComponent = (props: HeaderComponentInterface) => {
     const router = useRouter()
 
     const [isButtonHover, setButtonHover] = useState(false)

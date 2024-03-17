@@ -7,7 +7,7 @@ const SET_USER_NICKNAME = 'SET_USERS_NICKNAME'
 
 // const SET_CHANGE_USER_STATUS = 'SET_CHANGE_USER_STATUS'
 
-interface userShortInfo {
+export interface userShortInfo {
     id: string,
     name: string,
     nickname: string,
