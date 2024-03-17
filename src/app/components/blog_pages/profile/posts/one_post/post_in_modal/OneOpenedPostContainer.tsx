@@ -1,9 +1,7 @@
 import {connect} from "react-redux";
 import {OnePhotoInterfaceState, UserDataForPostInterfaceState} from "@/app/interfaces/photo/photoInterface";
 import {postsThunk} from "@/redux/thunks/postsThunk";
-import {
-    PostData_forModalWindow
-} from "@/app/components/blog_pages/profile/posts/one_post/post_in_photo_section/PostData_forModalWindow";
+import {OneOpenedPost} from "@/app/components/blog_pages/profile/posts/one_post/post_in_modal/OneOpenedPost";
 
 const mapStateToProps = (state:  OnePhotoInterfaceState & UserDataForPostInterfaceState) => {
     return {
@@ -16,7 +14,8 @@ const mapStateToProps = (state:  OnePhotoInterfaceState & UserDataForPostInterfa
 }
 
 const mapDispatchToProps = {
-    getOnePost: postsThunk.GetOnePostData
+    getOnePost: postsThunk.GetOnePostData,
+    likePost: postsThunk.LikePost
 }
 
-export const PostData_forModalWindowContainer = connect(mapStateToProps, mapDispatchToProps)(PostData_forModalWindow)
+export const OneOpenedPostContainer = connect(mapStateToProps, mapDispatchToProps)(OneOpenedPost)

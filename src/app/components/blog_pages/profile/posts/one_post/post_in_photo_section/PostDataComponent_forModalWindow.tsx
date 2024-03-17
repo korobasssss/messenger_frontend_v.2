@@ -5,32 +5,37 @@ import not_like_icon from "@/assets/icons/post/not_like_icon.svg";
 import comment_icon from "@/assets/icons/post/comment_icon.svg";
 import {OnePostComponentInterface, UserDataForPostInterface} from "@/app/interfaces/photo/photoInterface";
 import TimeComponent from "@/app/components/blog_pages/time/TimeComponent";
+import {CommentsContainer} from "@/app/components/blog_pages/profile/posts/comment/comments/CommentsContainer";
 
 export const PostDataComponent_forModalWindow = (props: OnePostComponentInterface & UserDataForPostInterface) => {
     return (
-        <header className={one_comment_scss.user_post_data}>
-            <Image src={props.avatarUrl} className={one_comment_scss.user_avatar} alt={'user avatar'}/>
-            <section className={one_comment_scss.info}>
-                <header className={one_comment_scss.user_data}>
-                    <div className={'name_small'}>{props.name}</div>
-                    <div className={'nickname'}>@{props.nickname}</div>
-                </header>
-                <p>{props.onePostOpened.text}</p>
-                <footer className={one_post_scss.footer}>
-                    <section className={one_post_scss.buttons}>
-                        <button className={'button_3rd_plane ' + one_post_scss.button}
-                        onClick={() => props.likePost()}>
-                            <Image src={not_like_icon} alt={'not like'}/>
-                            <div>{props.onePostOpened.likeCount}</div>
-                        </button>
-                        <button className={'button_3rd_plane ' + one_post_scss.button}>
-                            <Image src={comment_icon} alt={'comment'}/>
-                            <div>{props.onePostOpened.commentCount}</div>
-                        </button>
-                    </section>
-                    <TimeComponent time={props.onePostOpened.time}/>
-                </footer>
-            </section>
-        </header>
+        <section>
+            <header className={one_comment_scss.user_post_data}>
+                <Image src={props.avatarUrl} className={one_comment_scss.user_avatar} alt={'user avatar'}/>
+                <section className={one_comment_scss.info}>
+                    <header className={one_comment_scss.user_data}>
+                        <div className={'name_small'}>{props.name}</div>
+                        <div className={'nickname'}>@{props.nickname}</div>
+                    </header>
+                    <p>{props.onePostOpened.text}</p>
+                    <footer className={one_post_scss.footer}>
+                        <section className={one_post_scss.buttons}>
+                            <button className={'button_3rd_plane ' + one_post_scss.button}
+                                    onClick={() => props.likePost(props.onePostOpened.postId)}>
+                                <Image src={not_like_icon} alt={'not like'}/>
+                                <div>{props.onePostOpened.likeCount}</div>
+                            </button>
+                            <button className={'button_3rd_plane ' + one_post_scss.button}>
+                                <Image src={comment_icon} alt={'comment'}/>
+                                <div>{props.onePostOpened.commentCount}</div>
+                            </button>
+                        </section>
+                        <TimeComponent time={props.onePostOpened.time}/>
+                    </footer>
+                </section>
+            </header>
+            <CommentsContainer postId={props.onePostOpened.postId}/>
+        </section>
+
     )
 }

@@ -1,7 +1,5 @@
 import {connect} from "react-redux";
-import {Header_profileComponent} from "@/app/components/blog_pages/profile/profile/header/Header_profileComponent";
-import {OnePostUserDataInterfaceState, PostsInterfaceState} from "@/app/interfaces/posts/postsInterface";
-import {PostsComponent} from "@/app/components/blog_pages/profile/posts/PostsComponent";
+import {OnePostUserDataInterfaceState} from "@/app/interfaces/posts/postsInterface";
 import {postsThunk} from "@/redux/thunks/postsThunk";
 import {OnePost} from "@/app/components/blog_pages/profile/posts/one_post/one_post/OnePost";
 

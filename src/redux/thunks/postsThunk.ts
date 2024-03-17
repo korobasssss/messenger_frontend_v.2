@@ -194,9 +194,7 @@ export const postsThunk = {
         }
     },
 
-    SetComment(postId: string, input_comment: string,
-                               name: string, nickname: string, avatarUrl: string,
-                               commentCount: string) {
+    SetComment(postId: string, input_comment: string) {
         return (dispatch: Dispatch) => {
             BlogAPI.SetCommentAPI({
                 postId: postId,

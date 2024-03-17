@@ -5,6 +5,7 @@ import {PostsComponent} from "@/app/components/blog_pages/profile/posts/PostsCom
 import {postsThunk} from "@/redux/thunks/postsThunk";
 import {CommentsInterfaceState} from "@/app/interfaces/comments/commentsInterface";
 import {CommentsComponent} from "@/app/components/blog_pages/profile/posts/comment/comments/CommentsComponent";
+import {Comments} from "@/app/components/blog_pages/profile/posts/comment/comments/Comment";
 
 const mapStateToProps = (state: CommentsInterfaceState ) => {
     return {
@@ -13,7 +14,8 @@ const mapStateToProps = (state: CommentsInterfaceState ) => {
 }
 
 const mapDispatchToProps = {
-    getComments: postsThunk.GetCommentsToPost
+    getComments: postsThunk.GetCommentsToPost,
+    setComment: postsThunk.SetComment
 }
 
-export const CommentsContainer = connect(mapStateToProps, mapDispatchToProps)(CommentsComponent)
+export const CommentsContainer = connect(mapStateToProps, mapDispatchToProps)(Comments)

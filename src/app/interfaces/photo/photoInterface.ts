@@ -52,9 +52,10 @@ export interface OnePhotoInterface {
     onePostOpened: OnePostInterface
 
     getOnePost(postId: string): void
+    likePost(postId: string): void
 }
 
 export interface OnePostComponentInterface {
     onePostOpened: OnePostInterface
-    likePost(): void
+    likePost(postIs: string): void
 }
