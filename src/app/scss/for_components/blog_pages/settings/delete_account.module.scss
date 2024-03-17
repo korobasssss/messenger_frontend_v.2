@@ -5,6 +5,8 @@ $route-w: 500px;
 $route-padding: 35px 70px 35px 70px;
 $route-gap: 30px;
 
+$second-step-gap: 10px;
+
 $header-size: 1.25em;
 $header-weight: 600;
 
@@ -30,6 +32,18 @@ $button-h: 35px;
     font-size: $header-size;
 
     text-align: center;
+  }
+
+  .first_step {
+    display: flex;
+    flex-flow: column;
+    gap: $route-gap;
+  }
+
+  .second_step {
+    display: flex;
+    flex-flow: column;
+    gap: $second-step-gap;
   }
 
   .footer {
