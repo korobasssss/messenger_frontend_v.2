@@ -6,8 +6,9 @@ import header_friends_scss from '@/app/scss/for_components/blog_pages/friends/he
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {Friends_path} from "@/app/paths/friends";
+import {HeaderComponentInterface} from "@/app/interfaces/friends/friendsInterface";
 
-export const Header_friendsComponent = () => {
+export const Header_friendsComponent = (props: HeaderComponentInterface) => {
     const [isActiveIndex, setActiveIndex] = useState(-1)
     const router = useRouter()
 
@@ -15,23 +16,27 @@ export const Header_friendsComponent = () => {
         switch (isActiveIndex) {
             case 0 : {
                 router.push(Friends_path.FRIENDS_USER)
+                props.getFriends() // id можно из ссылки взять
                 break
             }
             case 1 : {
                 router.push(Friends_path.SUBSCRIPTIONS_USER)
+                props.getSubscriptions()
                 break
             }
             case 2 : {
                 router.push(Friends_path.SUBSCRIBERS_USER)
+                props.getSubscribers()
                 break
             }
             case 3 : {
                 router.push(Friends_path.SEARCH)
+                props.getSearch()
                 break
             }
         }
 
-    }, [isActiveIndex, router])
+    }, [isActiveIndex, router, props])
 
     return ( // todo  я думаю тут также можно из store подтянуть данные чтобы красиво было
         <nav className={header_friends_scss.route}>

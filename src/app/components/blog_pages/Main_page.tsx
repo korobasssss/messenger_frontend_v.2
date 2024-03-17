@@ -3,7 +3,7 @@
 import {Main_path} from "@/app/paths/main";
 import {NavigationComponent} from "@/app/components/blog_pages/navigation/NavigationComponent";
 import {usePathname} from "next/navigation";
-import {FriendsComponent} from "@/app/components/blog_pages/friends/FriendsComponent";
+import {FriendsComponent} from "@/app/components/blog_pages/friends/friends/FriendsComponent";
 import {SettingsComponent} from "@/app/components/blog_pages/settings/settings/SettingsComponent";
 
 import main_blog_pages_scss from '@/app/scss/for_components/blog_pages/main_blog_pages.module.scss'
