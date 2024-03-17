@@ -5,5 +5,8 @@ export const Profile_path = {
         Main_path.PROFILE,
     PROFILE_ONE_POST:
         Main_path.PROFILE + '/post',
-    PROFILE_CREATE_POST: Main_path.PROFILE + '/post/new'
+    PROFILE_CREATE_POST:
+        Main_path.PROFILE + '/post/new',
+    PROFILE_EDIT:
+        Main_path.PROFILE + '/edit'
 }

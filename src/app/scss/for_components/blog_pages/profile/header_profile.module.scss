@@ -6,7 +6,7 @@ $cover-height: 185px;
 
 $padding: 20px;
 
-$avatar-section-height: 45px;
+$avatar-section-height: 10px;
 
 $avatar-position: -80px;
 $avatar-border: 3px solid $white-color;
@@ -26,7 +26,7 @@ $user-data-gap: 20px;
       height: 100%;
       width: 100%;
 
-      object-fit: contain;
+      object-fit: cover;
 
       border-radius: $radius;
     }
@@ -49,18 +49,6 @@ $user-data-gap: 20px;
 
       .avatar_section {
         height: $avatar-section-height;
-
-        .avatar_img {
-          position: relative;
-          top: $avatar-position;
-
-          border-radius: $avatar-border-radius;
-          border: $avatar-border;
-          width: $avatar-size;
-          height: $avatar-size;
-
-          object-fit: cover;
-        }
       }
 
       .data_and_button {
@@ -74,4 +62,16 @@ $user-data-gap: 20px;
     }
 
   }
+}
+
+.avatar_img {
+  position: relative;
+  top: $avatar-position;
+
+  border-radius: $avatar-border-radius;
+  border: $avatar-border;
+  width: $avatar-size;
+  height: $avatar-size;
+
+  object-fit: cover;
 }

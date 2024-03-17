@@ -7,6 +7,7 @@ import one_post_scss from "@/app/scss/for_components/blog_pages/post/one_post.mo
 import not_like_icon from "@/assets/icons/post/not_like_icon.svg";
 import {EditComponent} from "@/app/components/blog_pages/profile/posts/comment/EditComponent";
 import one_comment_scss from "@/app/scss/for_components/blog_pages/post/one_comment.module.scss";
+import '@/app/scss/global/globals.scss'
 
 export const OneCommentComponent = () => {
     const [isHover, setHover] = useState(false)
@@ -31,7 +32,7 @@ export const OneCommentComponent = () => {
                     </section>
                 </header>
                 <p>Текст поста, к которому относится фотография</p>
-                <footer className={one_post_scss.footer}>
+                <footer className={'footer_buttons ' + one_post_scss.footer}>
                     <section className={one_post_scss.buttons}>
                         <button className={'button_3rd_plane ' + one_post_scss.button}>
                         <Image src={not_like_icon} alt={'not like'}/>

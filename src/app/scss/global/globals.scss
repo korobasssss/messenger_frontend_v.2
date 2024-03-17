@@ -71,7 +71,7 @@ button {
   font-weight: $button-3rd-plane-weight;
 }
 
-input {
+input, textarea {
   cursor: text;
   height: $input-height;
 
@@ -81,6 +81,15 @@ input {
   padding: $input-padding;
 
   font-size: $font-size-input-button;
+}
+
+textarea {
+  padding: 10px;
+  resize: none;
+}
+
+textarea:focus {
+  outline: none;
 }
 
 input:focus {
@@ -112,6 +121,11 @@ ol {
 .nickname {
   font-size: $nickname-font-size;
   color: $not_important_data_color;
+}
+
+.footer_buttons {
+  display: flex;
+  justify-content: space-between;
 }
 
 

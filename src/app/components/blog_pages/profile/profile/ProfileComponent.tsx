@@ -8,6 +8,7 @@ import {Profile_path} from "@/app/paths/profile";
 import {OneOpenedPostComponent} from "@/app/components/blog_pages/profile/posts/one_post/OneOpenedPostComponent";
 import {CreatePostButtonComponent} from "@/app/components/blog_pages/profile/posts/create_post/CreatePostButtonComponent";
 import {CreatePostComponent} from "@/app/components/blog_pages/profile/posts/create_post/CreatePostComponent";
+import {EditProfileComponent} from "@/app/components/blog_pages/profile/edit/EditProfileComponent";
 
 export const ProfileComponent = () => {
     const pathname = usePathname()
@@ -27,6 +28,8 @@ export const ProfileComponent = () => {
                 <OneOpenedPostComponent/>
             : pathname === Profile_path.PROFILE_CREATE_POST ?
                 <CreatePostComponent/>
+            : pathname === Profile_path.PROFILE_EDIT ?
+                <EditProfileComponent/>
             : null}
         </main>
     )
