@@ -2,16 +2,17 @@
 
 import {usePathname, useRouter} from "next/navigation";
 import {Auth_path} from "@/app/paths/auth";
-import {LoginComponent} from "@/app/components/auth/login_registration/login/LoginComponent";
-import {RegistrationComponent} from "@/app/components/auth/login_registration/registration/RegistrationComponent";
+import {Login} from "@/app/components/auth/login_registration/login/Login";
+import {Registration} from "@/app/components/auth/login_registration/registration/Registration";
 import Image from "next/image";
 import auth_icon from '@/assets/common/auth.png'
 
 import auth_main from '@/app/scss/for_components/auth/auth_main.module.scss'
 import {RecoveryComponent} from "@/app/components/auth/account/recovery/RecoveryComponent";
 import {RestoreComponent} from "@/app/components/auth/account/restore/RestoreComponent";
+import {Main_authInterface} from "@/app/interfaces/auth/authInterface";
 
-export const Main_AuthComponent = () => {
+export const Main_AuthComponent = (props: Main_authInterface) => {
     const router = useRouter()
     const pathname = usePathname()
 
@@ -24,9 +25,12 @@ export const Main_AuthComponent = () => {
                         <button className={auth_main.header} onClick={() => router.push(Auth_path.LOGIN)}>
                             SimOn
                         </button>
-                       {pathname === Auth_path.LOGIN ? <LoginComponent/> :
-                        pathname === Auth_path.REGISTRATION ? <RegistrationComponent/> :
-                        pathname === Auth_path.FORGOT_PASSWORD ? <RecoveryComponent/> :
+                       {pathname === Auth_path.LOGIN ? <Login authorization={props.authorization}
+                                                              message={props.message}/> :
+                        pathname === Auth_path.REGISTRATION ? <Registration registration={props.registration}
+                                                                            message={props.message}/> :
+                        pathname === Auth_path.FORGOT_PASSWORD ? <RecoveryComponent recovery={props.recovery}
+                                                                                    message={props.message}/> :
                         pathname === Auth_path.RESTORE ? <RestoreComponent/>: null}
                     </section>
                 </main>
