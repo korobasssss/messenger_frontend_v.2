@@ -22,16 +22,16 @@ export const Main_AuthComponent = (props: Main_authInterface) => {
                 <Image src={auth_icon} className={auth_main.img} alt={'just rotating pic'}/>
                 <main className={auth_main.authForm}>
                     <section className={auth_main.section}>
-                        <button className={auth_main.header} onClick={() => router.push(Auth_path.LOGIN)}>
+                        <button className={auth_main.header} onClick={() => {
+                            router.push(Auth_path.LOGIN)
+                        }}>
                             SimOn
                         </button>
-                       {pathname === Auth_path.LOGIN ? <Login authorization={props.authorization}
-                                                              message={props.message}/> :
-                        pathname === Auth_path.REGISTRATION ? <Registration registration={props.registration}
-                                                                            message={props.message}/> :
-                        pathname === Auth_path.FORGOT_PASSWORD ? <RecoveryComponent recovery={props.recovery}
-                                                                                    message={props.message}/> :
+                       {pathname === Auth_path.LOGIN ? <Login authorization={props.authorization}/> :
+                        pathname === Auth_path.REGISTRATION ? <Registration registration={props.registration}/> :
+                        pathname === Auth_path.FORGOT_PASSWORD ? <RecoveryComponent recovery={props.recovery}/> :
                         pathname === Auth_path.RESTORE ? <RestoreComponent/>: null}
+                        {props.message}
                     </section>
                 </main>
             </section>

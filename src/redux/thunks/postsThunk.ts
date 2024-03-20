@@ -6,6 +6,7 @@ import {PhotoAPI} from "@/api/photo/photoAPI";
 import {clearMessage, setMessage} from "@/redux/reducers/authReducer";
 import {AuthAPI} from "@/api/auth/authAPI";
 import {ProfileAPI} from "@/api/profile/profileAPI";
+import {CookieClear} from "@/redux/thunks/authThunk";
 
 export const postsThunk = {
 
@@ -21,7 +22,7 @@ export const postsThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                 }
@@ -40,7 +41,7 @@ export const postsThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                     case 400 : {
@@ -117,7 +118,7 @@ export const postsThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                 }
@@ -163,7 +164,7 @@ export const postsThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                 }
@@ -183,7 +184,7 @@ export const postsThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                     case 400 : {
@@ -205,7 +206,7 @@ export const postsThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                     case 400 : {
@@ -226,7 +227,7 @@ export const postsThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                     case 400: {
@@ -247,7 +248,7 @@ export const postsThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                     case 400 : {
@@ -271,7 +272,7 @@ export const postsThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                 }
@@ -289,7 +290,7 @@ export const postsThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                     case 400 : {
@@ -315,7 +316,7 @@ export const postsThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                 }

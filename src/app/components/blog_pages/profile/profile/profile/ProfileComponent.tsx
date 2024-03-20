@@ -12,9 +12,16 @@ import {ProfileComponentInterface} from "@/app/interfaces/profile/profileInterfa
 import {Header_profileContainer} from "@/app/components/blog_pages/profile/profile/header/Header_profileContainer";
 import {PostsContainer} from "@/app/components/blog_pages/profile/posts/PostsContainer";
 import {Photo_profileContainer} from "@/app/components/blog_pages/profile/profile/photo/Photo_profileContainer";
+import {
+    OneOpenedPostContainer
+} from "@/app/components/blog_pages/profile/posts/one_post/post_in_modal/OneOpenedPostContainer";
+import {EditProfileContainer} from "@/app/components/blog_pages/profile/edit/EditProfileContainer";
+import Cookies from "js-cookie";
+import {Friends_profileContainer} from "@/app/components/blog_pages/profile/profile/friends/Friends_profileContainer";
 
 export const ProfileComponent = () => {
-    const pathname = usePathname()
+    const pathname = usePathname().split('/')
+    const lastPath = '/' + pathname[pathname.length - 1]
 
     return (
         <main className={profile_scss.route}>
@@ -24,15 +31,17 @@ export const ProfileComponent = () => {
             </section>
             <aside className={profile_scss.aside}>
                 <Photo_profileContainer/>
-                <Friends_profileComponent/>
+                <Friends_profileContainer/>
+                {Cookies.get('id_current') === Cookies.get('id') ?
                 <CreatePostButtonComponent/>
+                    : null}
             </aside>
-            {pathname === Profile_path.PROFILE_ONE_POST ?
-                <OneOpenedPostComponent/>
-            : pathname === Profile_path.PROFILE_CREATE_POST ?
+            {lastPath === Profile_path.PROFILE_ONE_POST ?
+                <OneOpenedPostContainer/>
+            : lastPath === Profile_path.PROFILE_CREATE_POST ?
                 <CreatePostComponent/>
-            : pathname === Profile_path.PROFILE_EDIT ?
-                <EditProfileComponent/>
+            : lastPath === Profile_path.PROFILE_EDIT ?
+                <EditProfileContainer/>
             : null}
         </main>
     )

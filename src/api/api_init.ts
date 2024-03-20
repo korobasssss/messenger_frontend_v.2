@@ -1,4 +1,7 @@
+'use client'
 import axios from "axios";
+
+import Cookies from "js-cookie";
 
 export const Paths= {
     BASE: 'http://localhost:8080',
@@ -7,11 +10,22 @@ export const Paths= {
     BLOG: '/blog',
     FILE: '/file'
 }
+// let tokenMain = ''
+// export const setToken = (token: string) => {
+//     tokenMain = token
+// }
+
+export const instanceAuth = axios.create({
+    baseURL: Paths.BASE,
+    headers: {
+        'Content-Type': 'application/json'
+    }
+});
 
 export const instance = axios.create({
     baseURL: Paths.BASE,
     headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`, // todo redo
+        Authorization: `Bearer ${Cookies.get('token')}`,
         'Content-Type': 'application/json'
     }
 });
@@ -19,7 +33,7 @@ export const instance = axios.create({
 export const instanceFile = axios.create({
     baseURL: Paths.BASE,
     headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,// todo redo
+        Authorization: `Bearer ${Cookies.get('token')}`,
         'Content-Type': 'multipart/form-data; boundary=---------------------------123456789012345678901234567'
     }
 });

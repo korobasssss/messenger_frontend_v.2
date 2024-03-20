@@ -1,5 +1,12 @@
 $route-padding: 20px;
 
+$no-data-padding: 35px 0px;
+
 .route {
   padding: $route-padding;
+}
+
+.no_data {
+  text-align: center;
+  padding: $no-data-padding;
 }

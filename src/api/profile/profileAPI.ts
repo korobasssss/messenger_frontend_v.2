@@ -4,16 +4,16 @@ import {
     RegistrationSocialInterfaceAPI
 } from "@/api/profile/profileInterface";
 import {instance, Paths} from "@/api/api_init";
+import Cookies from "js-cookie";
 
 export const ProfileAPI = {
 
     async RegistrationSocialAPI(data: RegistrationSocialInterfaceAPI) {
         try {
-            debugger
             const response = await instance.post(
                 Paths.SOCIAL + '/registration',
                 {
-                    id: localStorage.getItem('id'),
+                    id: Cookies.get('id'),
                     name: data.input_name,
                     birthDate: data.input_birthDate
                 }

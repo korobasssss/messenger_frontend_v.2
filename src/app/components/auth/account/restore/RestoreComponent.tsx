@@ -6,7 +6,7 @@ import {useRouter} from "next/navigation";
 import {Auth_path} from "@/app/paths/auth";
 import {RestoreInterfaceComponent} from "@/app/interfaces/auth/authInterface";
 
-export const RestoreComponent = () => {
+export const RestoreComponent = () => { // todo вынести router
     const router = useRouter()
 
     return (

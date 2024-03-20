@@ -1,5 +1,5 @@
-import {OnePhoto} from "@/redux/reducers/photoReducer";
-import {userShortInfo} from "@/redux/reducers/usersReducer";
+import {OnePhotoInterface} from "@/app/interfaces/photo/photoInterface";
+import {userShortInfo} from "@/app/interfaces/friends/friendsInterface";
 
 export interface ProfileInterfaceState {
     profile: {
@@ -7,7 +7,11 @@ export interface ProfileInterfaceState {
         bio: string,
         avatarUrl: string,
         coverUrl: string,
+        birthDate: string
         status: string
+    }
+    auth: {
+        nickname: string
     }
     photo : {
         photoUrl: OnePhotoInterface[]
@@ -37,10 +41,29 @@ export interface ProfileComponentInterface {
     getCountFriends(): void
 }
 
+export interface HeaderInterface {
+    name: string,
+    bio: string,
+    avatarUrl: string,
+    coverUrl: string,
+    status: string
+
+    nickname: string
+
+    getData(): void
+    action(id: string, action: string): void
+    getNickname(): void
+}
+
 export interface HeaderComponentInterface {
     name: string,
     bio: string,
     avatarUrl: string,
     coverUrl: string,
     status: string
+
+    nickname: string
+
+    editProfile(): void
+    toFriends(): void
 }

@@ -1,8 +1,10 @@
+import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+
 export const Status = {
     SEND_FIRST: 'SEND_FIRST',
     SEND_SECOND: 'SEND_SECOND',
     FRIENDS: 'FRIENDS',
-    NULL: 'NULL'
+    NULL: 'null'
 }
 
 export const Actions = {
@@ -18,11 +20,20 @@ export const Actions = {
 export interface userShortInfo {
     id: string,
     name: string,
-    description: string,
+    bio: string,
     status: string,
-    avatar: string
+    avatarUrl: string,
 }
 export interface HeaderComponentInterface {
+
+    countFriends: number,
+    countSubscriptions: number,
+    countSubscribers: number
+
+    getCountFriends(): void
+    getCountSubscriptions(): void
+    getCountSubscribers(): void
+
     getFriends(): void
     getSubscriptions(): void
     getSubscribers(): void
@@ -31,23 +42,30 @@ export interface HeaderComponentInterface {
 
 export interface UsersInterfaceState {
     users: {
-        users: userShortInfo[]
+        usersShortInfo: userShortInfo[]
+        countFriends: number,
+        countSubscriptions: number,
+        countSubscribers: number
     }
 
 }
 
 export interface UsersInterfaceComponent {
-    users: userShortInfo[]
+    users: userShortInfo[],
+    setButtonActionPressed(button: boolean): void
 }
 
 export interface OneUserInterface {
     oneUser: userShortInfo,
     action(id: string, action: string): void
+    setButtonActionPressed(button: boolean): void
 }
 
 export interface OneUserComponentInterface {
     oneUser: userShortInfo,
     action(action: string): void
+
+    toProfile(): void
 }
 
 export interface TypeButtons {

@@ -1,10 +1,7 @@
 import {connect} from "react-redux";
-import {Header_profileComponent} from "@/app/components/blog_pages/profile/profile/header/Header_profileComponent";
-import {PostsInterfaceState} from "@/app/interfaces/posts/postsInterface";
-import {PostsComponent} from "@/app/components/blog_pages/profile/posts/PostsComponent";
 import {NameInterfaceState, Photo_profileInterfaceState} from "@/app/interfaces/photo/photoInterface";
-import {Photo_profileComponent} from "@/app/components/blog_pages/profile/profile/photo/Photo_profileComponent";
-import {PhotoComponent} from "@/app/components/blog_pages/profile/photo/PhotoComponent";
+import {photoThunk} from "@/redux/thunks/photoThunk";
+import {Photo} from "@/app/components/blog_pages/profile/photo/Photo";
 
 const mapStateToProps = (state: Photo_profileInterfaceState & NameInterfaceState ) => {
     return {
@@ -15,6 +12,7 @@ const mapStateToProps = (state: Photo_profileInterfaceState & NameInterfaceState
 }
 
 const mapDispatchToProps = {
+    getPhoto: photoThunk.GetPhoto
 }
 
-export const PhotoContainer = connect(mapStateToProps, mapDispatchToProps)(PhotoComponent)
+export const PhotoContainer = connect(mapStateToProps, mapDispatchToProps)(Photo)

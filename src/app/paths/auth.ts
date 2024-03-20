@@ -1,16 +1,18 @@
-import {Main_path} from "@/app/paths/main";
+import {Main_path, MAIN_PATH_FOR_AUTH} from "@/app/paths/main";
 
 export const Auth_path = {
     LOGIN:
-        Main_path.AUTH + `/login`,
+        MAIN_PATH_FOR_AUTH + Main_path.AUTH + `/login`,
     REGISTRATION :
-        Main_path.AUTH + `/registration`,
+        MAIN_PATH_FOR_AUTH + Main_path.AUTH + `/registration`,
     FORGOT_PASSWORD :
-        Main_path.AUTH + `/account/recovery`,
+        MAIN_PATH_FOR_AUTH + Main_path.AUTH + `/account/recovery`,
     RESTORE:
-        Main_path.AUTH + `/account/restore`,
+        MAIN_PATH_FOR_AUTH + Main_path.AUTH + `/account/restore`,
     ACTIVATION:
-        Main_path.AUTH + '/account/activation',
+        MAIN_PATH_FOR_AUTH + Main_path.AUTH + '/account/activation',
+    CHANGE_EMAIL:
+        MAIN_PATH_FOR_AUTH + Main_path.AUTH + '/account/email',
     SUCCESSFUL_REGISTRATION:
-        Main_path.AUTH + '/account/successful/registration'
+        MAIN_PATH_FOR_AUTH + Main_path.AUTH + '/account/successful/registration'
 }

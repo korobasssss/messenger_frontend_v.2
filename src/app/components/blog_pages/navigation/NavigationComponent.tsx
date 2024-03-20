@@ -18,16 +18,25 @@ import {Friends_path} from "@/app/paths/friends";
 import {Settings_path} from "@/app/paths/settings";
 import {Auth_path} from "@/app/paths/auth";
 import {useState} from "react";
+import {Main_path, MAIN_PATH_MY} from "@/app/paths/main";
+import Cookies from "js-cookie";
 
 export const NavigationComponent = () => { // todo потом добавить все разделы в редакс вместе с иконками (все кроме еще)
     const router = useRouter()
     const [isMoreSectionOpened, setMoreSectionOpened] = useState(false)
+
+    const changeCookieId = () => {
+        Cookies.set('id_current', Cookies.get('id') as string)
+    }
     
     return (
         <nav className={nav_scss.route}>
             <header className={nav_scss.header_section}>
                 <button className={'button_3rd_plane ' + nav_scss.header_button}
-                        onClick={() => router.push(Profile_path.PROFILE_USER)}>
+                        onClick={() => {
+                            changeCookieId()
+                            router.push(MAIN_PATH_MY + Main_path.PROFILE)
+                        }}>
                     <Image src={title_icon} className={nav_scss.title_icon} alt={'title icon'}/>
                     <div className={nav_scss.header}>SimOn</div>
                 </button>
@@ -35,21 +44,28 @@ export const NavigationComponent = () => { // todo потом добавить �
             <ul className={nav_scss.buttons}>
                 <li>
                     <button className={'button_3rd_plane ' + nav_scss.nav_button}
-                            onClick={() => router.push(Profile_path.PROFILE_USER)}>
+                            onClick={() => {
+                                changeCookieId()
+                                router.push(MAIN_PATH_MY + Main_path.PROFILE)}}>
                         <Image src={profile_icon} className={nav_scss.icon} alt={'icon'}/>
                         <div className={nav_scss.text_button}>Профиль</div>
                     </button>
                 </li>
                 <li>
                     <button className={'button_3rd_plane ' + nav_scss.nav_button}
-                            onClick={() => router.push(Friends_path.FRIENDS_USER)}>
+                            onClick={() => {
+                                changeCookieId()
+                                router.push(MAIN_PATH_MY + Main_path.USERS + Friends_path.FRIENDS_USER)}
+                            }>
                         <Image src={friends_icon} className={nav_scss.icon} alt={'icon'}/>
                         <div className={nav_scss.text_button}>Друзья</div>
                     </button>
                 </li>
                 <li>
                     <button className={'button_3rd_plane ' + nav_scss.nav_button}
-                            onClick={() => router.push(Settings_path.SETTINGS)}>
+                            onClick={() => {
+                                changeCookieId()
+                                router.push(MAIN_PATH_MY + Main_path.SETTINGS)}}>
                         <Image src={settings_icon} className={nav_scss.icon} alt={'icon'}/>
                         <div className={nav_scss.text_button}>Настройки</div>
                     </button>

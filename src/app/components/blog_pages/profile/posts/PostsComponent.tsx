@@ -4,14 +4,21 @@ import {OnePostContainer} from "@/app/components/blog_pages/profile/posts/one_po
 
 export const PostsComponent = (props: PostsInterface) => {
     return(
-        <ul className={post_scss.route}>
-            {props.posts.map((onePost : OnePostInterface) => {
-                return (
-                    <li key={onePost.postId}>
-                        <OnePostContainer onePost={onePost}/>
-                    </li>
-                )
-            })}
-        </ul>
+        <section>
+            <ul className={post_scss.route}>
+                {props.posts.map((onePost: OnePostInterface) => {
+                    return (
+                        <li key={onePost.postId}>
+                            <OnePostContainer onePost={onePost}/>
+                        </li>
+                    )
+                })}
+            </ul>
+            {props.posts.length === 0 ?
+            <p className={post_scss.no_data}>
+                Пока что здесь ничего нет... Не хотите поделиться чем-нибудь?
+            </p>
+            : null}
+        </section>
     )
 }

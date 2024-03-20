@@ -1,6 +1,6 @@
 @import "@/app/scss/global/color";
+@import "@/app/scss/for_components/blog_pages/profile/header_profile.module";
 
-$border: 1px solid $chat-border-color;
 $padding: 25px;
 
 $route-gap: 15px;
@@ -114,10 +114,4 @@ $one-post-input-gap: 10px;
       gap: $one-post-buttons-gap;
     }
   }
-}
-
-.name_nickname {
-  display: flex;
-  flex-flow: column;
-  gap: $name-nickname-gap;
 }

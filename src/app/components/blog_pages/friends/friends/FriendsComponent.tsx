@@ -1,5 +1,3 @@
-import {OneUserComponent} from "@/app/components/blog_pages/friends/oneUser/OneUserComponent";
-
 import friends_scss from '@/app/scss/for_components/blog_pages/friends/friends.module.scss'
 import '@/app/scss/global/globals.scss'
 
@@ -12,9 +10,12 @@ import {
     UsersInterfaceComponent
 } from "@/app/interfaces/friends/friendsInterface";
 import {OneUserContainer} from "@/app/components/blog_pages/friends/oneUser/OneUserContainer";
+import {Main_path, MAIN_PATH} from "@/app/paths/main";
+import Cookies from "js-cookie";
 
 export const FriendsComponent = (props: UsersInterfaceComponent & HeaderComponentInterface) => {
-    const pathname = usePathname()
+    const pathname = usePathname().split('/')
+    const currPathname = '/' + pathname[pathname.length - 1]
     const router = useRouter()
 
     return (
@@ -23,36 +24,47 @@ export const FriendsComponent = (props: UsersInterfaceComponent & HeaderComponen
                 <Header_friendsComponent getFriends={props.getFriends}
                                          getSubscriptions={props.getSubscriptions}
                                          getSubscribers={props.getSubscribers}
-                                         getSearch={props.getSearch}/>
-                <ul className={friends_scss.users}>
-                    {props.users.map((oneUser: userShortInfo) => {
-                        return (
-                            <li key={oneUser.id}>
-                                <OneUserContainer oneUser={oneUser}/>
-                            </li>
-                        )
-                    })}
-                </ul>
-                {props.users.length === 0 ?
+                                         getSearch={props.getSearch}
+                                         countFriends={props.countFriends}
+                                         countSubscribers={props.countSubscriptions}
+                                         countSubscriptions={props.countSubscribers}
+                                         getCountFriends={props.getCountFriends}
+                                         getCountSubscribers={props.getCountSubscribers}
+                                         getCountSubscriptions={props.getCountSubscriptions}/>
+                {props.users.length !== 0 ?
+                    <ul className={friends_scss.users}>
+                        {props.users.map((oneUser: userShortInfo) => {
+                            return (
+                                <li key={oneUser.id}>
+                                    <OneUserContainer oneUser={oneUser}
+                                                      setButtonActionPressed={props.setButtonActionPressed}/>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                    :
                     <section className={friends_scss.no_users}>
-                        {pathname === Friends_path.FRIENDS_USER ?
+                        {currPathname === Friends_path.FRIENDS_USER ?
                             <div className={friends_scss.no_friends}>
                                 Нет друзей...
-                                <button className={'button_3rd_plane ' + friends_scss.find_friends}
-                                        onClick={() => router.push(Friends_path.SEARCH)}>
-                                    Найти
-                                </button>
+                                {Cookies.get('id_current') === Cookies.get('id') ?
+                                    <button className={'button_3rd_plane ' + friends_scss.find_friends}
+                                            onClick={() => router.push(MAIN_PATH + Cookies.get('id_current') + Main_path.USERS + Friends_path.SEARCH)}>
+                                        Поиск
+                                    </button>
+                                    : null
+                                }
                             </div> :
-                            pathname === Friends_path.SUBSCRIPTIONS_USER ?
+                            currPathname === Friends_path.SUBSCRIPTIONS_USER ?
                                 <div>
                                     Нет подписок...
                                 </div> :
-                                pathname === Friends_path.SUBSCRIBERS_USER ?
+                                currPathname === Friends_path.SUBSCRIBERS_USER ?
                                     <div>
                                         Нет подписчиков...
                                     </div> : null}
                     </section>
-                    : null}
+                }
             </section>
         </section>
     )

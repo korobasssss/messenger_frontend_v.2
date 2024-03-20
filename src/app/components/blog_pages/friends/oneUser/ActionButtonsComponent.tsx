@@ -10,10 +10,11 @@ import one_user_scss from "@/app/scss/for_components/blog_pages/friends/one_user
 export const ActionButtonsComponent = (props: TypeButtons) => {
     const [isHover, setHover] = useState(false)
 
+    console.log('log ', props.status )
     return (
         <section>
             {
-                props.status === Status.NULL ?
+                props.status === Status.NULL || props.status === null ?
                     <button className={'button_3rd_plane'}
                             onClick={() => props.action(Actions.CREATE)}>
                         <Image src={sent_request_icon} alt={'friends icon'}/>

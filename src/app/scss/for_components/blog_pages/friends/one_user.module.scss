@@ -2,34 +2,46 @@
 $route-gap: 15px;
 
 $avatar-size: 75px;
+$avatar-border-radius: 50px;
 
-$data-gap: 10px;
+$data-padding: 10px 0px;
 
 $subscriber-buttons-gap: 15px;
 
-.rout {
+
+.data_and_buttons {
+  width: 100%;
+
   display: flex;
-  gap: $route-gap;
+  justify-content: space-between;
 
-
-  .avatar {
-    width: $avatar-size;
-    height: $avatar-size;
-  }
-
-  .data_and_buttons {
-    width: 100%;
+  .rout {
 
     display: flex;
-    justify-content: space-between;
+    gap: $route-gap;
 
+
+    .avatar {
+      cursor: pointer;
+      width: $avatar-size;
+      height: $avatar-size;
+
+      border-radius: $avatar-border-radius;
+
+      object-fit: cover;
+    }
     .data {
-      display: flex;
-      flex-flow: column;
-      gap: $data-gap;
+      padding: $data-padding;
+
+      height: 100%;
+
+      display: grid;
+      align-content: space-between;
     }
   }
 }
+
+
 
 .subscribersButtons {
   display: flex;

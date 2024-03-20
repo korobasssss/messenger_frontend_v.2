@@ -1,20 +1,24 @@
-.rout {
-  display: flex;
-  gap: 15px;
-}
-.rout .avatar {
-  width: 75px;
-  height: 75px;
-}
-.rout .data_and_buttons {
+.data_and_buttons {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
-.rout .data_and_buttons .data {
+.data_and_buttons .rout {
   display: flex;
-  flex-flow: column;
-  gap: 10px;
+  gap: 15px;
+}
+.data_and_buttons .rout .avatar {
+  cursor: pointer;
+  width: 75px;
+  height: 75px;
+  border-radius: 50px;
+  object-fit: cover;
+}
+.data_and_buttons .rout .data {
+  padding: 10px 0px;
+  height: 100%;
+  display: grid;
+  align-content: space-between;
 }
 
 .subscribersButtons {

@@ -8,7 +8,7 @@ export const SuccessfulComponent = () => {
     return (
         <main>
             <main className={main_message_scss.sections}>
-                <header className={main_message_scss.header}>Аккаунт зарегистрирован</header>
+                <header className={main_message_scss.header}>Аккаунт</header>
                 <p className={main_message_scss.p}>
                     На Вашу почту было отправлено письмо. Для продолжения перейдите по ссылке, указанной в письме
                 </p>

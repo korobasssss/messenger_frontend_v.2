@@ -9,7 +9,7 @@ export const ActivationComponent = (props: ActivationInterfaceComponent) => {
 
     return (
         <main className={main_message_scss.sections}>
-            <header className={main_message_scss.header}>Активация аккаунта</header>
+            <header className={main_message_scss.header}>{props.title}</header>
             <p className={main_message_scss.p}>
                 {props.message}
             </p>

@@ -9,14 +9,24 @@ import one_comment_scss from "@/app/scss/for_components/blog_pages/post/one_comm
 import '@/app/scss/global/globals.scss'
 import {OneCommentInterface} from "@/app/interfaces/comments/commentsInterface";
 import TimeComponent from "@/app/components/blog_pages/time/TimeComponent";
+import edit_profile_scss from "@/app/scss/for_components/blog_pages/edit_profile/edit_profile.module.scss";
+import default_avatar from "@/assets/common/default_avatar.svg";
 
 export const OneCommentComponent = (props: OneCommentInterface) => {
     const [isHover, setHover] = useState(false)
 
     return (
         <section className={one_comment_scss.user_post_data}>
-            <Image src={props.oneComment.avatarUrl} className={one_comment_scss.user_avatar}
-                   alt={'user avatar'}/>
+            {props.oneComment.avatarUrl !== '' ?
+                <Image loader={() => props.oneComment.avatarUrl}
+                       src={props.oneComment.avatarUrl}
+                       className={one_comment_scss.user_avatar}
+                       alt={'user avatar'} width={'0'} height={'0'}/>
+                :
+                <Image src={default_avatar}
+                       className={one_comment_scss.user_avatar}
+                       alt={'user avatar'} width={'0'} height={'0'}/>
+            }
             <section className={one_comment_scss.info}>
                 <header className={one_comment_scss.user_data_with_edit}>
                     <section className={one_comment_scss.user_data}>
@@ -44,7 +54,7 @@ export const OneCommentComponent = (props: OneCommentInterface) => {
                                 onClick={() => props.likeComment(props.oneComment.commentId)}>
                             {props.oneComment.isLiked ?
                                 <Image src={like_icon} alt={'not like'}/>
-                            :
+                                :
                                 <Image src={not_like_icon} alt={'not like'}/>
                             }
                             <div>{props.oneComment.likeCount}</div>

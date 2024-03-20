@@ -12,9 +12,16 @@ export interface Photo_profileInterfaceState {
         countPhoto: number
     }
 }
-export interface Photo_profileInterfaceComponent {
+
+export interface Photo_profileInterface {
     photoUrl: OnePhoto[],
     countPhoto: number,
+
+    getPhoto(): void
+}
+export interface Photo_profileInterfaceComponent {
+    photoUrl: OnePhoto[],
+    countPhoto: number
 }
 
 

@@ -8,6 +8,8 @@ import {Profile_path} from "@/app/paths/profile";
 import {Photo_path} from "@/app/paths/photo";
 import {NameInterface, OnePhoto, Photo_profileInterfaceComponent} from "@/app/interfaces/photo/photoInterface";
 import {OnePhotoComponent} from "@/app/components/blog_pages/profile/photo/onePhoto/OnePhotoComponent";
+import {Main_path, MAIN_PATH} from "@/app/paths/main";
+import Cookies from "js-cookie";
 
 export const PhotoComponent = (props: Photo_profileInterfaceComponent & NameInterface) => {
     const router = useRouter()
@@ -17,7 +19,7 @@ export const PhotoComponent = (props: Photo_profileInterfaceComponent & NameInte
         <main className={photo_scss.page}>
             <header className={photo_scss.header}>
                 <button className={'button_3rd_plane'}
-                        onClick={() => router.push(Profile_path.PROFILE_USER)}>
+                         onClick={() => router.push(MAIN_PATH + Cookies.get('id_current') + Main_path.PROFILE)}>
                     <Image src={back_icon} alt={'back icon'}/>
                 </button>
 
@@ -27,16 +29,22 @@ export const PhotoComponent = (props: Photo_profileInterfaceComponent & NameInte
                 </section>
             </header>
             <ul className={photo_scss.photo}>
-                {props.photoUrl.map((onePhoto: OnePhoto, index) => {
+                { props.photoUrl.length !== 0 ?
+                props.photoUrl.map((onePhoto: OnePhoto, index) => {
                     return (
                         <li key={onePhoto.url}>
                             <section className={photo_scss.one_photo}
                                      onClick={() => router.push(Photo_path.ONE_PHOTO)}>
-                                <Image src={onePhoto.url} alt={'user photo'}/>
+                                <Image loader={() => onePhoto.url}
+                                       src={onePhoto.url} alt={'user photo'} width={'0'} height={'0'}/>
                             </section>
                         </li>
                     )
-                })}
+                })
+                :
+                <section className={photo_scss.no_photo}>
+                    <p>Нет фото...</p>
+                </section>}
             </ul>
 
             {pathname === Photo_path.ONE_PHOTO ? <OnePhotoComponent/> : null}

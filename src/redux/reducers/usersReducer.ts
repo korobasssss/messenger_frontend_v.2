@@ -5,6 +5,8 @@ const SET_USERS_FRIENDS_COUNT = 'SET_USERS_FRIENDS_COUNT'
 const SET_USERS_SUBSCRIPTIONS_COUNT = 'SET_USERS_SUBSCRIPTIONS_COUNT'
 const SET_USERS_SUBSCRIBERS_COUNT = 'SET_USERS_SUBSCRIBERS_COUNT'
 
+const SET_CHANGE_USER_STATUS = 'SET_CHANGE_USER_STATUS'
+
 interface initialInterface {
     usersShortInfo: userShortInfo[],
     countFriends: number,
@@ -44,15 +46,15 @@ export const usersReducer = (state = initialState, action : any) => {
             return stateCopy
         }
 
-        // case SET_CHANGE_USER_STATUS : {
-        //     stateCopy= {...state, usersShortInfo: [...state.usersShortInfo]}
-        //     stateCopy.usersShortInfo.forEach((user: User) => {
-        //         if (user.id === action.id) {
-        //             user.status = action.status
-        //         }
-        //     })
-        //     return stateCopy
-        // }
+        case SET_CHANGE_USER_STATUS : {
+            stateCopy= {...state, usersShortInfo: [...state.usersShortInfo]}
+            stateCopy.usersShortInfo.forEach((user: userShortInfo) => {
+                if (user.id === action.id) {
+                    user.status = action.status
+                }
+            })
+            return stateCopy
+        }
 
         default:
             return stateCopy
@@ -80,5 +82,11 @@ export const setUserFriendsCount = (countFriends : number) => {
 export const setUserSubscribersCount = (countSubscribers : number) => {
     return {
         type: SET_USERS_SUBSCRIBERS_COUNT, countSubscribers
+    }
+}
+
+export const setUserChangeStatus = (id: string, status: string) => {
+    return {
+        type: SET_CHANGE_USER_STATUS, id, status
     }
 }

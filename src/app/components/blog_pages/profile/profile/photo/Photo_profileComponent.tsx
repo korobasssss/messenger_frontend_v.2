@@ -6,12 +6,14 @@ import {useRouter} from "next/navigation";
 import {Photo_path} from "@/app/paths/photo";
 import {OnePhoto, Photo_profileInterfaceComponent} from "@/app/interfaces/photo/photoInterface";
 import {bgRed} from "next/dist/lib/picocolors";
+import {Main_path, MAIN_PATH} from "@/app/paths/main";
+import Cookies from "js-cookie";
 
 export const Photo_profileComponent = (props: Photo_profileInterfaceComponent) => {
     const router = useRouter()
 
     return (
-        <section className={aside_scss.padding} onClick={() => router.push(Photo_path.USER_PHOTO)}>
+        <section className={aside_scss.padding} onClick={() => router.push(MAIN_PATH + Cookies.get('id_current') + Main_path.PHOTO)}>
             <main className={aside_scss.route}>
                 <header className={aside_scss.header}>
                     <div className={aside_scss.name}>Фото</div>
@@ -22,7 +24,8 @@ export const Photo_profileComponent = (props: Photo_profileInterfaceComponent) =
                         if (index < 3) {
                             return (
                                 <li key={onePhoto.url}>
-                                    <Image src={onePhoto.url} className={aside_scss.image} alt={'user post photo'}/>
+                                    <Image loader={() => onePhoto.url}
+                                           src={onePhoto.url} className={aside_scss.image} alt={'user post photo'}/>
                                 </li>
                             )
                         }

@@ -18,20 +18,19 @@ export const authReducer = (state = initialState, action : any) => {
 
         case SET_USER_DATA : {
             stateCopy.email = action.email
-            stateCopy.nickname = action.nickname
 
             return stateCopy
         }
 
         case SET_EMAIL_DATA : {
             stateCopy.email = action.email
-
+            console.log(stateCopy.email)
             return stateCopy
         }
 
         case SET_NICKNAME_DATA : {
             stateCopy.nickname = action.nickname
-
+            console.log(stateCopy.nickname)
             return stateCopy
         }
 

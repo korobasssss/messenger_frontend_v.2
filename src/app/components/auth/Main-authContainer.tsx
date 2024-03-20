@@ -1,3 +1,5 @@
+"use client"
+
 import {connect} from "react-redux";
 import {Main_AuthComponent} from "@/app/components/auth/Main_auth";
 import {AuthThunk} from "@/redux/thunks/authThunk";
@@ -12,7 +14,6 @@ const mapDispatchToProps = {
     authorization: AuthThunk.Authorization,
     registration: AuthThunk.Registration,
     recovery: AuthThunk.RecoveryAccount,
-
 }
 
 export const Main_authContainer =

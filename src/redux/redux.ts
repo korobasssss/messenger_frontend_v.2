@@ -14,6 +14,4 @@ let reducers = combineReducers({
     posts: postsReducer
 })
 
-let reduxStore = createStore(reducers, applyMiddleware(thunk))
-
-export default reduxStore
+export const reduxStore = createStore(reducers, applyMiddleware(thunk))
