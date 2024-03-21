@@ -12,6 +12,8 @@ import {RecoveryComponent} from "@/app/components/auth/account/recovery/Recovery
 import {RestoreComponent} from "@/app/components/auth/account/restore/RestoreComponent";
 import {Main_authInterface} from "@/app/interfaces/auth/authInterface";
 
+import settings_scss from '@/app/scss/for_components/blog_pages/settings/settings.module.scss'
+
 export const Main_AuthComponent = (props: Main_authInterface) => {
     const router = useRouter()
     const pathname = usePathname()
@@ -23,15 +25,17 @@ export const Main_AuthComponent = (props: Main_authInterface) => {
                 <main className={auth_main.authForm}>
                     <section className={auth_main.section}>
                         <button className={auth_main.header} onClick={() => {
+                            props.clearMessage()
                             router.push(Auth_path.LOGIN)
                         }}>
                             SimOn
                         </button>
-                       {pathname === Auth_path.LOGIN ? <Login authorization={props.authorization}/> :
+                       {pathname === Auth_path.LOGIN ? <Login authorization={props.authorization}
+                                                              clearMessage={props.clearMessage}/> :
                         pathname === Auth_path.REGISTRATION ? <Registration registration={props.registration}/> :
                         pathname === Auth_path.FORGOT_PASSWORD ? <RecoveryComponent recovery={props.recovery}/> :
                         pathname === Auth_path.RESTORE ? <RestoreComponent/>: null}
-                        {props.message}
+                        <p className={settings_scss.message}>{props.message}</p>
                     </section>
                 </main>
             </section>

@@ -15,6 +15,7 @@ import {
 import {OnePhotoComponent} from "@/app/components/blog_pages/profile/photo/onePhoto/OnePhotoComponent";
 import {Main_path, MAIN_PATH} from "@/app/paths/main";
 import Cookies from "js-cookie";
+import {Cookie_names} from "@/redux/messages/cookie_names";
 
 export const PhotoComponent = (props: PhotoInterfaceComponent & NameInterface) => {
     const pathname = usePathname().split('/')
@@ -50,7 +51,7 @@ export const PhotoComponent = (props: PhotoInterfaceComponent & NameInterface) =
                     <p>Нет фото...</p>
                 </section>}
             </ul>
-            {pathname[pathname.length - 1] === Cookies.get('id_photo') ? <OnePhotoComponent/> : null}
+            {pathname[pathname.length - 1] === Cookies.get(Cookie_names.ID_PHOTO) ? <OnePhotoComponent/> : null}
         </main>
     )
 }

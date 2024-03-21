@@ -5,6 +5,8 @@ const SET_NICKNAME_DATA = 'SET_NICKNAME_DATA'
 const SET_MESSAGE = 'SET_MESSAGE'
 const CLEAR_MESSAGE = 'CLEAR_MESSAGE'
 
+const CLEAR_AUTH = 'CLEAR_AUTH'
+
 const initialState = {
     email: '',
     nickname: '',
@@ -25,12 +27,14 @@ export const authReducer = (state = initialState, action : any) => {
         case SET_EMAIL_DATA : {
             stateCopy.email = action.email
             console.log(stateCopy.email)
+
             return stateCopy
         }
 
         case SET_NICKNAME_DATA : {
             stateCopy.nickname = action.nickname
             console.log(stateCopy.nickname)
+
             return stateCopy
         }
 
@@ -42,6 +46,12 @@ export const authReducer = (state = initialState, action : any) => {
 
         case CLEAR_MESSAGE : {
             stateCopy.message = ''
+
+            return stateCopy
+        }
+
+        case CLEAR_AUTH : {
+            stateCopy = initialState
 
             return stateCopy
         }
@@ -75,8 +85,15 @@ export const setMessage = (message : string) => {
         type: SET_MESSAGE, message
     }
 }
+
 export const clearMessage = () => {
     return {
         type: CLEAR_MESSAGE
+    }
+}
+
+export const clearAuth = () => {
+    return {
+        type: CLEAR_AUTH
     }
 }

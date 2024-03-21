@@ -11,13 +11,12 @@ const SET_ONE_COMMENT_USER_DATA = 'SET_ONE_COMMENT_USER_DATA'
 
 const SET_DELETE_POST = 'SET_DELETE_POST'
 
-
 const SET_CLEAR_COMMENTS = 'SET_CLEAR_COMMENTS'
 
+const CLEAR_POSTS = 'CLEAR_POSTS'
 
 
-
-const initialState : {posts: OnePostInterface[], comments: Comment[], onePostOpened: OnePostInterface} = {
+const initialState: { posts: OnePostInterface[], comments: Comment[], onePostOpened: OnePostInterface } = {
     posts: [],
     comments: [],
 
@@ -45,8 +44,6 @@ export const postsReducer = (state = initialState, action: any) => {
         case SET_COMMENTS : {
             stateCopy.comments = action.comments
 
-            console.log(stateCopy.comments, ' comments')
-
             return stateCopy
         }
 
@@ -67,17 +64,25 @@ export const postsReducer = (state = initialState, action: any) => {
                 stateCopy.comments = []
             }
             stateCopy.comments = [...stateCopy.comments, action.comment]
+
             return stateCopy
         }
 
         case SET_DELETE_POST : {
 
-            stateCopy= {...state, comments: [...state.comments]}
+            stateCopy = {...state, comments: [...state.comments]}
             for (let index = 0; index < stateCopy.comments.length; index++) {
                 if (stateCopy.posts[index].postId === action.postId) {
                     stateCopy.posts.splice(index, 1)
                 }
             }
+
+            return stateCopy
+        }
+
+        case CLEAR_POSTS : {
+            stateCopy = initialState
+
             return stateCopy
         }
 
@@ -119,5 +124,11 @@ export const setDeletePost = (postId: string) => {
 export const clearComments = () => {
     return {
         type: SET_CLEAR_COMMENTS
+    }
+}
+
+export const clearPosts = () => {
+    return {
+        type: CLEAR_POSTS
     }
 }

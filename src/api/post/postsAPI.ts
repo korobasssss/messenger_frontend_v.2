@@ -1,4 +1,4 @@
-import {instance, Paths} from "@/api/api_init";
+import {instance, Paths, setToken} from "@/api/api_init";
 import {
     DeleteCommentInterfaceAPI,
     DeletePostInterfaceAPI,
@@ -7,10 +7,12 @@ import {
     NewPostInterfaceAPI, SetCommentInterfaceAPI
 } from "@/api/post/postsInterface";
 import Cookies from "js-cookie";
+import {Cookie_names} from "@/redux/messages/cookie_names";
 
 export const BlogAPI = {
 
     async DeleteCommentAPI(props: DeleteCommentInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.delete(
                 Paths.BLOG + `/comment/${props.commentId}`
@@ -22,6 +24,7 @@ export const BlogAPI = {
     },
 
     async DeletePostAPI(data: DeletePostInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.delete(
                 Paths.BLOG + `/post/${data.postId}`
@@ -32,22 +35,8 @@ export const BlogAPI = {
         }
     },
 
-    async EditPostAPI(data: EditPostInterfaceAPI) {
-        try {
-            const response = await instance.put(
-                Paths.BLOG + `/post`,
-                {
-                    postId: data.postId,
-                    text: data.input_postText
-                }
-            );
-            return [response.status, response.data];
-        } catch (error: any) {
-            return [error.response.status, error.response.data];
-        }
-    },
-
     async GetCommentsAPI(data: GetCommentsInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.get(
                 Paths.BLOG + `/comment/${data.postId}`
@@ -59,6 +48,7 @@ export const BlogAPI = {
     },
 
     async GetPostDataAPI(data: GetPostDataInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.get(
                 Paths.BLOG + `/post/${data.postId}`
@@ -70,9 +60,10 @@ export const BlogAPI = {
     },
 
     async GetPostsAPI() {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.get(
-                Paths.BLOG + `/user/${Cookies.get('id_current')}`
+                Paths.BLOG + `/user/${Cookies.get(Cookie_names.ID_CURRENT)}`
             );
             return [response.status, response.data];
         } catch (error: any) {
@@ -81,6 +72,7 @@ export const BlogAPI = {
     },
 
     async LikeCommentAPI(data: LikeCommentInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.put(
                 Paths.BLOG + '/comment/like',
@@ -95,6 +87,7 @@ export const BlogAPI = {
     },
 
     async LikePostAPI(data: LikePostInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.put(
                 Paths.BLOG + '/post/like',
@@ -109,6 +102,7 @@ export const BlogAPI = {
     },
 
     async NewPostAPI(data: NewPostInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.post(
                 Paths.BLOG + '/post/create',
@@ -123,6 +117,7 @@ export const BlogAPI = {
     },
 
     async SetCommentAPI(data: SetCommentInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.post(
                 Paths.BLOG + '/comment/create',

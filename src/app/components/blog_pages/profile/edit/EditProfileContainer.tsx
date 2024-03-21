@@ -1,9 +1,10 @@
 import {connect} from "react-redux";
 import {profileThunk} from "@/redux/thunks/profileThunk";
 import {ProfileInterfaceState} from "@/app/interfaces/profile/profileInterface";
-import {AuthThunk} from "@/redux/thunks/authThunk";
+import {AuthThunk, setMessageThunk} from "@/redux/thunks/authThunk";
 import {EditProfile} from "@/app/components/blog_pages/profile/edit/EditProfile";
 import {photoThunk} from "@/redux/thunks/photoThunk";
+import {clearMessage, setMessage} from "@/redux/reducers/authReducer";
 
 const mapStateToProps = (state: ProfileInterfaceState ) => {
     return {
@@ -11,7 +12,9 @@ const mapStateToProps = (state: ProfileInterfaceState ) => {
         bio: state.profile.bio,
         avatarUrl: state.profile.avatarUrl,
         coverUrl: state.profile.coverUrl,
-        nickname: state.auth.nickname
+        nickname: state.auth.nickname,
+
+        message: state.auth.message
     }
 }
 
@@ -24,7 +27,10 @@ const mapDispatchToProps = {
     deleteAvatar: photoThunk.DeleteAvatar,
     deleteCover: photoThunk.DeleteCover,
     setAvatar: photoThunk.SetAvatar,
-    setCover: photoThunk.SetCover
+    setCover: photoThunk.SetCover,
+
+    clearMessage: clearMessage,
+    setMessageThunk: setMessageThunk
 }
 
 export const EditProfileContainer = connect(mapStateToProps, mapDispatchToProps)(EditProfile)

@@ -6,6 +6,7 @@ import one_post_scss from "@/app/scss/for_components/blog_pages/post/one_post.mo
 import {OneUserComponentInterface} from "@/app/interfaces/friends/friendsInterface";
 import default_avatar from "@/assets/common/default_avatar.svg";
 import Cookies from "js-cookie";
+import {Cookie_names} from "@/redux/messages/cookie_names";
 
 export const OneUserComponent = (props: OneUserComponentInterface) => {
 
@@ -27,7 +28,7 @@ export const OneUserComponent = (props: OneUserComponentInterface) => {
                     <p>{props.oneUser.bio}</p>
                 </section>
             </main>
-            {props.oneUser.id !== Cookies.get('id') ?
+            {props.oneUser.id !== Cookies.get(Cookie_names.ID) ?
                 <ActionButtonsComponent action={props.action}
                                         status={props.oneUser.status}/>
             : null}

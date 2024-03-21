@@ -1,9 +1,11 @@
-import {instance, Paths} from "@/api/api_init";
+import {instance, Paths, setToken} from "@/api/api_init";
 import {ActionUsersInterfaceAPI} from "@/api/users/usersInterface";
 import Cookies from "js-cookie";
+import {Cookie_names} from "@/redux/messages/cookie_names";
 
 export const UsersAPI = {
     async GetSearchAPI() {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.get(
                 Paths.SOCIAL + '/users'
@@ -15,9 +17,10 @@ export const UsersAPI = {
     },
 
     async GetSubscribersAPI() {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.get(
-                Paths.SOCIAL + `/relation/subscribers/${Cookies.get('id_current')}`
+                Paths.SOCIAL + `/relation/subscribers/${Cookies.get(Cookie_names.ID_CURRENT)}`
             );
             return [response.status, response.data];
         } catch (error: any) {
@@ -26,9 +29,10 @@ export const UsersAPI = {
     },
 
     async GetSubscriptionsAPI() {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.get(
-                Paths.SOCIAL + `/relation/subscriptions/${Cookies.get('id_current')}`
+                Paths.SOCIAL + `/relation/subscriptions/${Cookies.get(Cookie_names.ID_CURRENT)}`
             );
             return [response.status, response.data];
         } catch (error: any) {
@@ -37,9 +41,10 @@ export const UsersAPI = {
     },
 
     async GetFriendsAPI() {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.get(
-                Paths.SOCIAL + `/relation/friends/${Cookies.get('id_current')}`
+                Paths.SOCIAL + `/relation/friends/${Cookies.get(Cookie_names.ID_CURRENT)}`
             );
             return [response.status, response.data];
         } catch (error: any) {
@@ -48,9 +53,10 @@ export const UsersAPI = {
     },
 
     async GetRandomFriendsAPI() {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.get(
-                Paths.SOCIAL + `/relation/friends/random/${Cookies.get('id_current')}`
+                Paths.SOCIAL + `/relation/friends/random/${Cookies.get(Cookie_names.ID_CURRENT)}`
             );
             return [response.status, response.data];
         } catch (error: any) {
@@ -59,9 +65,10 @@ export const UsersAPI = {
     },
 
     async GetCountFriendsAPI() {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.get(
-                Paths.SOCIAL + `/count/friends/${Cookies.get('id_current')}`
+                Paths.SOCIAL + `/count/friends/${Cookies.get(Cookie_names.ID_CURRENT)}`
             );
             return [response.status, response.data];
         } catch (error: any) {
@@ -70,9 +77,10 @@ export const UsersAPI = {
     },
 
     async GetCountSubscriptionsAPI() {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.get(
-                Paths.SOCIAL + `/count/subscriptions/${Cookies.get('id_current')}`
+                Paths.SOCIAL + `/count/subscriptions/${Cookies.get(Cookie_names.ID_CURRENT)}`
             );
             return [response.status, response.data];
         } catch (error: any) {
@@ -81,9 +89,10 @@ export const UsersAPI = {
     },
 
     async GetCountSubscribersAPI() {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.get(
-                Paths.SOCIAL + `/count/subscribers/${Cookies.get('id_current')}`
+                Paths.SOCIAL + `/count/subscribers/${Cookies.get(Cookie_names.ID_CURRENT)}`
             );
             return [response.status, response.data];
         } catch (error: any) {
@@ -92,6 +101,7 @@ export const UsersAPI = {
     },
 
     async ActionUsersAPI(data: ActionUsersInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.post(
                 Paths.SOCIAL + `/action`,

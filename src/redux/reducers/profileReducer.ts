@@ -7,6 +7,8 @@ const SET_USER_AVATAR_URL = 'SET_USER_AVATAR_URL'
 const SET_USER_COVER_URL = 'SET_USER_COVER_URL'
 const SET_USER_STATUS = 'SET_USER_STATUS'
 
+const CLEAR_PROFILE = 'CLEAR_PROFILE'
+
 const initialState = {
     name: "",
     birthDate: "",
@@ -67,6 +69,12 @@ export const profileReducer = (state = initialState, action: any) => {
             return stateCopy
         }
 
+        case CLEAR_PROFILE : {
+            stateCopy = initialState
+
+            return stateCopy
+        }
+
         default : {
             return stateCopy
         }
@@ -114,8 +122,8 @@ export const setCoverUrl = (coverUrl: string) => {
     }
 }
 
-export const setStatus = (status: string) => {
+export const clearProfile = () => {
     return {
-        type: SET_USER_STATUS, status
+        type: CLEAR_PROFILE
     }
 }

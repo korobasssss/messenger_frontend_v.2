@@ -16,6 +16,7 @@ import TimeComponent from "@/app/components/blog_pages/time/TimeComponent";
 import default_avatar from "@/assets/common/default_avatar.svg";
 import delete_icon from '@/assets/icons/post/delete_icon.svg'
 import Cookies from "js-cookie";
+import {Cookie_names} from "@/redux/messages/cookie_names";
 
 export const OnePostComponent = (props: OnePostInterfacesComponent & OnePostUserDataInterface) => {
 
@@ -38,7 +39,7 @@ export const OnePostComponent = (props: OnePostInterfacesComponent & OnePostUser
                         <div className={'nickname'}>@{props.nickname}</div>
                     </section>
                 </section>
-                {Cookies.get('id_current') === Cookies.get('id')  ?
+                {Cookies.get(Cookie_names.ID_CURRENT) === Cookies.get(Cookie_names.ID)  ?
                 <section className={one_post_scss.edit}>
                     <button className={'button_3rd_plane ' + one_post_scss.edit_button}
                             onClick={() => props.setIsButtonDeletePostPressed(true)}>

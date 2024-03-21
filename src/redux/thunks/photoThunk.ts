@@ -5,6 +5,11 @@ import {setMessage} from "@/redux/reducers/authReducer";
 import {setAvatarUrl, setCoverUrl} from "@/redux/reducers/profileReducer";
 import {CookieClear} from "@/redux/thunks/authThunk";
 import Cookies from "js-cookie";
+import {Cookie_names} from "@/redux/messages/cookie_names";
+import {PostMessagesEN, PostMessagesRU} from "@/redux/messages/postMessages";
+import {ProfileMessagesRU} from "@/redux/messages/profileMessages";
+
+export const fileSize = 2097152
 
 export const photoThunk = {
 
@@ -31,7 +36,7 @@ export const photoThunk = {
     GetPhoto() {
         return (dispatch: Dispatch) => {
             PhotoAPI.GetPhotoAPI({
-                id: Cookies.get('id_current') as string
+                id: Cookies.get(Cookie_names.ID_CURRENT) as string
             }).then(response => {
                 switch (response[0]) {
                     case 200 : {
@@ -61,7 +66,7 @@ export const photoThunk = {
                         break
                     }
                     case 400 : {
-                        dispatch(setMessage('Плохое имя файла, выберите другой')) // todo мб сделать отдельные сообщения profile
+                        dispatch(setMessage(PostMessagesRU.BAD_NAME))
                         break
                     }
                     case 401 : {
@@ -83,7 +88,7 @@ export const photoThunk = {
                         break
                     }
                     case 400 : {
-                        dispatch(setMessage('Плохое имя файла, выберите другой'))
+                        dispatch(setMessage(PostMessagesRU.BAD_NAME))
                         break
                     }
                     case 401 : {
@@ -106,10 +111,10 @@ export const photoThunk = {
                         break
                     }
                     case 400 : {
-                        if (response[1] === 'File too big') {
-                            dispatch(setMessage('Файл слишком большой'))
-                        } else if (response[1] === 'Bad file name') {
-                            dispatch(setMessage('Плохое имя файла, выберите другой'))
+                        if (response[1] === PostMessagesEN.FILE_TOO_BIG) {
+                            dispatch(setMessage(ProfileMessagesRU.FILE_TOO_BIT))
+                        } else if (response[1] === PostMessagesEN.BAD_NAME) {
+                            dispatch(setMessage(PostMessagesRU.BAD_NAME))
                         }
                         break
                     }
@@ -133,10 +138,10 @@ export const photoThunk = {
                         break
                     }
                     case 400 : {
-                        if (response[1] === 'File too big') {
-                            dispatch(setMessage('Файл слишком большой'))
-                        } else if (response[1] === 'Bad file name') {
-                            dispatch(setMessage('Плохое имя файла, выберите другой'))
+                        if (response[1] === PostMessagesEN.FILE_TOO_BIG) {
+                            dispatch(setMessage(ProfileMessagesRU.FILE_TOO_BIT))
+                        } else if (response[1] === PostMessagesEN.BAD_NAME) {
+                            dispatch(setMessage(PostMessagesRU.BAD_NAME))
                         }
                         break
                     }

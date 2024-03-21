@@ -7,11 +7,11 @@ import add_photo_icon from '@/assets/icons/post/add_photo_icon.svg'
 import Image from "next/image";
 import one_post_scss from "@/app/scss/for_components/blog_pages/post/one_post.module.scss";
 import {CreatePostInterfaceComponent} from "@/app/interfaces/posts/createPostInterface";
+import settings_scss from "@/app/scss/for_components/blog_pages/settings/settings.module.scss";
+
 
 
 export const CreatePostComponent = (props: CreatePostInterfaceComponent) => {
-
-
     return (
         <section className={one_photo_scss.page}>
             <section className={one_photo_scss.dark_bgc}
@@ -31,6 +31,7 @@ export const CreatePostComponent = (props: CreatePostInterfaceComponent) => {
                             )
                         }) : null}
                 </ul>
+                <p className={settings_scss.message}>{props.message}</p>
                 <footer className={create_post_scss.footer}>
                     <button className={'button_cancel'} onClick={() => props.toProfile()}>
                         Отменить
@@ -38,7 +39,7 @@ export const CreatePostComponent = (props: CreatePostInterfaceComponent) => {
                     <section className={create_post_scss.main_buttons_section}>
                         <button className={'button_3rd_plane'}>
                             <input className={create_post_scss.hidden} type="file" id="setFiles-btn"
-                            onChange={(event) => props.setPhoto(event)}/>
+                                   onChange={(event) => props.setPhoto(event)}/>
                             <label htmlFor="setFiles-btn">
                                 <Image src={add_photo_icon} alt={'add photo'}/>
                             </label>

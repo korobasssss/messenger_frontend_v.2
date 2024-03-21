@@ -10,6 +10,7 @@ import {
 } from "@/app/components/blog_pages/profile/posts/one_post/post_in_modal/OneOpenedPostContainer";
 import {Main_path, MAIN_PATH} from "@/app/paths/main";
 import Cookies from "js-cookie";
+import {Cookie_names} from "@/redux/messages/cookie_names";
 
 export const OnePhotoComponent = () => { // todo разобраться с путем и отображением фото
     const router = useRouter();
@@ -18,14 +19,14 @@ export const OnePhotoComponent = () => { // todo разобраться с пу�
         <section className={one_photo_scss.page}>
             <section className={one_photo_scss.dark_bgc}
                      onClick={() => {
-                         Cookies.remove('id_photo')
-                         Cookies.remove('url_photo')
-                         Cookies.remove('id_post')
-                         router.push(MAIN_PATH + Cookies.get('id_current') + Main_path.PHOTO)}
+                         Cookies.remove(Cookie_names.ID_PHOTO)
+                         Cookies.remove(Cookie_names.URL_PHOTO) // todo
+                         Cookies.remove(Cookie_names.ID_POST)
+                         router.push(MAIN_PATH + Cookies.get(Cookie_names.ID_CURRENT) + Main_path.PHOTO)}
             }></section>
             <section className={one_photo_scss.route}>
-                <Image loader={() => Cookies.get('url_photo') as string}
-                       src={Cookies.get('url_photo') as string} alt={'user photo'} className={one_photo_scss.photo}
+                <Image loader={() => Cookies.get(Cookie_names.URL_PHOTO) as string}
+                       src={Cookies.get(Cookie_names.URL_PHOTO) as string} alt={'user photo'} className={one_photo_scss.photo}
                        width={0} height={0}/>
                 <section className={one_opened_post_scss.post_data + ' ' + one_photo_scss.post_width + ' scrollBar'}>
                     <OneOpenedPostContainer/>

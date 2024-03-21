@@ -1,52 +1,83 @@
 import {Dispatch} from "redux";
 import {AuthAPI} from "@/api/auth/authAPI";
-import {clearMessage, setData, setEmail, setMessage, setNickname} from "@/redux/reducers/authReducer";
+import {clearAuth, clearMessage, setEmail, setMessage, setNickname} from "@/redux/reducers/authReducer";
 import {ProfileAPI} from "@/api/profile/profileAPI";
-import {setUserData} from "@/redux/reducers/profileReducer";
+import {clearProfile} from "@/redux/reducers/profileReducer";
 
 import Cookies from "js-cookie";
 import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {Auth_path} from "@/app/paths/auth";
 import {Main_path, MAIN_PATH_FOR_AUTH} from "@/app/paths/main";
-import App from "next/app";
-import {instance} from "@/api/api_init";
+import {setToken} from "@/api/api_init";
+import {AuthMessagesEN, AuthMessagesRU} from "@/redux/messages/authMessages";
+import {clearPhoto} from "@/redux/reducers/photoReducer";
+import {clearPosts} from "@/redux/reducers/postsReducer";
+import {clearUsers} from "@/redux/reducers/usersReducer";
+import {Cookie_names} from "@/redux/messages/cookie_names";
 
-export const CookieClear = () => {
-    Cookies.remove('token')
-    Cookies.remove('id')
-    Cookies.remove('id_current')
-    Cookies.remove('id_post')
-    Cookies.remove('id_photo')
-    Cookies.remove('email')
+export const clearMessages = () => {
+    return (dispatch: Dispatch) => {
+        dispatch(clearMessage())
+    }
 }
 
-export const AuthThunk = {
-    Authorization(input_email: string, input_nickname: string, input_password: string, router: AppRouterInstance ) {
+export const setMessageThunk = (message: string) => (dispatch: Dispatch) => {
+    dispatch(setMessage(message))
+}
+
+export const clearReducers = () => {
+    return (dispatch: Dispatch) => {
+        dispatch(clearAuth())
+        dispatch(clearPhoto())
+        dispatch(clearPosts())
+        dispatch(clearProfile())
+        dispatch(clearUsers())
+    }
+}
+export const CookieClear = () => {
+    Cookies.remove(Cookie_names.ID)
+    Cookies.remove(Cookie_names.ID_CURRENT)
+    Cookies.remove(Cookie_names.ID_POST)
+    Cookies.remove(Cookie_names.ID_PHOTO)
+    Cookies.remove(Cookie_names.EMAIL)
+
+    clearReducers()
+    clearMessages()
+}
+
+    export
+const AuthThunk = {
+    Authorization(input_email: string, input_nickname: string, input_password: string, router: AppRouterInstance) {
         return (dispatch: Dispatch) => {
             AuthAPI.AuthorizationAPI({
                 input_email, input_nickname, input_password
             }).then(response => {
                 switch (response[0]) {
                     case 200 : {
+                        const token = response[1].token
+                        Cookies.set(Cookie_names.TOKEN, token)
+                        setToken(token)
+
+                        Cookies.set(Cookie_names.ID, response[1].id)
+                        Cookies.set(Cookie_names.ID_CURRENT, response[1].id)
                         dispatch(clearMessage())
-                        instance.defaults.headers.common['Authorization'] = `Bearer ${response[1].token}`;
-                        Cookies.set('token', response[1].token)
-                        Cookies.set('id', response[1].id)
-                        Cookies.set('id_current', response[1].id)
-                        router.push(MAIN_PATH_FOR_AUTH +`/${response[1].id}` + Main_path.PROFILE)
+
+                        router.push(MAIN_PATH_FOR_AUTH + `/${response[1].id}` + Main_path.PROFILE)
                         break
                     }
                     case 400 : {
-                        if (response[1] === "User doesn't exist") {
-                            dispatch(setMessage('Такого пользователя не существует'))
-                        }else if (response[1] === 'Password mismatch') {
-                            dispatch(setMessage('Неверный пароль'))
+                        if (response[1] === AuthMessagesEN.USER_DOESNT_EXIST) {
+                            dispatch(setMessage(AuthMessagesRU.USER_DOESNT_EXIST))
+                        } else if (response[1] === AuthMessagesEN.PASSWORD_MISMATCH) {
+                            dispatch(setMessage(AuthMessagesRU.INVALID_PASSWORD))
                         }
                         break
                     }
                     case 403 : {
-                        Cookies.set('id', response[1])
+                        Cookies.set(Cookie_names.ID, response[1])
                         router.push(Auth_path.RESTORE)
+
+                        dispatch(clearMessage())
                         break
                     }
                 }
@@ -55,26 +86,27 @@ export const AuthThunk = {
     },
 
     Registration(input_email: string, input_nickname: string, input_password: string, input_confirmPassword: string,
-                  input_name: string, input_birthDate: string, router: AppRouterInstance) {
-        return (dispatch : Dispatch) => {
+                 input_name: string, input_birthDate: string, router: AppRouterInstance) {
+        return (dispatch: Dispatch) => {
             AuthAPI.RegistrationAPI({
                 input_email, input_nickname, input_password, input_confirmPassword
             }).then(response => {
                 switch (response[0]) {
                     case 201 : {
                         if (response[1] !== null) {
-                            Cookies.set('id', response[1])
+                            Cookies.set(Cookie_names.ID, response[1])
                             ProfileAPI.RegistrationSocialAPI({
                                 input_name,
                                 input_birthDate
                             }).then(response => {
                                 switch (response) {
                                     case 200: {
-                                            router.push(Auth_path.SUCCESSFUL_REGISTRATION)
+                                        router.push(Auth_path.SUCCESSFUL_REGISTRATION)
+                                        dispatch(clearMessage())
                                         break
                                     }
                                     case 400: {
-                                        dispatch(setMessage('Ошибка регистрации (пользователя не существует)'))
+                                        dispatch(setMessage(AuthMessagesRU.REGISTRATION_ERROR))
                                     }
                                 }
                             })
@@ -82,16 +114,16 @@ export const AuthThunk = {
                         break
                     }
                     case 400 : {
-                        if (response[1] === "Password mismatch") {
-                            dispatch(setMessage('Пароли не соответствуют'))
+                        if (response[1] === AuthMessagesEN.PASSWORD_MISMATCH) {
+                            dispatch(setMessage(AuthMessagesRU.PASSWORD_MISMATCH))
                         }
                         break
                     }
                     case 409 : {
-                        if (response[1] === "This email is already in use") {
-                            dispatch(setMessage('Данный email уже используется'))
-                        } else if (response[1] === 'This nickname is already in use') {
-                            dispatch(setMessage('Имя пользователя уже занято'))
+                        if (response[1] === AuthMessagesEN.EMAIL_IN_USE) {
+                            dispatch(setMessage(AuthMessagesRU.EMAIL_IN_USE))
+                        } else if (response[1] === AuthMessagesEN.NICKNAME_IN_USE) {
+                            dispatch(setMessage(AuthMessagesRU.NICKNAME_IN_USE))
                         }
                         break
                     }
@@ -108,11 +140,11 @@ export const AuthThunk = {
             }).then(response => {
                 switch (response) {
                     case 200: {
-                        dispatch(setMessage('Проверьте почту. При входе в аккаунт, сразу поменяйте пароль, время действия высланного пароля ограничено.'))
+                        dispatch(setMessage(AuthMessagesRU.RECOVERY_CHECK_EMAIL))
                         break
                     }
                     case 400: {
-                        dispatch(setMessage('Пользователя с данной почтой не существует'))
+                        dispatch(setMessage(AuthMessagesRU.EMAIL_DOESNT_EXIST))
                         break
                     }
                     case 401: {
@@ -120,7 +152,7 @@ export const AuthThunk = {
                         break
                     }
                     case 409: {
-                        dispatch(setMessage('Пароль был изменен менее 5 минут назад, попробуйте позже'))
+                        dispatch(setMessage(AuthMessagesRU.PASSWORD_WAS_CHANGED_LESS_5_MIN))
                     }
                 }
             })
@@ -133,14 +165,14 @@ export const AuthThunk = {
                 .then(response => {
                     switch (response[0]) {
                         case 200 : {
-                            dispatch(setMessage('Ваш аккаунт был успешно активирован! Для продолжения войдите в аккаунт'))
+                            dispatch(setMessage(AuthMessagesRU.ACTIVATE_ACCOUNT))
                             break
                         }
                         case 400 : {
-                            if (response[1] === "User doesn't exist") {
-                                dispatch(setMessage('Такого пользователя не существует'))
-                            } else if (response[1] === 'Account has already been activated') {
-                                dispatch(setMessage('Аккаунт уже активирован'))
+                            if (response[1] === AuthMessagesEN.USER_DOESNT_EXIST) {
+                                dispatch(setMessage(AuthMessagesRU.USER_DOESNT_EXIST))
+                            } else if (response[1] === AuthMessagesEN.ALREADY_ACTIVATED) {
+                                dispatch(setMessage(AuthMessagesRU.ALREADY_ACTIVATED))
                             }
                             break
                         }
@@ -152,20 +184,20 @@ export const AuthThunk = {
 
     ChangeEmail(input_password: string, input_email: string) {
         return (dispatch: Dispatch) => {
-            AuthAPI.RequestChangeEmailAPI( {
+            AuthAPI.RequestChangeEmailAPI({
                 input_password, input_email
             }).then(response => {
                 switch (response[0]) {
                     case 200 : {
-                        dispatch(setMessage('На Вашу почту было отправлено письмо с подтверждением почты'))
-                        Cookies.set('newEmail', input_email)
+                        dispatch(setMessage(AuthMessagesRU.CONFIRM_EMAIL))
+                        Cookies.set(Cookie_names.NEW_EMAIL, input_email)
                         break
                     }
                     case 400 : {
-                        if (response[1] === "User doesn't exist") {
-                            dispatch(setMessage('Пользователя с такой почтой не существует'))
-                        } else if (response[1] === "Password mismatch") {
-                            dispatch(setMessage('Неверный пароль'))
+                        if (response[1] === AuthMessagesEN.USER_DOESNT_EXIST) {
+                            dispatch(setMessage(AuthMessagesRU.EMAIL_DOESNT_EXIST))
+                        } else if (response[1] === AuthMessagesEN.PASSWORD_MISMATCH) {
+                            dispatch(setMessage(AuthMessagesRU.INVALID_PASSWORD))
                         }
                         break
                     }
@@ -174,7 +206,7 @@ export const AuthThunk = {
                         break
                     }
                     case 409 : {
-                        dispatch(setMessage('Данный email уже используется'))
+                        dispatch(setMessage(AuthMessagesRU.EMAIL_IN_USE))
                         break
                     }
                     default:
@@ -186,15 +218,16 @@ export const AuthThunk = {
     ConfirmChangingEmail() {
         return (dispatch: Dispatch) => {
             AuthAPI.ConfirmChangingEmailAPI({
-                newEmail: Cookies.get('newEmail') as string
+                newEmail: Cookies.get(Cookie_names.NEW_EMAIL) as string
             }).then(response => {
                 switch (response[0]) {
                     case 200 : {
-                        dispatch(setMessage('Пароль был успешно изменен!'))
-                        Cookies.set('token', response[1])
-                        instance.defaults.headers.common['Authorization'] = `Bearer ${response[1].token}`;
+                        const token = response[1].token
+                        setToken(token)
                         Cookies.set('email', Cookies.get('newEmail') as string)
                         Cookies.remove('newEmail')
+
+                        dispatch(clearMessage())
                         break
                     }
                     case 400 : {
@@ -219,6 +252,8 @@ export const AuthThunk = {
                         Cookies.set('email', response[1].email)
                         dispatch(setNickname(response[1].nickname))
                         dispatch(setEmail(response[1].email))
+
+                        dispatch(clearMessage())
                         break
                     }
                     case 401 : {
@@ -231,22 +266,23 @@ export const AuthThunk = {
     },
 
     GetCodeForChangingPassword(input_password: string) {
-        return (dispatch : Dispatch) => {
-            AuthAPI.GetCodeForChangingPasswordAPI( {
+        return (dispatch: Dispatch) => {
+            AuthAPI.GetCodeForChangingPasswordAPI({
                 input_password
             }).then(response => {
                 switch (response[0]) {
                     case 200 : {
-                        if (response[1] === "Check your mailbox to confirm new password") {
-                            dispatch(setMessage('На Вашу почту был отправлен одноразовый код'))
+                        if (response[1] === AuthMessagesEN.SENT_CODE_TO_EMAIL) {
+                            dispatch(setMessage(AuthMessagesRU.SENT_CODE_TO_EMAIL))
                             Cookies.set('isPasswordTrue', 'true')
                         }
                         break
                     }
                     case 400 : {
-                        if (response[1] === "User doesn't exist") {
-                        } else if (response[1] === "Password mismatch") {
-                            dispatch(setMessage('Неверный пароль'))
+                        if (response[1] === AuthMessagesEN.USER_DOESNT_EXIST) {
+                            dispatch(setMessage(AuthMessagesRU.USER_DOESNT_EXIST))
+                        } else if (response[1] === AuthMessagesEN.PASSWORD_MISMATCH) {
+                            dispatch(setMessage(AuthMessagesRU.PASSWORD_MISMATCH))
                         }
                         break
                     }
@@ -255,8 +291,8 @@ export const AuthThunk = {
                         break
                     }
                     case 409 : {
-                        if (response[1] === "The password was changed less than 5 minutes ago, please try again later") {
-                            dispatch(setMessage('Пароль был изменен менее 5 минут назад, попробуйте позже'))
+                        if (response[1] === AuthMessagesEN.PASSWORD_WAS_CHANGED_LESS_5_MIN) {
+                            dispatch(setMessage(AuthMessagesRU.PASSWORD_WAS_CHANGED_LESS_5_MIN))
                         }
                         break
                     }
@@ -275,17 +311,18 @@ export const AuthThunk = {
                 ).then(response => {
                     switch (response[0]) {
                         case 200 : {
-                            Cookies.set('token', response[1])
-                            instance.defaults.headers.common['Authorization'] = `Bearer ${response[1].token}`;
-                            dispatch(setMessage('Пароль успешно изменен'))
+                            const token = response[1].token
+                            setToken(token)
+
+                            dispatch(clearMessage())
                             break
                         }
                         case 400 : {
-                            if (response[1] === "User doesn't exist") {
-                            } else if (response[1] === "Code doesn't match") {
-                                dispatch(setMessage('Неверный код'))
-                            } else if (response[1] === "The code is not relevant") {
-                                dispatch(setMessage('Истекло время использования кода'))
+                            if (response[1] === AuthMessagesEN.USER_DOESNT_EXIST) {
+                            } else if (response[1] === AuthMessagesEN.INVALID_CODE) {
+                                dispatch(setMessage(AuthMessagesRU.INVALID_CODE))
+                            } else if (response[1] === AuthMessagesEN.CODE_DOESNT_RELEVANT) {
+                                dispatch(setMessage(AuthMessagesRU.CODE_DOESNT_RELEVANT))
                             }
                             break
                         }
@@ -297,46 +334,38 @@ export const AuthThunk = {
                     }
                 })
             } else {
-                dispatch(setMessage('Пароли не совпадают'))
+                dispatch(setMessage(AuthMessagesRU.PASSWORD_MISMATCH))
             }
 
         }
     },
 
-    DeleteAccount(input_password: string) {
+    DeleteAccount(input_password: string, router: AppRouterInstance) { // todo !!!!!!!!
         return (dispatch: Dispatch) => {
             AuthAPI.DeleteAccountAPI({
                 input_password
             }).then(response => {
                 switch (response[0]) {
                     case 200 : {
-                        if (response[1] === "Account is blocked") { // todo redo
-                            dispatch(clearMessage())
-                            dispatch(setData({
-                                email: '',
-                                nickname: '',
-                                password: ''}))
-                            dispatch(setUserData('', '', '', '', '', ''))
-                            CookieClear()
-                        }
                         break
                     }
                     case 400 : {
-                        if (response[1] === "User doesn't exist") {
+                        if (response[1] === AuthMessagesEN.USER_DOESNT_EXIST) {
+                            dispatch(setMessage(AuthMessagesRU.USER_DOESNT_EXIST))
                         }
                         break
                     }
                     case 401 : {
-                        CookieClear()
                         break
                     }
                     case 403: {
-                        dispatch(setMessage('Аккаунт уже заблокирован'))
-                        Cookies.remove('token')
+                        dispatch(setMessage(AuthMessagesRU.ACCOUNT_ALREADY_BLOCKED))
                         break
                     }
                 }
             })
+            CookieClear()
+            router.push(Auth_path.LOGIN)
         }
     },
 
@@ -348,11 +377,7 @@ export const AuthThunk = {
                 switch (response[0]) {
                     case 200 : {
                         dispatch(setNickname(input_nickname))
-                        if (response[1].split(' ').length === 2) {
-                            Cookies.set('token', response[1].split(' ')[1])
-                        } else {
-                            Cookies.set('token', response[1])
-                        }
+                        Cookies.set('token', response[1])
                         break
                     }
                     case 400 : {
@@ -360,6 +385,12 @@ export const AuthThunk = {
                     }
                     case 401 : {
                         CookieClear()
+                        break
+                    }
+                    case 409 : {
+                        if (response[1] === AuthMessagesEN.NICKNAME_IN_USE) {
+                            dispatch(setMessage(AuthMessagesRU.NICKNAME_IN_USE))
+                        }
                         break
                     }
                 }
@@ -374,8 +405,9 @@ export const AuthThunk = {
     },
 
     LogOut(router: AppRouterInstance) {
-        return (dispatch: Dispatch) => {
+        return () => {
             CookieClear()
+
             router.push(Auth_path.LOGIN)
         }
     }

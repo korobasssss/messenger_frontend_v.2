@@ -9,12 +9,15 @@ import {
 } from "@/redux/reducers/postsReducer";
 import {BlogAPI} from "@/api/post/postsAPI";
 import {PhotoAPI} from "@/api/photo/photoAPI";
-import {setMessage} from "@/redux/reducers/authReducer";
+import {clearMessage, setMessage} from "@/redux/reducers/authReducer";
 import {ProfileAPI} from "@/api/profile/profileAPI";
 import {CookieClear} from "@/redux/thunks/authThunk";
 import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {Main_path, MAIN_PATH} from "@/app/paths/main";
 import Cookies from "js-cookie";
+import {Cookie_names} from "@/redux/messages/cookie_names";
+import {ProfileMessagesRU} from "@/redux/messages/profileMessages";
+import {PostMessagesEN, PostMessagesRU} from "@/redux/messages/postMessages";
 
 export const postsThunk = {
 
@@ -67,7 +70,7 @@ export const postsThunk = {
                 switch (response[0]) {
                     case 200: {
                         if (input_postPhoto.length === 0 ) {
-                            router.push(MAIN_PATH + Cookies.get('id') + Main_path.PROFILE)
+                            router.push(MAIN_PATH + Cookies.get(Cookie_names.ID) + Main_path.PROFILE)
                         } else {
                             for(let i = 0; i < input_postPhoto.length; i++) {
                                 PhotoAPI.SetPostPhotoAPI({
@@ -76,30 +79,31 @@ export const postsThunk = {
                                 }).then(response => {
                                     switch (response[0]) {
                                         case 200 : {
-                                            router.push(MAIN_PATH + Cookies.get('id') + Main_path.PROFILE)
+                                            dispatch(clearMessage())
+                                            router.push(MAIN_PATH + Cookies.get(Cookie_names.ID) + Main_path.PROFILE)
                                             break
                                         }
                                         case 400 : {
-                                            if (response[1] === 'File too big') {
-                                                dispatch(setMessage('Файл слишком большой'))
-                                            } else if (response[1] === 'Bad file name') {
-                                                dispatch(setMessage('Плохое имя файла, выберите другой'))
+                                            if (response[1] === PostMessagesEN.FILE_TOO_BIG) {
+                                                dispatch(setMessage(ProfileMessagesRU.FILE_TOO_BIT))
+                                            } else if (response[1] === PostMessagesEN.BAD_NAME) {
+                                                dispatch(setMessage(PostMessagesRU.BAD_NAME + ' ' + i))
                                             }
                                             break
                                         }
                                         case 401: {
-                                            // bad token
+                                            CookieClear()
                                             break
                                         }
                                     }
                                 })
                             }
                         }
-
+                        dispatch(clearMessage())
                         break
                     }
                     case 400: {
-                        dispatch(setMessage('Лимит символов 1000'))
+                        dispatch(setMessage(PostMessagesRU.SYMBOLS_LIMIT))
                         break
                     }
                     case 401 : {

@@ -4,8 +4,13 @@ import {EditProfileInterface} from "@/app/interfaces/profile/edit_profileInterfa
 import {useRouter} from "next/navigation";
 import {Main_path, MAIN_PATH} from "@/app/paths/main";
 import Cookies from "js-cookie";
+import {fileSize} from "@/redux/thunks/photoThunk";
+import {Cookie_names} from "@/redux/messages/cookie_names";
+import {ProfileMessagesRU} from "@/redux/messages/profileMessages";
 
 export const EditProfile = (props: EditProfileInterface) => {
+
+    const router = useRouter()
 
     const [input_nickname, setInput_nickname] = useState(props.nickname)
     const [input_name, setInput_name] = useState(props.name)
@@ -21,19 +26,16 @@ export const EditProfile = (props: EditProfileInterface) => {
 
     const [isButtonSavePressed, setButtonSavePressed] = useState(false)
 
-    const router = useRouter()
-
 
     useEffect(() => {
-
         props.getNickname()
         props.getData()
-    }, [props])
+    }, [props.nickname, props.name])
 
 
     useEffect(() => {
         if (isButtonSavePressed) {
-            console.log(input_avatarFile, input_coverFile)
+
             if (isAvatarDeleteFile && props.avatarUrl !== '') {
                 props.deleteAvatar(props.avatarUrl)
                 setAvatarDeleteFile(false)
@@ -50,21 +52,23 @@ export const EditProfile = (props: EditProfileInterface) => {
             }
 
             if (input_name.length != 0 && input_bio.length != 0)
-            props.changeProfileData(input_name, input_bio, router) // todo date
+            props.changeProfileData(input_name, input_bio, router)
         }
         setButtonSavePressed(false)
     }, [isButtonSavePressed]); // отправка данных на сервер
 
     const toProfile = () => {
-        router.push(MAIN_PATH + Cookies.get('id_current') + Main_path.PROFILE)
+        props.clearMessage()
+        router.push(MAIN_PATH + Cookies.get(Cookie_names.ID) + Main_path.PROFILE)
     }
 
     const setPhoto = (photoFile: FileList, setPhotoUrl: (photoUrl: string) => void,
                       setPhotoFile: (photoFile: File) => void,
                       setDeletePhoto: (flag: boolean) => void) => {
+        props.clearMessage()
         if (photoFile !== null) {
             const file = photoFile[0];
-            if (photoFile[0].size <= 2097152) { // todo
+            if (photoFile[0].size <= fileSize) {
                 const reader = new FileReader();
 
                 reader.onload = (event) => {
@@ -79,7 +83,7 @@ export const EditProfile = (props: EditProfileInterface) => {
                     setDeletePhoto(true)
                 }
             } else {
-                // props.setMessage('Большой размер файла')
+                props.setMessageThunk(ProfileMessagesRU.FILE_TOO_BIT)
             }
         }
     }
@@ -120,5 +124,6 @@ export const EditProfile = (props: EditProfileInterface) => {
                                  setButtonSavePressed={setButtonSavePressed}
                                  toProfile={toProfile}
                                  setAvatarDeleteFile={setAvatarDeleteFile}
-                                 setCoverDeleteFile={setCoverDeleteFile}/>
+                                 setCoverDeleteFile={setCoverDeleteFile}
+                                 message={props.message}/>
 }
