@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {setCountPhoto, setPhotoUrl} from "@/redux/reducers/photoReducer";
 import {PhotoAPI} from "@/api/photo/photoAPI";
-import {setMessage} from "@/redux/reducers/authReducer";
+import {setFetching, setMessage} from "@/redux/reducers/authReducer";
 import {setAvatarUrl, setCoverUrl} from "@/redux/reducers/profileReducer";
 import {CookieClear} from "@/redux/thunks/authThunk";
 import Cookies from "js-cookie";
@@ -102,6 +102,7 @@ export const photoThunk = {
 
     SetAvatar(input_avatarUrl: File) {
         return (dispatch: Dispatch) => {
+            dispatch(setFetching(true))
             PhotoAPI.SetAvatarAPI( {
                 input_avatarUrl: input_avatarUrl
             }).then(response => {
@@ -124,11 +125,13 @@ export const photoThunk = {
                     }
                 }
             })
+            dispatch(setFetching(false))
         }
     },
 
     SetCover(input_coverUrl: File) {
         return (dispatch: Dispatch) => {
+            dispatch(setFetching(true))
             PhotoAPI.SetCoverAPI({
                 input_coverUrl: input_coverUrl,
             }).then(response => {
@@ -151,6 +154,7 @@ export const photoThunk = {
                     }
                 }
             })
+            dispatch(setFetching(false))
         }
     }
 }

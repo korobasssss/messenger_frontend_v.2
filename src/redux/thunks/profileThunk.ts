@@ -8,7 +8,7 @@ import {AuthThunk, CookieClear} from "@/redux/thunks/authThunk";
 import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {Main_path, MAIN_PATH} from "@/app/paths/main";
 import {Cookie_names} from "@/redux/messages/cookie_names";
-import {clearMessage} from "@/redux/reducers/authReducer";
+import {clearMessage, setFetching} from "@/redux/reducers/authReducer";
 
 export const maxPhotoCount = 6
 
@@ -16,6 +16,7 @@ export const profileThunk = {
 
     ProfileData() {
         return (dispatch: Dispatch) => {
+            dispatch(setFetching(true))
             ProfileAPI.ProfileGetDataAPI({
                 id: Cookies.get(Cookie_names.ID_CURRENT) as string
             }).then(responseSocial => {
@@ -35,6 +36,7 @@ export const profileThunk = {
                     }
                 }
             })
+            dispatch(setFetching(false))
         }
     },
 

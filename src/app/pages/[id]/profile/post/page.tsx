@@ -1,7 +1,7 @@
-import {Main_page} from "@/app/components/blog_pages/Main_page";
+import {Main_pageContainer} from "@/app/components/blog_pages/Main_page";
 
 const Post = () => {
-    return <Main_page/>
+    return <Main_pageContainer/>
 }
 
 export default Post

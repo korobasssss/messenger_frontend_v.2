@@ -1,9 +1,7 @@
 "use client"
 
 import {Main_path} from "@/app/paths/main";
-import {NavigationComponent} from "@/app/components/blog_pages/navigation/NavigationComponent";
 import {usePathname} from "next/navigation";
-import {SettingsComponent} from "@/app/components/blog_pages/settings/settings/SettingsComponent";
 
 import main_blog_pages_scss from '@/app/scss/for_components/blog_pages/main_blog_pages.module.scss'
 import {ProfileContainer} from "@/app/components/blog_pages/profile/profile/profile/ProfileContainer";
@@ -13,6 +11,7 @@ import Cookies from "js-cookie";
 import {SettingsContainer} from "@/app/components/blog_pages/settings/settings/SettingsContainer";
 import {NavigationContainer} from "@/app/components/blog_pages/navigation/NavigationContainer";
 import {Cookie_names} from "@/redux/messages/cookie_names";
+import {LoaderHOC} from "@/app/components/loader/LoaderHOC";
 
 
 export const Main_page = () => {
@@ -33,3 +32,5 @@ export const Main_page = () => {
 
     )
 }
+
+export const Main_pageContainer = LoaderHOC(Main_page)

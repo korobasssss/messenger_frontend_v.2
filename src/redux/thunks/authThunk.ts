@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {AuthAPI} from "@/api/auth/authAPI";
-import {clearAuth, clearMessage, setEmail, setMessage, setNickname} from "@/redux/reducers/authReducer";
+import {clearAuth, clearMessage, setEmail, setFetching, setMessage, setNickname} from "@/redux/reducers/authReducer";
 import {ProfileAPI} from "@/api/profile/profileAPI";
 import {clearProfile} from "@/redux/reducers/profileReducer";
 
@@ -49,6 +49,7 @@ export const CookieClear = () => {
 const AuthThunk = {
     Authorization(input_email: string, input_nickname: string, input_password: string, router: AppRouterInstance) {
         return (dispatch: Dispatch) => {
+            dispatch(setFetching(true))
             AuthAPI.AuthorizationAPI({
                 input_email, input_nickname, input_password
             }).then(response => {
@@ -81,6 +82,7 @@ const AuthThunk = {
                         break
                     }
                 }
+                dispatch(setFetching(false))
             })
         }
     },
@@ -88,6 +90,7 @@ const AuthThunk = {
     Registration(input_email: string, input_nickname: string, input_password: string, input_confirmPassword: string,
                  input_name: string, input_birthDate: string, router: AppRouterInstance) {
         return (dispatch: Dispatch) => {
+            dispatch(setFetching(true))
             AuthAPI.RegistrationAPI({
                 input_email, input_nickname, input_password, input_confirmPassword
             }).then(response => {
@@ -130,6 +133,7 @@ const AuthThunk = {
                     default:
                 }
             })
+            dispatch(setFetching(false))
         }
     },
 

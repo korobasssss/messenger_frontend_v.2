@@ -1,0 +1,28 @@
+@import "src/app/scss/global/color";
+
+$w: 100vw;
+$h: 100vh;
+
+$opacity: 0.5;
+$z-index: 999;
+
+$image-size: 50px;
+
+.div {
+  position: fixed;
+  top: 0;
+  width: $w;
+  height: $h;
+  background-color: $white-color;
+  opacity: $opacity;
+
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  z-index: $z-index;
+}
+
+.div img {
+  width: $image-size;
+  height: $image-size;
+}

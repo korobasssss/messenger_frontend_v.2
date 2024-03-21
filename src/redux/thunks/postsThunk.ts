@@ -9,7 +9,7 @@ import {
 } from "@/redux/reducers/postsReducer";
 import {BlogAPI} from "@/api/post/postsAPI";
 import {PhotoAPI} from "@/api/photo/photoAPI";
-import {clearMessage, setMessage} from "@/redux/reducers/authReducer";
+import {clearMessage, setFetching, setMessage} from "@/redux/reducers/authReducer";
 import {ProfileAPI} from "@/api/profile/profileAPI";
 import {CookieClear} from "@/redux/thunks/authThunk";
 import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
@@ -64,6 +64,7 @@ export const postsThunk = {
 
     CreatePost(input_postText: string, input_postPhoto: SetPhotoInterface[], router: AppRouterInstance) {
         return (dispatch: Dispatch) => {
+            dispatch(setFetching(true))
             BlogAPI.NewPostAPI({
                 input_postText: input_postText
             }).then(response => {
@@ -112,7 +113,7 @@ export const postsThunk = {
                     }
                 }
             })
-
+            dispatch(setFetching(false))
         }
     },
 
