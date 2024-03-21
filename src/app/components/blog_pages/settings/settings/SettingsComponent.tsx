@@ -6,13 +6,19 @@ import edit_icon from '@/assets/icons/settings/edit.svg'
 import {useState} from "react";
 import {usePathname, useRouter} from "next/navigation";
 import {Settings_path} from "@/app/paths/settings";
-import {DeleteAccountComponent} from "@/app/components/blog_pages/settings/settings/DeleteAccountComponent";
+import {DeleteAccountComponent} from "@/app/components/blog_pages/settings/settings/delete/DeleteAccountComponent";
 import {SettingsComponentInterface} from "@/app/interfaces/settings/settingsInterface";
 import Cookies from "js-cookie";
 import {Cookie_names} from "@/redux/messages/cookie_names";
+import {Main_path, MAIN_PATH} from "@/app/paths/main";
+import {DeleteAccountContainer} from "@/app/components/blog_pages/settings/settings/delete/DeleteAccountContainer";
 
-export const SettingsComponent = (props: SettingsComponentInterface) => {
-    const pathname = usePathname()
+export const SettingsComponent = (props: SettingsComponentInterface) => { // todo вынести все в отдельные компоненты
+    const pathname = usePathname().split('/')
+    const lastPathname = '/' + pathname[pathname.length - 2] + '/' + pathname[pathname.length - 1]
+
+    console.log(lastPathname)
+
     const router = useRouter()
 
 
@@ -158,15 +164,15 @@ export const SettingsComponent = (props: SettingsComponentInterface) => {
                 </section>
                 <footer className={settings_scss.footer}>
                     <button className={'button_3rd_plane'}
-                            onClick={() => router.push(Settings_path.SETTINGS_DELETE_ACCOUNT)}>
+                            onClick={() => router.push(MAIN_PATH + Cookies.get(Cookie_names.ID) + Main_path.SETTINGS + Settings_path.SETTINGS_DELETE_ACCOUNT)}>
                         Удалить учетную запись
                     </button>
                 </footer>
             </main>
             <aside className={settings_scss.hidden_aside}></aside>
 
-            {pathname === Settings_path.SETTINGS_DELETE_ACCOUNT ?
-                <DeleteAccountComponent/>
+            {lastPathname === Settings_path.SETTINGS_DELETE_ACCOUNT ?
+                <DeleteAccountContainer/>
                 : null}
         </section>
 
