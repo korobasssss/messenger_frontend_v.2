@@ -3,3 +3,5 @@ import {Main_messageContainer} from "@/app/components/auth/account/Main_messageC
 const ChangeEmailPage = () => {
     return <Main_messageContainer/>
 }
+
+export default ChangeEmailPage

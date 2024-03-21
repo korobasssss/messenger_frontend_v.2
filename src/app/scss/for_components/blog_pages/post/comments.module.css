@@ -2,6 +2,7 @@
   display: flex;
   flex-flow: column;
   gap: 25px;
+  padding: 25px 0;
 }
 
 /*# sourceMappingURL=comments.module.css.map */

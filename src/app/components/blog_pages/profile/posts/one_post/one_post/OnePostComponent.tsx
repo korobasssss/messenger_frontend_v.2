@@ -7,48 +7,65 @@ import '@/app/scss/global/globals.scss'
 import one_post_scss from '@/app/scss/for_components/blog_pages/post/one_post.module.scss'
 import {useRouter} from "next/navigation";
 import {Profile_path} from "@/app/paths/profile";
-import {OnePostInterfaces, OnePostUserDataInterface, PostPhotoInterface} from "@/app/interfaces/posts/postsInterface";
+import {
+    OnePostInterfacesComponent,
+    OnePostUserDataInterface,
+    PostPhotoInterface
+} from "@/app/interfaces/posts/postsInterfaceComponent";
 import TimeComponent from "@/app/components/blog_pages/time/TimeComponent";
 import default_avatar from "@/assets/common/default_avatar.svg";
+import delete_icon from '@/assets/icons/post/delete_icon.svg'
+import Cookies from "js-cookie";
 
-export const OnePostComponent = (props: OnePostInterfaces & OnePostUserDataInterface) => { // edit or delete post
-    const router = useRouter()
+export const OnePostComponent = (props: OnePostInterfacesComponent & OnePostUserDataInterface) => {
 
     return (
         <section className={one_post_scss.route}>
-            <header className={one_post_scss.header}>
-                {props.avatarUrl !== '' ?
-                    <Image loader={() => props.avatarUrl}
-                           src={props.avatarUrl}
-                           className={one_post_scss.avatar} alt={'user avatar'}
-                           width={'0'} height={'0'}/>
-                    :
-                    <Image src={default_avatar}
-                           className={one_post_scss.avatar} alt={'user avatar'}
-                           width={'0'} height={'0'}/>
-                }
-                <section className={one_post_scss.name}>
-                    <div className={'name_small'}>{props.name}</div>
-                    <div className={'nickname'}>@{props.nickname}</div>
+            <header className={one_post_scss.main_header}>
+                <section className={one_post_scss.header}>
+                    {props.avatarUrl !== '' ?
+                        <Image loader={() => props.avatarUrl}
+                               src={props.avatarUrl}
+                               className={one_post_scss.avatar} alt={'user avatar'}
+                               width={'0'} height={'0'}/>
+                        :
+                        <Image src={default_avatar}
+                               className={one_post_scss.avatar} alt={'user avatar'}
+                               width={'0'} height={'0'}/>
+                    }
+                    <section className={one_post_scss.name}>
+                        <div className={'name_small'}>{props.name}</div>
+                        <div className={'nickname'}>@{props.nickname}</div>
+                    </section>
                 </section>
+                {Cookies.get('id_current') === Cookies.get('id')  ?
+                <section className={one_post_scss.edit}>
+                    <button className={'button_3rd_plane ' + one_post_scss.edit_button}
+                            onClick={() => props.setIsButtonDeletePostPressed(true)}>
+                        <Image src={delete_icon} alt={'delete'} width={0} height={0}/>
+                    </button>
+                </section>
+                : null}
             </header>
-            <main className={one_post_scss.post_data}>
-                <ul className={one_post_scss.post_photos356}>
-                    {props.onePost.photoUrl.map((onePhoto: PostPhotoInterface) => {
-                        return (
-                            <li key={onePhoto.photoId}>
-                                <Image loader={() => onePhoto.url}
-                                       src={onePhoto.url} className={one_post_scss.post_photo}
-                                       alt={'post photo'} width={'0'} height={'0'}/>
-                            </li>
-                        )
-                    })}
-                </ul>
-                <p>{props.onePost.text}</p>
+            <main className={one_post_scss.main}>
+                <section className={one_post_scss.post_data}>
+                    <ul className={one_post_scss.post_photos356}>
+                        {props.onePost.photoUrl.map((onePhoto: PostPhotoInterface) => {
+                            return (
+                                <li key={onePhoto.photoId}>
+                                    <Image loader={() => onePhoto.url}
+                                           src={onePhoto.url} className={one_post_scss.post_photo}
+                                           alt={'post photo'} width={'0'} height={'0'}/>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                    <p>{props.onePost.text}</p>
+                </section>
                 <footer className={one_post_scss.footer}>
                     <section className={one_post_scss.buttons}>
                         <button className={'button_3rd_plane ' + one_post_scss.button}
-                                onClick={() => props.likePost(props.onePost.postId)}>
+                                onClick={() => props.setIsButtonLikePostPressed(true)}>
                             {props.onePost.isLiked ?
                                 <Image src={like_icon} alt={'not like'}/>
                                 :
@@ -57,7 +74,7 @@ export const OnePostComponent = (props: OnePostInterfaces & OnePostUserDataInter
                             <div>{props.onePost.likeCount}</div>
                         </button>
                         <button className={'button_3rd_plane ' + one_post_scss.button}
-                                onClick={() => router.push(Profile_path.PROFILE_ONE_POST)}>
+                                onClick={() => props.toOnePost()}>
                             <Image src={comment_icon} alt={'comment'}/>
                             <div>{props.onePost.commentCount}</div>
                         </button>

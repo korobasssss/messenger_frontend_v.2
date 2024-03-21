@@ -10,11 +10,6 @@ export const Paths= {
     BLOG: '/blog',
     FILE: '/file'
 }
-// let tokenMain = ''
-// export const setToken = (token: string) => {
-//     tokenMain = token
-// }
-
 export const instanceAuth = axios.create({
     baseURL: Paths.BASE,
     headers: {

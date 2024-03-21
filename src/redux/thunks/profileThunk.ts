@@ -34,7 +34,7 @@ export const profileThunk = {
         }
     },
 
-    ChangeProfileData(input_name: string, input_bio: string, router: AppRouterInstance) {
+    ChangeProfileData(input_name: string, input_bio: string, router: AppRouterInstance, flag: boolean) {
         return (dispatch: Dispatch) => {
             ProfileAPI.ChangeProfileDataAPI({
                 input_name: input_name,
@@ -45,7 +45,10 @@ export const profileThunk = {
                     case 200 : {
                         dispatch(setName(input_name))
                         dispatch(setBio(input_bio))
-                        router.push(MAIN_PATH + Cookies.get('id_current') + Main_path.PROFILE)
+                        if (!flag) {
+                            router.push(MAIN_PATH + Cookies.get('id_current') + Main_path.PROFILE)
+                        }
+
                         break
                     }
                     case 400 : {

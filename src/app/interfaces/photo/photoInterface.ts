@@ -1,4 +1,4 @@
-import {OnePostInterface} from "@/app/interfaces/posts/postsInterface";
+import {OnePostInterface} from "@/app/interfaces/posts/postsInterfaceComponent";
 
 export interface OnePhoto {
     postId: string,
@@ -18,10 +18,18 @@ export interface Photo_profileInterface {
     countPhoto: number,
 
     getPhoto(): void
+    getPhotoCount(): void
 }
 export interface Photo_profileInterfaceComponent {
     photoUrl: OnePhoto[],
     countPhoto: number
+}
+export interface PhotoInterfaceComponent {
+    photoUrl: OnePhoto[],
+    countPhoto: number
+
+    toOnePhoto(postId: string, photoId: string, photoUrl: string): void
+    toProfile(): void
 }
 
 
@@ -35,7 +43,7 @@ export interface NameInterface {
 }
 
 export interface OnePhotoInterfaceState {
-    post: {
+    posts: {
         onePostOpened: OnePostInterface
     }
 }
@@ -58,11 +66,14 @@ export interface UserDataForPostInterface {
 export interface OnePhotoInterface {
     onePostOpened: OnePostInterface
 
+    getPosts(): void
     getOnePost(postId: string): void
     likePost(postId: string): void
 }
 
 export interface OnePostComponentInterface {
     onePostOpened: OnePostInterface
-    likePost(postIs: string): void
+    toProfile() : void
+
+    setAction(flag: boolean): void
 }

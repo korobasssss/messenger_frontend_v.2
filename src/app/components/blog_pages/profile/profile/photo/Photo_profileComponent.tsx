@@ -25,7 +25,8 @@ export const Photo_profileComponent = (props: Photo_profileInterfaceComponent) =
                             return (
                                 <li key={onePhoto.url}>
                                     <Image loader={() => onePhoto.url}
-                                           src={onePhoto.url} className={aside_scss.image} alt={'user post photo'}/>
+                                           src={onePhoto.url} className={aside_scss.image}
+                                           alt={'user post photo'} width={0} height={0}/>
                                 </li>
                             )
                         }

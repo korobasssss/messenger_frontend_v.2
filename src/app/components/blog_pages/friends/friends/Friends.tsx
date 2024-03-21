@@ -1,10 +1,14 @@
 import {FriendsComponent} from "@/app/components/blog_pages/friends/friends/FriendsComponent";
-import {HeaderComponentInterface, UsersInterfaceComponent} from "@/app/interfaces/friends/friendsInterface";
+import {
+    HeaderComponentInterface,
+    UsersInterface,
+    UsersInterfaceComponent
+} from "@/app/interfaces/friends/friendsInterface";
 import {useEffect, useState} from "react";
 import {usePathname} from "next/navigation";
 import {Friends_path} from "@/app/paths/friends";
 
-export const Friends = (props: UsersInterfaceComponent & HeaderComponentInterface) => {
+export const Friends = (props: UsersInterface & HeaderComponentInterface) => {
     const pathname = usePathname().split('/')
     const currPathname = '/' + pathname[pathname.length - 1]
 

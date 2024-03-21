@@ -8,6 +8,17 @@ import Cookies from "js-cookie";
 import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {Auth_path} from "@/app/paths/auth";
 import {Main_path, MAIN_PATH_FOR_AUTH} from "@/app/paths/main";
+import App from "next/app";
+import {instance} from "@/api/api_init";
+
+export const CookieClear = () => {
+    Cookies.remove('token')
+    Cookies.remove('id')
+    Cookies.remove('id_current')
+    Cookies.remove('id_post')
+    Cookies.remove('id_photo')
+    Cookies.remove('email')
+}
 
 export const AuthThunk = {
     Authorization(input_email: string, input_nickname: string, input_password: string, router: AppRouterInstance ) {
@@ -18,8 +29,8 @@ export const AuthThunk = {
                 switch (response[0]) {
                     case 200 : {
                         dispatch(clearMessage())
+                        instance.defaults.headers.common['Authorization'] = `Bearer ${response[1].token}`;
                         Cookies.set('token', response[1].token)
-
                         Cookies.set('id', response[1].id)
                         Cookies.set('id_current', response[1].id)
                         router.push(MAIN_PATH_FOR_AUTH +`/${response[1].id}` + Main_path.PROFILE)
@@ -146,7 +157,7 @@ export const AuthThunk = {
             }).then(response => {
                 switch (response[0]) {
                     case 200 : {
-                        dispatch(setMessage('На Вашу почту было отправлено письмо с подтверждением бла бла бла'))
+                        dispatch(setMessage('На Вашу почту было отправлено письмо с подтверждением почты'))
                         Cookies.set('newEmail', input_email)
                         break
                     }
@@ -181,6 +192,8 @@ export const AuthThunk = {
                     case 200 : {
                         dispatch(setMessage('Пароль был успешно изменен!'))
                         Cookies.set('token', response[1])
+                        instance.defaults.headers.common['Authorization'] = `Bearer ${response[1].token}`;
+                        Cookies.set('email', Cookies.get('newEmail') as string)
                         Cookies.remove('newEmail')
                         break
                     }
@@ -203,6 +216,7 @@ export const AuthThunk = {
             }).then(response => {
                 switch (response[0]) {
                     case 200 : {
+                        Cookies.set('email', response[1].email)
                         dispatch(setNickname(response[1].nickname))
                         dispatch(setEmail(response[1].email))
                         break
@@ -216,26 +230,6 @@ export const AuthThunk = {
         }
     },
 
-    // AuthGetMyData() {
-    //     return (dispatch: Dispatch) => {
-    //         AuthAPI.AuthDataAxios({
-    //             id: localStorage.getItem('id') as string
-    //         }).then(response => {
-    //             dispatch(setIsFetching(false))
-    //             switch (response[0]) {
-    //                 case 200 : {
-    //                     dispatch(setMyNickname(response[1].nickname))
-    //                     break
-    //                 }
-    //                 case 401 : {
-    //                     localStorage.setItem('token', '')
-    //                     break
-    //                 }
-    //             }
-    //         })
-    //     }
-    // },
-
     GetCodeForChangingPassword(input_password: string) {
         return (dispatch : Dispatch) => {
             AuthAPI.GetCodeForChangingPasswordAPI( {
@@ -245,6 +239,7 @@ export const AuthThunk = {
                     case 200 : {
                         if (response[1] === "Check your mailbox to confirm new password") {
                             dispatch(setMessage('На Вашу почту был отправлен одноразовый код'))
+                            Cookies.set('isPasswordTrue', 'true')
                         }
                         break
                     }
@@ -270,39 +265,41 @@ export const AuthThunk = {
         }
     },
 
-    ChangePassword(input_code: string, input_password: string) {
+    ChangePassword(input_code: string, input_password: string, newPasswordConfirm: string) {
         return (dispatch: Dispatch) => {
-            AuthAPI.ChangePasswordAPI(
-                {
-                    input_code, input_password
-                }
-            ).then(response => {
-                switch (response[0]) {
-                    case 200 : {
-                        if (response[1].split(' ').length === 2) {
-                            Cookies.set('token', response[1].split(' ')[1])
-                        } else {
+            if (input_password === newPasswordConfirm) {
+                AuthAPI.ChangePasswordAPI(
+                    {
+                        input_code, input_password
+                    }
+                ).then(response => {
+                    switch (response[0]) {
+                        case 200 : {
                             Cookies.set('token', response[1])
+                            instance.defaults.headers.common['Authorization'] = `Bearer ${response[1].token}`;
+                            dispatch(setMessage('Пароль успешно изменен'))
+                            break
                         }
-                        dispatch(clearMessage())
-                        break
-                    }
-                    case 400 : {
-                        if (response[1] === "User doesn't exist") {
-                        } else if (response[1] === "Code doesn't match") {
-                            dispatch(setMessage('Неверный код'))
-                        } else if (response[1] === "The code is not relevant") {
-                            dispatch(setMessage('Истекло время использования кода'))
+                        case 400 : {
+                            if (response[1] === "User doesn't exist") {
+                            } else if (response[1] === "Code doesn't match") {
+                                dispatch(setMessage('Неверный код'))
+                            } else if (response[1] === "The code is not relevant") {
+                                dispatch(setMessage('Истекло время использования кода'))
+                            }
+                            break
                         }
-                        break
+                        case 401 : {
+                            CookieClear()
+                            break
+                        }
+                        default:
                     }
-                    case 401 : {
-                        CookieClear()
-                        break
-                    }
-                    default:
-                }
-            })
+                })
+            } else {
+                dispatch(setMessage('Пароли не совпадают'))
+            }
+
         }
     },
 
@@ -370,19 +367,17 @@ export const AuthThunk = {
         }
     },
 
-    LogoutClear() {
+    SendMessage(message: string) {
         return (dispatch: Dispatch) => {
-            dispatch(setData({
-                email: '',
-                nickname: '',
-                password: ''}))
-            dispatch(setUserData('', '', '', '', '', ''))  // todo redo
+            dispatch(setMessage(message))
+        }
+    },
+
+    LogOut(router: AppRouterInstance) {
+        return (dispatch: Dispatch) => {
+            CookieClear()
+            router.push(Auth_path.LOGIN)
         }
     }
 }
 
-export const CookieClear =() => {
-    Cookies.remove('token')
-    Cookies.remove('id')
-    Cookies.remove('id_current')
-}

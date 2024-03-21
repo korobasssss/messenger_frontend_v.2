@@ -11,7 +11,6 @@ import {useState} from "react";
 import one_post_scss from "@/app/scss/for_components/blog_pages/post/one_post.module.scss";
 import {HeaderComponentInterface} from "@/app/interfaces/profile/profileInterface";
 import Cookies from "js-cookie";
-import edit_profile_scss from "@/app/scss/for_components/blog_pages/edit_profile/edit_profile.module.scss";
 
 export const Header_profileComponent = (props: HeaderComponentInterface) => {
     const [isButtonHover, setButtonHover] = useState(false)

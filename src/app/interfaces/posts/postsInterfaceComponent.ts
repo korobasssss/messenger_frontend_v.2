@@ -1,3 +1,5 @@
+import {SetPhotoInterface} from "@/api/photo/photoIntefraceAPI";
+
 export interface PostPhotoInterface {
     url: string,
     photoId: string
@@ -21,6 +23,16 @@ export interface PostsInterfaceState {
 
 export interface PostsInterface {
     posts: []
+
+    getPhoto(): void
+    getCountPhoto(): void
+    getPosts(): void
+}
+
+export interface PostsInterfaceComponent {
+    posts: []
+
+    setAction(flag: boolean): void
 }
 
 export interface OnePostUserDataInterfaceState {
@@ -43,4 +55,15 @@ export interface OnePostInterfaces {
     onePost: OnePostInterface,
     deletePost(postId: string): void
     likePost(postId: string): void
+
+    setAction(flag: boolean): void
+}
+
+export interface OnePostInterfacesComponent {
+    onePost: OnePostInterface
+
+    setIsButtonDeletePostPressed(flag: boolean): void
+    setIsButtonLikePostPressed(flag: boolean): void
+
+    toOnePost(): void
 }

@@ -9,6 +9,8 @@ import {UsersInterfaceState} from "@/app/interfaces/friends/friendsInterface";
 import {usersThunk} from "@/redux/thunks/usersThunk";
 import {FriendsComponent} from "@/app/components/blog_pages/friends/friends/FriendsComponent";
 import {Friends} from "@/app/components/blog_pages/friends/friends/Friends";
+import {NavigationComponent} from "@/app/components/blog_pages/navigation/NavigationComponent";
+import {AuthThunk} from "@/redux/thunks/authThunk";
 
 const mapStateToProps = (state: UsersInterfaceState ) => {
     return {
@@ -20,13 +22,7 @@ const mapStateToProps = (state: UsersInterfaceState ) => {
 }
 
 const mapDispatchToProps = {
-    getFriends: usersThunk.GetFriends,
-    getSubscriptions: usersThunk.GetSubscriptions,
-    getSubscribers: usersThunk.GetSubscribers,
-    getSearch: usersThunk.GetSearch,
-    getCountFriends: usersThunk.GetFriendsCount,
-    getCountSubscriptions: usersThunk.GetSubscriptionsCount,
-    getCountSubscribers: usersThunk.GetSubscribersCount
+    logout: AuthThunk.LogOut
 }
 
-export const FriendsContainer = connect(mapStateToProps, mapDispatchToProps)(Friends)
+export const NavigationContainer = connect(mapStateToProps, mapDispatchToProps)(NavigationComponent)

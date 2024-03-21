@@ -25,6 +25,8 @@ $button-padding: 10px 20px;
 
 $delete-button-margin: 25px;
 
+$message-weight: 600;
+
 
 .page {
   display: flex;
@@ -120,4 +122,9 @@ $delete-button-margin: 25px;
 
 .hidden_aside {
   width: 255px;
+}
+
+.message {
+  color: $red-color;
+  font-weight: $message-weight;
 }

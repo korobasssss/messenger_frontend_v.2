@@ -1,39 +1,55 @@
 import {
     PostDataComponent_forModalWindow
 } from "@/app/components/blog_pages/profile/posts/one_post/post_in_photo_section/PostDataComponent_forModalWindow";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {OnePhotoInterface, UserDataForPostInterface} from "@/app/interfaces/photo/photoInterface";
 import {
     OneOpenedPostComponent
 } from "@/app/components/blog_pages/profile/posts/one_post/post_in_modal/OneOpenedPostComponent";
-import {usePathname} from "next/navigation";
-import {Photo_path} from "@/app/paths/photo";
+import {usePathname, useRouter} from "next/navigation";
 import {Profile_path} from "@/app/paths/profile";
+import Cookies from "js-cookie";
+import {Main_path, MAIN_PATH} from "@/app/paths/main";
 
 export const OneOpenedPost = (props: OnePhotoInterface & UserDataForPostInterface) => {
-    const pathname = usePathname()
+    const pathname = usePathname().split('/')
+    const currPathname = '/' + pathname[4]
 
+    const [isAction, setIsAction] = useState(false)
+
+    const router = useRouter()
 
     useEffect(() => {
-        props.getOnePost('1') // todo пост тоже какот из url брать
-    }, [props.onePostOpened])
+        props.getOnePost(Cookies.get('id_post') as string)
+    }, [])
 
-    const likePost = (postId: string) => {
-        props.likePost(postId)
+    useEffect(() => {
+        if (isAction) {
+            props.getOnePost(Cookies.get('id_post') as string)
+        }
+        setIsAction(false)
+    }, [isAction])
+
+
+    const toProfile = () => {
+        Cookies.remove('id_post')
+        router.push(MAIN_PATH + Cookies.get('id_current') + Main_path.PROFILE)
     }
 
-    if (pathname === Photo_path.ONE_PHOTO) {
+    if (currPathname === Main_path.PHOTO || currPathname === '/' + Cookies.get('id_photo')) {
         return <PostDataComponent_forModalWindow onePostOpened={props.onePostOpened}
-                                                 likePost={likePost}
                                                  avatarUrl={props.avatarUrl}
                                                  name={props.name}
-                                                 nickname={props.nickname}/>
-    } else if (pathname === Profile_path.PROFILE_ONE_POST) {
+                                                 nickname={props.nickname}
+                                                 toProfile={toProfile}
+                                                 setAction={setIsAction}/>
+    } else if (currPathname === Profile_path.PROFILE_ONE_POST) {
         return <OneOpenedPostComponent onePostOpened={props.onePostOpened}
-                                          likePost={likePost}
-                                          avatarUrl={props.avatarUrl}
-                                          name={props.name}
-                                          nickname={props.nickname}/>
+                                       avatarUrl={props.avatarUrl}
+                                       name={props.name}
+                                       nickname={props.nickname}
+                                       toProfile={toProfile}
+                                       setAction={setIsAction}/>
     }
 
 }

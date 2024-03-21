@@ -6,20 +6,24 @@ import Image from "next/image";
 import {usePathname, useRouter} from "next/navigation";
 import {Profile_path} from "@/app/paths/profile";
 import {Photo_path} from "@/app/paths/photo";
-import {NameInterface, OnePhoto, Photo_profileInterfaceComponent} from "@/app/interfaces/photo/photoInterface";
+import {
+    NameInterface,
+    OnePhoto,
+    Photo_profileInterfaceComponent,
+    PhotoInterfaceComponent
+} from "@/app/interfaces/photo/photoInterface";
 import {OnePhotoComponent} from "@/app/components/blog_pages/profile/photo/onePhoto/OnePhotoComponent";
 import {Main_path, MAIN_PATH} from "@/app/paths/main";
 import Cookies from "js-cookie";
 
-export const PhotoComponent = (props: Photo_profileInterfaceComponent & NameInterface) => {
-    const router = useRouter()
-    const pathname = usePathname()
+export const PhotoComponent = (props: PhotoInterfaceComponent & NameInterface) => {
+    const pathname = usePathname().split('/')
 
     return (
         <main className={photo_scss.page}>
             <header className={photo_scss.header}>
                 <button className={'button_3rd_plane'}
-                         onClick={() => router.push(MAIN_PATH + Cookies.get('id_current') + Main_path.PROFILE)}>
+                         onClick={() => props.toProfile()}>
                     <Image src={back_icon} alt={'back icon'}/>
                 </button>
 
@@ -34,7 +38,7 @@ export const PhotoComponent = (props: Photo_profileInterfaceComponent & NameInte
                     return (
                         <li key={onePhoto.url}>
                             <section className={photo_scss.one_photo}
-                                     onClick={() => router.push(Photo_path.ONE_PHOTO)}>
+                                     onClick={() => props.toOnePhoto(onePhoto.postId, onePhoto.photoId, onePhoto.url)}>
                                 <Image loader={() => onePhoto.url}
                                        src={onePhoto.url} alt={'user photo'} width={'0'} height={'0'}/>
                             </section>
@@ -46,8 +50,7 @@ export const PhotoComponent = (props: Photo_profileInterfaceComponent & NameInte
                     <p>Нет фото...</p>
                 </section>}
             </ul>
-
-            {pathname === Photo_path.ONE_PHOTO ? <OnePhotoComponent/> : null}
+            {pathname[pathname.length - 1] === Cookies.get('id_photo') ? <OnePhotoComponent/> : null}
         </main>
     )
 }

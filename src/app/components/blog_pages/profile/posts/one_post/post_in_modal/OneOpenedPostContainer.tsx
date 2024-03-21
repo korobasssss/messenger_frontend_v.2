@@ -5,7 +5,7 @@ import {OneOpenedPost} from "@/app/components/blog_pages/profile/posts/one_post/
 
 const mapStateToProps = (state:  OnePhotoInterfaceState & UserDataForPostInterfaceState) => {
     return {
-        onePostOpened: state.post.onePostOpened,
+        onePostOpened: state.posts.onePostOpened,
 
         avatarUrl: state.profile.avatarUrl,
         name: state.profile.avatarUrl,
@@ -15,6 +15,7 @@ const mapStateToProps = (state:  OnePhotoInterfaceState & UserDataForPostInterfa
 
 const mapDispatchToProps = {
     getOnePost: postsThunk.GetOnePostData,
+    getPosts: postsThunk.GetPosts,
     likePost: postsThunk.LikePost
 }
 

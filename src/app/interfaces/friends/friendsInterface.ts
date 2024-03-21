@@ -50,6 +50,10 @@ export interface UsersInterfaceState {
 
 }
 
+export interface UsersInterface {
+    users: userShortInfo[],
+}
+
 export interface UsersInterfaceComponent {
     users: userShortInfo[],
     setButtonActionPressed(button: boolean): void

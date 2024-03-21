@@ -12,7 +12,8 @@ const mapStateToProps = (state: Photo_profileInterfaceState & NameInterfaceState
 }
 
 const mapDispatchToProps = {
-    getPhoto: photoThunk.GetPhoto
+    getPhoto: photoThunk.GetPhoto,
+    getPhotoCount : photoThunk.GetPhotoCount
 }
 
 export const PhotoContainer = connect(mapStateToProps, mapDispatchToProps)(Photo)

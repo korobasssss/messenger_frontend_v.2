@@ -12,9 +12,9 @@ export const EditProfile = (props: EditProfileInterface) => {
     const [input_bio, setInput_bio] = useState(props.bio)
 
     const [input_avatarUrl, setInput_avatarUrl] = useState(props.avatarUrl)
-    const [input_avatarFile, setInput_avatarFile] = useState<File | null>(null);
+    const [input_avatarFile, setInput_avatarFile] = useState<File | string>('');
     const [input_coverUrl, setInput_coverUrl] = useState(props.coverUrl)
-    const [input_coverFile, setInput_coverFile] = useState<File | null>(null);
+    const [input_coverFile, setInput_coverFile] = useState<File | string>('');
 
     const [isAvatarDeleteFile, setAvatarDeleteFile] = useState(false)
     const [isCoverDeleteFile, setCoverDeleteFile] = useState(false)
@@ -33,6 +33,7 @@ export const EditProfile = (props: EditProfileInterface) => {
 
     useEffect(() => {
         if (isButtonSavePressed) {
+            console.log(input_avatarFile, input_coverFile)
             if (isAvatarDeleteFile && props.avatarUrl !== '') {
                 props.deleteAvatar(props.avatarUrl)
                 setAvatarDeleteFile(false)
@@ -86,14 +87,14 @@ export const EditProfile = (props: EditProfileInterface) => {
     useEffect(() => {
         if (isAvatarDeleteFile) {
             setInput_avatarUrl('')
-            setInput_avatarFile(null)
+            setInput_avatarFile('')
         }
     }, [isAvatarDeleteFile]);
 
     useEffect(() => {
         if (isCoverDeleteFile) {
             setInput_coverUrl('')
-            setInput_coverFile(null)
+            setInput_coverFile('')
         }
     }, [isCoverDeleteFile]);
 

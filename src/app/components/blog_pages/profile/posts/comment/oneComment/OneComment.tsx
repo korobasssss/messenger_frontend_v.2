@@ -1,27 +1,33 @@
-import Image from "next/image";
-import default_avatar from '@/assets/common/default_avatar.svg'
-
-import edit_icon from '@/assets/icons/post/edit_icon.svg'
-import {useState} from "react";
-import one_post_scss from "@/app/scss/for_components/blog_pages/post/one_post.module.scss";
-import not_like_icon from "@/assets/icons/post/not_like_icon.svg";
-import {EditComponent} from "@/app/components/blog_pages/profile/posts/comment/edit/EditComponent";
-import one_comment_scss from "@/app/scss/for_components/blog_pages/post/one_comment.module.scss";
+import {useEffect, useState} from "react";
 import '@/app/scss/global/globals.scss'
 import {OneCommentComponent} from "@/app/components/blog_pages/profile/posts/comment/oneComment/OneCommentComponent";
 import {OneCommentInterface} from "@/app/interfaces/comments/commentsInterface";
 
 export const OneComment = (props: OneCommentInterface) => {
+    const [isButtonLikeCommentClicked, setButtonLikeCommentClicked] = useState(false)
+    const [isButtonDeleteCommentClicked, setButtonDeleteCommentClicked] = useState(false)
 
-    const likeComment = (commentId: string) => {
-        props.likeComment(commentId)
-    }
 
-    const deleteComment = (commentId: string) => {
-        props.deleteComment(commentId)
-    }
+    useEffect(() => {
+        if (isButtonDeleteCommentClicked) {
+            props.deleteComment(props.oneComment.commentId)
+            props.setButtonClicked(true)
+
+        }
+        setButtonDeleteCommentClicked(false)
+    }, [isButtonDeleteCommentClicked]);
+
+    useEffect(() => {
+        if (isButtonLikeCommentClicked) {
+            props.likeComment(props.oneComment.commentId)
+            props.setButtonClicked(true)
+        }
+        setButtonLikeCommentClicked(false)
+    }, [isButtonLikeCommentClicked]);
+
 
     return <OneCommentComponent oneComment={props.oneComment}
-                                likeComment={likeComment}
-                                deleteComment={deleteComment}/>
+                                setButtonClicked={props.setButtonClicked}
+                                setButtonDeleteCommentClicked={setButtonDeleteCommentClicked}
+                                setButtonLikeCommentClicked={setButtonLikeCommentClicked}/>
 }

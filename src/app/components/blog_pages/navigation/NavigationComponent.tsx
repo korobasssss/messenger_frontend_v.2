@@ -13,15 +13,13 @@ import settings_icon from '@/assets/icons/nav/settings_icon.svg'
 import more_icon from '@/assets/icons/nav/more_icon.svg'
 import more_arrow_close_icon from '@/assets/icons/nav/more_arrow_close_icon.svg'
 import more_arrow_open_icon from '@/assets/icons/nav/more_arrow_open_icon.svg'
-import {Profile_path} from "@/app/paths/profile";
 import {Friends_path} from "@/app/paths/friends";
-import {Settings_path} from "@/app/paths/settings";
-import {Auth_path} from "@/app/paths/auth";
 import {useState} from "react";
 import {Main_path, MAIN_PATH_MY} from "@/app/paths/main";
 import Cookies from "js-cookie";
+import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 
-export const NavigationComponent = () => { // todo потом добавить все разделы в редакс вместе с иконками (все кроме еще)
+export const NavigationComponent = (props: {logout(router: AppRouterInstance): void}) => { // todo потом добавить все разделы в редакс вместе с иконками (все кроме еще)
     const router = useRouter()
     const [isMoreSectionOpened, setMoreSectionOpened] = useState(false)
 
@@ -80,7 +78,7 @@ export const NavigationComponent = () => { // todo потом добавить �
                     </button>
                     {isMoreSectionOpened ?
                         <section className={nav_scss.more_section}>
-                            <button className={'button_3rd_plane ' + nav_scss.enter} onClick={() => router.push(Auth_path.LOGIN)}>
+                            <button className={'button_3rd_plane ' + nav_scss.enter} onClick={() => props.logout(router)}>
                                 Выйти
                             </button>
                         </section>
