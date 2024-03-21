@@ -340,7 +340,7 @@ const AuthThunk = {
         }
     },
 
-    DeleteAccount(input_password: string, router: AppRouterInstance) { // todo !!!!!!!!
+    DeleteAccount(input_password: string, router: AppRouterInstance) {
         return (dispatch: Dispatch) => {
             AuthAPI.DeleteAccountAPI({
                 input_password
