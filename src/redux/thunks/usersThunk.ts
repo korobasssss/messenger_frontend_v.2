@@ -10,6 +10,7 @@ import {UsersAPI} from "@/api/users/usersAPI";
 import {CookieClear} from "@/redux/thunks/authThunk";
 import Cookies from "js-cookie";
 import {Actions, Status} from "@/app/interfaces/friends/friendsInterface";
+import {Cookie_names} from "@/redux/messages/cookie_names";
 
 export const usersThunk = {
 
@@ -94,6 +95,7 @@ export const usersThunk = {
                 idOtherUser: id,
                 action: action,
             }).then(response => {
+                debugger
                 switch (response[0]) {
                     case 200 : {
                         switch (action) {
@@ -121,7 +123,7 @@ export const usersThunk = {
                         break
                     }
                     case 401 : {
-                        Cookies.remove('token')
+                        CookieClear()
                         break
                     }
                     case 404 : {
@@ -136,25 +138,6 @@ export const usersThunk = {
             })
         }
     },
-
-    // GetUserFromListAuthData(id: string) {
-    //     return (dispatch: Dispatch) => {
-    //         AuthAPI.AuthDataAPI({
-    //             id: id
-    //         }).then(response => {
-    //             switch (response[0]) {
-    //                 case 200 : {
-    //                     dispatch(setUserNickname(id, response[1].nickname))
-    //                     break
-    //                 }
-    //                 case 401 : {
-    //                     localStorage.setItem('token', '') // no
-    //                     break
-    //                 }
-    //             }
-    //         })
-    //     }
-    // },
 
     GetFriends() {
         return (dispatch: Dispatch) => {

@@ -2,6 +2,7 @@ import {CommentsComponent} from "@/app/components/blog_pages/profile/posts/comme
 import {CommentsInterface} from "@/app/interfaces/comments/commentsInterface";
 import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
+import {Cookie_names} from "@/redux/messages/cookie_names";
 
 export const Comments = (props: CommentsInterface) => {
     const [input_comment, setInput_comment] = useState('')
@@ -10,13 +11,13 @@ export const Comments = (props: CommentsInterface) => {
     const [isButtonSetCommentClicked, setButtonSetCommentClicked] = useState(false)
 
     useEffect(() => {
-        props.getComments(Cookies.get('id_post') as string)
+        props.getComments(Cookies.get(Cookie_names.ID_POST) as string)
     }, [])
 
     useEffect(() => {
         if (isButtonClicked) {
             setTimeout(() => {
-                props.getComments(Cookies.get('id_post') as string)
+                props.getComments(Cookies.get(Cookie_names.ID_POST) as string)
             }, 100)
         }
         setButtonClicked(false)

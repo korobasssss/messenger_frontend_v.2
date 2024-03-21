@@ -11,6 +11,7 @@ import {
     EditAvatarCoverButtonsComponent
 } from "@/app/components/blog_pages/profile/edit/EditAvatarCoverButtonsComponent";
 import {EditProfileComponentInterface} from "@/app/interfaces/profile/edit_profileInterface";
+import settings_scss from "@/app/scss/for_components/blog_pages/settings/settings.module.scss";
 
 export const EditProfileComponent = (props: EditProfileComponentInterface) => {
     const [isEditAvatarShow, setEditAvatarShow] = useState(false)
@@ -23,7 +24,7 @@ export const EditProfileComponent = (props: EditProfileComponentInterface) => {
             </section>
             <section className={edit_profile_scss.route}>
                 <header>
-                    <section className={edit_profile_scss.cover_section} // todo аватар и ковер
+                    <section className={edit_profile_scss.cover_section}
                              onMouseEnter={() => setEditCoverShow(true)}
                              onMouseLeave={() => setEditCoverShow(false)}>
                         {props.input_coverUrl !== '' ?
@@ -90,8 +91,9 @@ export const EditProfileComponent = (props: EditProfileComponentInterface) => {
                               onChange={(event) =>
                                   props.setInput_bio(event.target.value)}/>
                 </legend>
+                <p className={settings_scss.message}>{props.message}</p>
                 <footer className={'footer_buttons'}>
-                    <button className={'button_cancel'}
+                <button className={'button_cancel'}
                             onClick={() => props.toProfile()}>
                         Отменить
                     </button>

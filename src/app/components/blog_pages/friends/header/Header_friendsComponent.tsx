@@ -9,6 +9,7 @@ import {Friends_path} from "@/app/paths/friends";
 import {HeaderComponentInterface} from "@/app/interfaces/friends/friendsInterface";
 import {Main_path, MAIN_PATH} from "@/app/paths/main";
 import Cookies from "js-cookie";
+import {Cookie_names} from "@/redux/messages/cookie_names";
 
 export const Header_friendsComponent = (props: HeaderComponentInterface) => {
     const [isActiveIndex, setActiveIndex] = useState(-1)
@@ -17,27 +18,27 @@ export const Header_friendsComponent = (props: HeaderComponentInterface) => {
     useEffect(() => {
         switch (isActiveIndex) {
             case 0 : {
-                router.push(MAIN_PATH + Cookies.get('id_current') + Main_path.USERS + Friends_path.FRIENDS_USER)
+                router.push(MAIN_PATH + Cookies.get(Cookie_names.ID_CURRENT) + Main_path.USERS + Friends_path.FRIENDS_USER)
                 props.getFriends()
                 break
             }
             case 1 : {
-                router.push(MAIN_PATH + Cookies.get('id_current') + Main_path.USERS + Friends_path.SUBSCRIPTIONS_USER)
+                router.push(MAIN_PATH + Cookies.get(Cookie_names.ID_CURRENT) + Main_path.USERS + Friends_path.SUBSCRIPTIONS_USER)
                 props.getSubscribers()
                 break
             }
             case 2 : {
-                router.push(MAIN_PATH + Cookies.get('id_current') + Main_path.USERS + Friends_path.SUBSCRIBERS_USER)
+                router.push(MAIN_PATH + Cookies.get(Cookie_names.ID_CURRENT) + Main_path.USERS + Friends_path.SUBSCRIBERS_USER)
                 props.getSubscriptions()
                 break
             }
             case 3 : {
-                router.push(MAIN_PATH + Cookies.get('id_current') + Main_path.USERS + Friends_path.SEARCH)
+                router.push(MAIN_PATH + Cookies.get(Cookie_names.ID_CURRENT) + Main_path.USERS + Friends_path.SEARCH)
                 props.getSearch()
                 break
             }
         }
-
+        setActiveIndex(-1)
     }, [isActiveIndex, router, props])
 
     return ( // todo  я думаю тут также можно из store подтянуть данные чтобы красиво было

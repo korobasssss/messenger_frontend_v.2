@@ -4,13 +4,14 @@ import {useEffect} from "react";
 import {useRouter} from "next/navigation";
 import {Main_path, MAIN_PATH, MAIN_PATH_FOR_AUTH} from "@/app/paths/main";
 import Cookies from "js-cookie";
+import {Cookie_names} from "@/redux/messages/cookie_names";
 
 export const OneUser = (props: OneUserInterface) => {
     const router = useRouter()
 
     const toProfile = () => {
-        Cookies.set('id_current', props.oneUser.id)
-        router.push(MAIN_PATH_FOR_AUTH + '/' + Cookies.get('id_current') + Main_path.PROFILE)
+        Cookies.set(Cookie_names.ID_CURRENT, props.oneUser.id)
+        router.push(MAIN_PATH_FOR_AUTH + '/' + Cookies.get(Cookie_names.ID_CURRENT) + Main_path.PROFILE)
     }
 
     const action = (action: string) => {

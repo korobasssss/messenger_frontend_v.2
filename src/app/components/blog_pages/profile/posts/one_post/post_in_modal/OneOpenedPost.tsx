@@ -10,6 +10,7 @@ import {usePathname, useRouter} from "next/navigation";
 import {Profile_path} from "@/app/paths/profile";
 import Cookies from "js-cookie";
 import {Main_path, MAIN_PATH} from "@/app/paths/main";
+import {Cookie_names} from "@/redux/messages/cookie_names";
 
 export const OneOpenedPost = (props: OnePhotoInterface & UserDataForPostInterface) => {
     const pathname = usePathname().split('/')
@@ -20,23 +21,23 @@ export const OneOpenedPost = (props: OnePhotoInterface & UserDataForPostInterfac
     const router = useRouter()
 
     useEffect(() => {
-        props.getOnePost(Cookies.get('id_post') as string)
+        props.getOnePost(Cookies.get(Cookie_names.ID_POST) as string)
     }, [])
 
     useEffect(() => {
         if (isAction) {
-            props.getOnePost(Cookies.get('id_post') as string)
+            props.getOnePost(Cookies.get(Cookie_names.ID_POST) as string)
         }
         setIsAction(false)
     }, [isAction])
 
 
     const toProfile = () => {
-        Cookies.remove('id_post')
-        router.push(MAIN_PATH + Cookies.get('id_current') + Main_path.PROFILE)
+        Cookies.remove(Cookie_names.ID_POST)
+        router.push(MAIN_PATH + Cookies.get(Cookie_names.ID_CURRENT) + Main_path.PROFILE)
     }
 
-    if (currPathname === Main_path.PHOTO || currPathname === '/' + Cookies.get('id_photo')) {
+    if (currPathname === Main_path.PHOTO || currPathname === '/' + Cookies.get(Cookie_names.ID_PHOTO)) {
         return <PostDataComponent_forModalWindow onePostOpened={props.onePostOpened}
                                                  avatarUrl={props.avatarUrl}
                                                  name={props.name}

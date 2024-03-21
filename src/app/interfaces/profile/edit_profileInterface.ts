@@ -2,6 +2,8 @@ import React from "react";
 import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export interface EditProfileInterface {
+    message: string
+
     name: string,
     bio: string,
     avatarUrl: string,
@@ -17,9 +19,14 @@ export interface EditProfileInterface {
     deleteCover(deleteCoverUrl: string): void
     setAvatar(avatarUrl: File): void
     setCover(coverUrl: File): void
+
+    clearMessage(): void
+    setMessageThunk(message: string): void
 }
 
 export interface EditProfileComponentInterface {
+    message: string,
+
     input_name: string,
     input_bio: string,
     input_avatarUrl: string,

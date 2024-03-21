@@ -11,6 +11,7 @@ import {useState} from "react";
 import one_post_scss from "@/app/scss/for_components/blog_pages/post/one_post.module.scss";
 import {HeaderComponentInterface} from "@/app/interfaces/profile/profileInterface";
 import Cookies from "js-cookie";
+import {Cookie_names} from "@/redux/messages/cookie_names";
 
 export const Header_profileComponent = (props: HeaderComponentInterface) => {
     const [isButtonHover, setButtonHover] = useState(false)
@@ -49,7 +50,7 @@ export const Header_profileComponent = (props: HeaderComponentInterface) => {
                                 <div className={'nickname'}>@{props.nickname}</div>
                             </section>
                             <section>
-                                {Cookies.get('id_current') === Cookies.get('id') ?
+                                {Cookies.get(Cookie_names.ID_CURRENT) === Cookies.get(Cookie_names.ID) ?
                                     <button className={'button_3rd_plane ' + header_profile_scss.sent_request}
                                             onClick={() => props.editProfile()}>
                                         <Image src={settings_icon}

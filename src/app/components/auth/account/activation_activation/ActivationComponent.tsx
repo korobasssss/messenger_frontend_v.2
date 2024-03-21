@@ -5,7 +5,7 @@ import {useRouter} from "next/navigation";
 import {ActivationInterface, ActivationInterfaceComponent} from "@/app/interfaces/auth/authInterface";
 
 export const ActivationComponent = (props: ActivationInterfaceComponent) => {
-    const router = useRouter()
+
 
     return (
         <main className={main_message_scss.sections}>
@@ -13,7 +13,7 @@ export const ActivationComponent = (props: ActivationInterfaceComponent) => {
             <p className={main_message_scss.p}>
                 {props.message}
             </p>
-            <button className={'button_main_color'} onClick={() => router.push(Auth_path.LOGIN)}>
+            <button className={'button_main_color'} onClick={() => props.toLogin()}>
                 Войти
             </button>
         </main>

@@ -7,13 +7,17 @@ import Cookies from "js-cookie";
 import {AuthThunk, CookieClear} from "@/redux/thunks/authThunk";
 import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {Main_path, MAIN_PATH} from "@/app/paths/main";
+import {Cookie_names} from "@/redux/messages/cookie_names";
+import {clearMessage} from "@/redux/reducers/authReducer";
+
+export const maxPhotoCount = 6
 
 export const profileThunk = {
 
     ProfileData() {
         return (dispatch: Dispatch) => {
             ProfileAPI.ProfileGetDataAPI({
-                id: Cookies.get('id_current') as string
+                id: Cookies.get(Cookie_names.ID_CURRENT) as string
             }).then(responseSocial => {
                 switch (responseSocial[0]) {
                     case 200 : {
@@ -34,7 +38,7 @@ export const profileThunk = {
         }
     },
 
-    ChangeProfileData(input_name: string, input_bio: string, router: AppRouterInstance, flag: boolean) {
+    ChangeProfileData(input_name: string, input_bio: string, router: AppRouterInstance) {
         return (dispatch: Dispatch) => {
             ProfileAPI.ChangeProfileDataAPI({
                 input_name: input_name,
@@ -45,10 +49,8 @@ export const profileThunk = {
                     case 200 : {
                         dispatch(setName(input_name))
                         dispatch(setBio(input_bio))
-                        if (!flag) {
-                            router.push(MAIN_PATH + Cookies.get('id_current') + Main_path.PROFILE)
-                        }
-
+                        dispatch(clearMessage())
+                        router.push(MAIN_PATH + Cookies.get(Cookie_names.ID_CURRENT) + Main_path.PROFILE)
                         break
                     }
                     case 400 : {

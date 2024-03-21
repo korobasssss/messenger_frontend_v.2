@@ -3,8 +3,9 @@ import {
     ProfileGetDataInterfaceAPI,
     RegistrationSocialInterfaceAPI
 } from "@/api/profile/profileInterface";
-import {instance, Paths} from "@/api/api_init";
+import {instance, Paths, setToken} from "@/api/api_init";
 import Cookies from "js-cookie";
+import {Cookie_names} from "@/redux/messages/cookie_names";
 
 export const ProfileAPI = {
 
@@ -25,6 +26,7 @@ export const ProfileAPI = {
     },
 
     async ProfileGetDataAPI(data: ProfileGetDataInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.get(
                 Paths.SOCIAL + `/data/${data.id}`
@@ -36,6 +38,7 @@ export const ProfileAPI = {
     },
 
     async ChangeProfileDataAPI(data: ChangeProfileDataInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.post(
                 Paths.SOCIAL + '/data',

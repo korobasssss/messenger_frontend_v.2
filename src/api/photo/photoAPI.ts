@@ -1,14 +1,16 @@
-import {instance, instanceFile, Paths} from "@/api/api_init";
+import {instance, instanceFile, Paths, setToken} from "@/api/api_init";
 import {
     DeleteAvatarPhotoInterfaceAPI, DeleteCoverPhotoInterfaceAPI, DeletePhotoPostInterfaceAPI,
     GetPhotoInterfaceAPI,
     SetAvatarInterfaceAPI, SetCoverInterfaceAPI, SetPostPhotoInterfaceAPI
 } from "@/api/photo/photoIntefraceAPI";
 import Cookies from "js-cookie";
+import {Cookie_names} from "@/redux/messages/cookie_names";
 
 export const PhotoAPI = {
 
     async GetPhotoAPI(data: GetPhotoInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.get(
                 Paths.BLOG + `/photo/${data.id}`
@@ -20,6 +22,7 @@ export const PhotoAPI = {
     },
 
     async DeleteAvatarPhotoAPI(data: DeleteAvatarPhotoInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.delete(
                 Paths.FILE + '/social',
@@ -37,6 +40,8 @@ export const PhotoAPI = {
     },
 
     async SetAvatarAPI(data: SetAvatarInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
+
         let formDataAvatar = new FormData()
         formDataAvatar.append('file', data.input_avatarUrl)
         formDataAvatar.append('url', 'undefined')
@@ -54,6 +59,7 @@ export const PhotoAPI = {
     },
 
     async DeleteCoverPhotoAPI(data: DeleteCoverPhotoInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.delete(
                 Paths.FILE + '/social',
@@ -71,6 +77,8 @@ export const PhotoAPI = {
     },
 
     async SetCoverAPI(data: SetCoverInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
+
         let formDataCover = new FormData()
         formDataCover.append('file', data.input_coverUrl)
         formDataCover.append('url', 'undefined')
@@ -88,9 +96,10 @@ export const PhotoAPI = {
     },
 
     async GetPhotoCountAPI() {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.get(
-                Paths.BLOG + `/photo/count/${Cookies.get('id_current')}`
+                Paths.BLOG + `/photo/count/${Cookies.get(Cookie_names.ID_CURRENT)}`
             );
             return [response.status, response.data];
         } catch (error: any) {
@@ -99,6 +108,8 @@ export const PhotoAPI = {
     },
 
     async SetPostPhotoAPI(data: SetPostPhotoInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
+
         let formData = new FormData()
         formData.append('file', data.input_postPhoto)
         formData.append('postId', data.postId)
@@ -114,7 +125,8 @@ export const PhotoAPI = {
         }
     },
 
-    async DeletePhotoPostAPI(data: DeletePhotoPostInterfaceAPI) {
+    async DeletePhotoPostAPI(data: DeletePhotoPostInterfaceAPI) { // todo
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.delete(
                 Paths.FILE + '/blog',

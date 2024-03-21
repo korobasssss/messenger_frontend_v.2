@@ -12,6 +12,7 @@ export interface ProfileInterfaceState {
     }
     auth: {
         nickname: string
+        message: string
     }
     photo : {
         photoUrl: OnePhotoInterface[]

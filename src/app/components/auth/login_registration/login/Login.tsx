@@ -27,10 +27,12 @@ export const Login = (props: LoginInterface) => {
     }, [isEnterPressed])
 
     const registration = () => {
+        props.clearMessage()
         router.push(Auth_path.REGISTRATION)
     }
 
     const recovery = () => {
+        props.clearMessage()
         router.push(Auth_path.FORGOT_PASSWORD)
     }
 

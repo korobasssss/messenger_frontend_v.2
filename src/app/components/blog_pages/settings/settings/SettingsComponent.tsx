@@ -9,6 +9,7 @@ import {Settings_path} from "@/app/paths/settings";
 import {DeleteAccountComponent} from "@/app/components/blog_pages/settings/settings/DeleteAccountComponent";
 import {SettingsComponentInterface} from "@/app/interfaces/settings/settingsInterface";
 import Cookies from "js-cookie";
+import {Cookie_names} from "@/redux/messages/cookie_names";
 
 export const SettingsComponent = (props: SettingsComponentInterface) => {
     const pathname = usePathname()
@@ -63,7 +64,7 @@ export const SettingsComponent = (props: SettingsComponentInterface) => {
                                         <p className={settings_scss.message}>{props.message}</p>
                                     </section>
                                     :
-                                    <div className={settings_scss.section_data}>{Cookies.get('email')}</div>
+                                    <div className={settings_scss.section_data}>{Cookies.get(Cookie_names.EMAIL)}</div>
                                 }
                             </section>
                         </section>

@@ -12,6 +12,7 @@ import {
 import {OneUserContainer} from "@/app/components/blog_pages/friends/oneUser/OneUserContainer";
 import {Main_path, MAIN_PATH} from "@/app/paths/main";
 import Cookies from "js-cookie";
+import {Cookie_names} from "@/redux/messages/cookie_names";
 
 export const FriendsComponent = (props: UsersInterfaceComponent & HeaderComponentInterface) => {
     const pathname = usePathname().split('/')
@@ -47,9 +48,9 @@ export const FriendsComponent = (props: UsersInterfaceComponent & HeaderComponen
                         {currPathname === Friends_path.FRIENDS_USER ?
                             <div className={friends_scss.no_friends}>
                                 Нет друзей...
-                                {Cookies.get('id_current') === Cookies.get('id') ?
+                                {Cookies.get(Cookie_names.ID_CURRENT) === Cookies.get(Cookie_names.ID) ?
                                     <button className={'button_3rd_plane ' + friends_scss.find_friends}
-                                            onClick={() => router.push(MAIN_PATH + Cookies.get('id_current') + Main_path.USERS + Friends_path.SEARCH)}>
+                                            onClick={() => router.push(MAIN_PATH + Cookies.get(Cookie_names.ID_CURRENT) + Main_path.USERS + Friends_path.SEARCH)}>
                                         Поиск
                                     </button>
                                     : null

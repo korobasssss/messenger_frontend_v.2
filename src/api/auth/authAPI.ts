@@ -1,4 +1,4 @@
-import {instance, instanceAuth, Paths} from "@/api/api_init";
+import {instance, instanceAuth, Paths, setToken} from "@/api/api_init";
 import {
     AuthDataInterfaceAPI, RequestChangingEmailInterfaceAPI, ChangeNicknameInterfaceAPI,
     GetCodeForChangingPasswordInterfaceAPI, RecoveryInterfaceAPI, ChangePasswordInterfaceAPI,
@@ -6,6 +6,7 @@ import {
     DeleteAccountInterfaceAPI
 } from "@/api/auth/authInterfaceAPI";
 import Cookies from "js-cookie";
+import {Cookie_names} from "@/redux/messages/cookie_names";
 
 export const AuthAPI = {
 
@@ -61,7 +62,7 @@ export const AuthAPI = {
             const response = await instanceAuth.put(
                 Paths.AUTH + '/active/account',
                 {
-                    "id": Cookies.get('id')
+                    "id": Cookies.get(Cookie_names.ID)
                 }
             );
             return [response.status, response.data];
@@ -71,6 +72,7 @@ export const AuthAPI = {
     },
 
     async AuthDataAPI(data: AuthDataInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.get(
                 Paths.AUTH + `/data/${data.id}`
@@ -82,6 +84,7 @@ export const AuthAPI = {
     },
 
     async RequestChangeEmailAPI(data: RequestChangingEmailInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.post(
                 Paths.AUTH + '/change/email',
@@ -97,6 +100,7 @@ export const AuthAPI = {
     },
 
     async ConfirmChangingEmailAPI(props: ConfirmChangingEmailInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.put(
                 Paths.AUTH + '/confirm/email',
@@ -111,6 +115,7 @@ export const AuthAPI = {
     },
 
     async ChangeNicknameAPI(data: ChangeNicknameInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.post(
                 Paths.AUTH + '/change/nickname',
@@ -125,6 +130,7 @@ export const AuthAPI = {
     },
 
     async GetCodeForChangingPasswordAPI(props: GetCodeForChangingPasswordInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.post(
                 Paths.AUTH + '/change/password',
@@ -139,6 +145,7 @@ export const AuthAPI = {
     },
 
     async ChangePasswordAPI(data: ChangePasswordInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.put(
                 Paths.AUTH + '/confirm/password',
@@ -154,6 +161,7 @@ export const AuthAPI = {
     },
 
     async DeleteAccountAPI(data: DeleteAccountInterfaceAPI) {
+        setToken(Cookies.get(Cookie_names.TOKEN) as string)
         try {
             const response = await instance.put(
                 Paths.AUTH + '/block',

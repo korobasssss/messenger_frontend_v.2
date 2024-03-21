@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 import {Friends_profileContainer} from "@/app/components/blog_pages/profile/profile/friends/Friends_profileContainer";
 import {CreatePostContainer} from "@/app/components/blog_pages/profile/posts/create_post/CreatePostContainer";
 import {PhotoContainer} from "@/app/components/blog_pages/profile/photo/PhotoContainer";
+import {Cookie_names} from "@/redux/messages/cookie_names";
 
 export const ProfileComponent = () => {
     const pathname = usePathname().split('/')
@@ -25,11 +26,11 @@ export const ProfileComponent = () => {
             <aside className={profile_scss.aside}>
                 <PhotoContainer/>
                 <Friends_profileContainer/>
-                {Cookies.get('id_current') === Cookies.get('id') ?
+                {Cookies.get(Cookie_names.ID_CURRENT) === Cookies.get(Cookie_names.ID) ?
                 <CreatePostButtonComponent/>
                     : null}
             </aside>
-            {lastPath === '/' + Cookies.get('id_post') ?
+            {lastPath === '/' + Cookies.get(Cookie_names.ID_POST) ?
                 <OneOpenedPostContainer/>
             : lastPath === Profile_path.PROFILE_CREATE_POST ?
                 <CreatePostContainer/>

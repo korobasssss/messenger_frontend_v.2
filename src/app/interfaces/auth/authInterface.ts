@@ -1,4 +1,5 @@
 import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {clearMessages} from "@/redux/thunks/authThunk";
 
 export interface Main_authInterface {
     message: string
@@ -7,6 +8,7 @@ export interface Main_authInterface {
     registration(input_email: string, input_nickname: string, input_password: string, input_confirmPassword: string,
                   input_name: string, input_birthDate: string, router: AppRouterInstance): void
     recovery(input_email: string, router: AppRouterInstance): void
+    clearMessage(): void
 }
 
 export interface Main_authState {
@@ -17,6 +19,7 @@ export interface Main_authState {
 
 export interface LoginInterface {
     authorization(input_email: string, input_nickname: string, input_password: string, router: AppRouterInstance): void
+    clearMessage(): void
 }
 
 export interface LoginComponentInterface {
@@ -62,12 +65,14 @@ export interface RestoreInterfaceComponent {
 }
 
 export interface ActivationInterface {
-    activation_account(): void
+    activation_method(): void
+    clearMessage(): void
     message: string
 }
 export interface Main_messageInterface {
     activation_account(): void
     change_email(): void
+    clearMessage(): void
     message: string
 }
 export interface ChangeEmailInterface {
@@ -77,4 +82,5 @@ export interface ChangeEmailInterface {
 export interface ActivationInterfaceComponent {
     title: string
     message: string
+    toLogin(): void
 }
