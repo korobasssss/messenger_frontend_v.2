@@ -3,6 +3,8 @@ import {setCountPhoto, setPhotoUrl} from "@/redux/reducers/photoReducer";
 import {PhotoAPI} from "@/api/photo/photoAPI";
 import {setMessage} from "@/redux/reducers/authReducer";
 import {setAvatarUrl, setCoverUrl} from "@/redux/reducers/profileReducer";
+import {CookieClear} from "@/redux/thunks/authThunk";
+import Cookies from "js-cookie";
 
 export const photoThunk = {
 
@@ -18,7 +20,7 @@ export const photoThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                 }
@@ -29,7 +31,7 @@ export const photoThunk = {
     GetPhoto() {
         return (dispatch: Dispatch) => {
             PhotoAPI.GetPhotoAPI({
-                id: localStorage.getItem('idUser') as string
+                id: Cookies.get('id_current') as string
             }).then(response => {
                 switch (response[0]) {
                     case 200 : {
@@ -40,7 +42,7 @@ export const photoThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                 }
@@ -63,7 +65,29 @@ export const photoThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
+                        break
+                    }
+                }
+            })
+        }
+    },
+
+    DeleteCover(deleteCoverUrl: string) {
+        return (dispatch: Dispatch) => {
+            PhotoAPI.DeleteCoverPhotoAPI({
+                deleteCoverUrl: deleteCoverUrl
+            }).then(response => {
+                switch (response) {
+                    case 200 : {
+                        break
+                    }
+                    case 400 : {
+                        dispatch(setMessage('Плохое имя файла, выберите другой'))
+                        break
+                    }
+                    case 401 : {
+                        CookieClear()
                         break
                     }
                 }
@@ -90,29 +114,7 @@ export const photoThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
-                        break
-                    }
-                }
-            })
-        }
-    },
-
-    DeleteCover(deleteCoverUrl: string) {
-        return (dispatch: Dispatch) => {
-            PhotoAPI.DeleteCoverPhotoAPI({
-                deleteCoverUrl: deleteCoverUrl
-            }).then(response => {
-                switch (response) {
-                    case 200 : {
-                        break
-                    }
-                    case 400 : {
-                        dispatch(setMessage('Плохое имя файла, выберите другой'))
-                        break
-                    }
-                    case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                 }
@@ -139,7 +141,7 @@ export const photoThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                 }

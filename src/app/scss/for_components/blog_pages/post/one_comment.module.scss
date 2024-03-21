@@ -6,6 +6,8 @@ $user-post-data-gap: 10px;
 $user-avatar-size: 45px;
 $user-name-nickname-gap: 5px;
 
+$user-avatar-radius: 50px;
+
 $max-post-text: 400px;
 
 $edit-padding: 15px;
@@ -15,6 +17,8 @@ $edit-gap: 1px;
 $edit-border-radius: 10px;
 $edit-button-weight: 600;
 
+$button-size: 20px;
+
 .user_post_data {
   display: flex;
   gap: $user-post-data-gap;
@@ -22,6 +26,9 @@ $edit-button-weight: 600;
   .user_avatar {
     width: $user-avatar-size;
     height: $user-avatar-size;
+
+    border-radius: $user-avatar-radius;
+    object-fit: cover;
   }
 
   .info {
@@ -41,38 +48,15 @@ $edit-button-weight: 600;
 
       display: flex;
       justify-content: space-between;
-
-
-      .edit_section {
-
-        display: flex;
-        flex-flow: column;
-        gap: $edit-gap;
-
-        height: $edit-h;
-
-
-        .edit {
-          display: flex;
-          justify-self: end;
-
-          position: relative;
-
-          .edit_button {
-            position: absolute;
-            left: -70px;
-
-            font-weight: $edit-button-weight;
-
-            padding: $edit-padding;
-
-            border: $edit-border;
-            border-radius: $edit-border-radius;
-
-            background-color: $white-color;
-          }
-        }
-      }
     }
   }
+}
+
+.deleteIcon {
+  width: $button-size;
+  height: $button-size;
+}
+
+.gap_buttons {
+  gap: $user-post-data-gap;
 }

@@ -4,25 +4,36 @@ import {clearMessage, setData, setEmail, setMessage, setNickname} from "@/redux/
 import {ProfileAPI} from "@/api/profile/profileAPI";
 import {setUserData} from "@/redux/reducers/profileReducer";
 
+import Cookies from "js-cookie";
+import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {Auth_path} from "@/app/paths/auth";
+import {Main_path, MAIN_PATH_FOR_AUTH} from "@/app/paths/main";
+import App from "next/app";
+import {instance} from "@/api/api_init";
+
+export const CookieClear = () => {
+    Cookies.remove('token')
+    Cookies.remove('id')
+    Cookies.remove('id_current')
+    Cookies.remove('id_post')
+    Cookies.remove('id_photo')
+    Cookies.remove('email')
+}
+
 export const AuthThunk = {
-    Authorization(input_email: string, input_nickname: string, input_password: string) {
+    Authorization(input_email: string, input_nickname: string, input_password: string, router: AppRouterInstance ) {
         return (dispatch: Dispatch) => {
             AuthAPI.AuthorizationAPI({
                 input_email, input_nickname, input_password
             }).then(response => {
-                debugger
                 switch (response[0]) {
                     case 200 : {
                         dispatch(clearMessage())
-
-                        if (response[1].token.split(' ').length === 2) {
-                            localStorage.setItem('token', response[1].token.split(' ')[1])
-                        } else {
-                            localStorage.setItem('token', response[1].token)
-                        }
-                        localStorage.setItem('id', response[1].id)
-                        localStorage.setItem('idUser', response[1].id)
-                        localStorage.setItem('password', input_password)
+                        instance.defaults.headers.common['Authorization'] = `Bearer ${response[1].token}`;
+                        Cookies.set('token', response[1].token)
+                        Cookies.set('id', response[1].id)
+                        Cookies.set('id_current', response[1].id)
+                        router.push(MAIN_PATH_FOR_AUTH +`/${response[1].id}` + Main_path.PROFILE)
                         break
                     }
                     case 400 : {
@@ -34,8 +45,8 @@ export const AuthThunk = {
                         break
                     }
                     case 403 : {
-                        dispatch(setMessage('Аккаунт не активирован'))
-                        localStorage.setItem('id', response[1])
+                        Cookies.set('id', response[1])
+                        router.push(Auth_path.RESTORE)
                         break
                     }
                 }
@@ -44,7 +55,7 @@ export const AuthThunk = {
     },
 
     Registration(input_email: string, input_nickname: string, input_password: string, input_confirmPassword: string,
-                  input_name: string, input_birthDate: string) {
+                  input_name: string, input_birthDate: string, router: AppRouterInstance) {
         return (dispatch : Dispatch) => {
             AuthAPI.RegistrationAPI({
                 input_email, input_nickname, input_password, input_confirmPassword
@@ -52,13 +63,14 @@ export const AuthThunk = {
                 switch (response[0]) {
                     case 201 : {
                         if (response[1] !== null) {
-                            localStorage.setItem('id', response[1])
+                            Cookies.set('id', response[1])
                             ProfileAPI.RegistrationSocialAPI({
                                 input_name,
                                 input_birthDate
                             }).then(response => {
                                 switch (response) {
                                     case 200: {
+                                            router.push(Auth_path.SUCCESSFUL_REGISTRATION)
                                         break
                                     }
                                     case 400: {
@@ -104,7 +116,7 @@ export const AuthThunk = {
                         break
                     }
                     case 401: {
-                        localStorage.setItem('token', '')  // todo what
+                        CookieClear()
                         break
                     }
                     case 409: {
@@ -145,8 +157,8 @@ export const AuthThunk = {
             }).then(response => {
                 switch (response[0]) {
                     case 200 : {
-                        dispatch(setMessage('На Вашу почту было отправлено письмо с подтверждением бла бла бла'))
-                        localStorage.setItem('newEmail', input_email)  //todo redo
+                        dispatch(setMessage('На Вашу почту было отправлено письмо с подтверждением почты'))
+                        Cookies.set('newEmail', input_email)
                         break
                     }
                     case 400 : {
@@ -158,7 +170,7 @@ export const AuthThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                     case 409 : {
@@ -171,23 +183,25 @@ export const AuthThunk = {
         }
     },
 
-    ConfirmChangingEmail(newEmail: string) {
+    ConfirmChangingEmail() {
         return (dispatch: Dispatch) => {
             AuthAPI.ConfirmChangingEmailAPI({
-                newEmail: localStorage.getItem('newEmail') as string
+                newEmail: Cookies.get('newEmail') as string
             }).then(response => {
                 switch (response[0]) {
                     case 200 : {
-                        localStorage.setItem('newEmail', '')
                         dispatch(setMessage('Пароль был успешно изменен!'))
-                        localStorage.setItem('token', response[1])
+                        Cookies.set('token', response[1])
+                        instance.defaults.headers.common['Authorization'] = `Bearer ${response[1].token}`;
+                        Cookies.set('email', Cookies.get('newEmail') as string)
+                        Cookies.remove('newEmail')
                         break
                     }
                     case 400 : {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                 }
@@ -195,45 +209,26 @@ export const AuthThunk = {
         }
     },
 
-    AuthGetData(id: string) {
-        return (dispatch: Dispatch) => {
+    AuthGetData() {
+        return async (dispatch: Dispatch) => {
             AuthAPI.AuthDataAPI({
-                id
+                id: Cookies.get('id_current') as string // todo вынести
             }).then(response => {
                 switch (response[0]) {
                     case 200 : {
+                        Cookies.set('email', response[1].email)
                         dispatch(setNickname(response[1].nickname))
                         dispatch(setEmail(response[1].email))
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                 }
             })
         }
     },
-
-    // AuthGetMyData() {
-    //     return (dispatch: Dispatch) => {
-    //         AuthAPI.AuthDataAxios({
-    //             id: localStorage.getItem('id') as string
-    //         }).then(response => {
-    //             dispatch(setIsFetching(false))
-    //             switch (response[0]) {
-    //                 case 200 : {
-    //                     dispatch(setMyNickname(response[1].nickname))
-    //                     break
-    //                 }
-    //                 case 401 : {
-    //                     localStorage.setItem('token', '')
-    //                     break
-    //                 }
-    //             }
-    //         })
-    //     }
-    // },
 
     GetCodeForChangingPassword(input_password: string) {
         return (dispatch : Dispatch) => {
@@ -244,6 +239,7 @@ export const AuthThunk = {
                     case 200 : {
                         if (response[1] === "Check your mailbox to confirm new password") {
                             dispatch(setMessage('На Вашу почту был отправлен одноразовый код'))
+                            Cookies.set('isPasswordTrue', 'true')
                         }
                         break
                     }
@@ -255,7 +251,7 @@ export const AuthThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                     case 409 : {
@@ -269,40 +265,41 @@ export const AuthThunk = {
         }
     },
 
-    ChangePassword(input_code: string, input_password: string) {
+    ChangePassword(input_code: string, input_password: string, newPasswordConfirm: string) {
         return (dispatch: Dispatch) => {
-            AuthAPI.ChangePasswordAPI(
-                {
-                    input_code, input_password
-                }
-            ).then(response => {
-                switch (response[0]) {
-                    case 200 : {
-                        localStorage.setItem('password', input_password)
-                        if (response[1].split(' ').length === 2) {
-                            localStorage.setItem('token', response[1].split(' ')[1])
-                        } else {
-                            localStorage.setItem('token', response[1])
+            if (input_password === newPasswordConfirm) {
+                AuthAPI.ChangePasswordAPI(
+                    {
+                        input_code, input_password
+                    }
+                ).then(response => {
+                    switch (response[0]) {
+                        case 200 : {
+                            Cookies.set('token', response[1])
+                            instance.defaults.headers.common['Authorization'] = `Bearer ${response[1].token}`;
+                            dispatch(setMessage('Пароль успешно изменен'))
+                            break
                         }
-                        dispatch(clearMessage())
-                        break
-                    }
-                    case 400 : {
-                        if (response[1] === "User doesn't exist") {
-                        } else if (response[1] === "Code doesn't match") {
-                            dispatch(setMessage('Неверный код'))
-                        } else if (response[1] === "The code is not relevant") {
-                            dispatch(setMessage('Истекло время использования кода'))
+                        case 400 : {
+                            if (response[1] === "User doesn't exist") {
+                            } else if (response[1] === "Code doesn't match") {
+                                dispatch(setMessage('Неверный код'))
+                            } else if (response[1] === "The code is not relevant") {
+                                dispatch(setMessage('Истекло время использования кода'))
+                            }
+                            break
                         }
-                        break
+                        case 401 : {
+                            CookieClear()
+                            break
+                        }
+                        default:
                     }
-                    case 401 : {
-                        localStorage.setItem('token', '')
-                        break
-                    }
-                    default:
-                }
-            })
+                })
+            } else {
+                dispatch(setMessage('Пароли не совпадают'))
+            }
+
         }
     },
 
@@ -320,11 +317,7 @@ export const AuthThunk = {
                                 nickname: '',
                                 password: ''}))
                             dispatch(setUserData('', '', '', '', '', ''))
-                            localStorage.setItem('email', '')
-                            localStorage.setItem('token', '')
-                            localStorage.setItem('password', '')
-                            localStorage.setItem('id', '')
-                            localStorage.setItem('idUser', '')
+                            CookieClear()
                         }
                         break
                     }
@@ -334,12 +327,12 @@ export const AuthThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                     case 403: {
                         dispatch(setMessage('Аккаунт уже заблокирован'))
-                        localStorage.setItem('token', '')
+                        Cookies.remove('token')
                         break
                     }
                 }
@@ -356,9 +349,9 @@ export const AuthThunk = {
                     case 200 : {
                         dispatch(setNickname(input_nickname))
                         if (response[1].split(' ').length === 2) {
-                            localStorage.setItem('token', response[1].split(' ')[1])
+                            Cookies.set('token', response[1].split(' ')[1])
                         } else {
-                            localStorage.setItem('token', response[1])
+                            Cookies.set('token', response[1])
                         }
                         break
                     }
@@ -366,7 +359,7 @@ export const AuthThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                 }
@@ -374,19 +367,17 @@ export const AuthThunk = {
         }
     },
 
-    LogoutClear() {
+    SendMessage(message: string) {
         return (dispatch: Dispatch) => {
-            dispatch(setData({
-                email: '',
-                nickname: '',
-                password: ''}))
-            dispatch(setUserData('', '', '', '', '', ''))  // todo redo
+            dispatch(setMessage(message))
+        }
+    },
 
-            localStorage.setItem('token', '')
-            localStorage.setItem('id', '')
-            localStorage.setItem('idUser', '')
-            localStorage.setItem('email', '')
-            localStorage.setItem('password', '')
+    LogOut(router: AppRouterInstance) {
+        return (dispatch: Dispatch) => {
+            CookieClear()
+            router.push(Auth_path.LOGIN)
         }
     }
 }
+

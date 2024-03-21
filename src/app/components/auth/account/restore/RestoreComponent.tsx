@@ -4,20 +4,14 @@ import default_avatar from '@/assets/common/default_avatar.svg'
 import restore_scss from '@/app/scss/for_components/auth/restore.module.scss'
 import {useRouter} from "next/navigation";
 import {Auth_path} from "@/app/paths/auth";
+import {RestoreInterfaceComponent} from "@/app/interfaces/auth/authInterface";
 
-export const RestoreComponent = () => {
+export const RestoreComponent = () => { // todo вынести router
     const router = useRouter()
 
     return (
         <main className={restore_scss.route}>
             <div className={restore_scss.important_part}>Восстановить аккаунт?</div>
-            <section className={restore_scss.user_data}>
-                <Image src={default_avatar} className={restore_scss.user_avatar} alt={'user avatar'}/>
-                <section>
-                    <div className={'name ' + restore_scss.name}>Имя</div>
-                    <div className={'nickname'}>@name</div>
-                </section>
-            </section>
             <p>Откройте письмо на вашей почте и перейдите по ссылке</p>
             <footer className={restore_scss.buttons_section}>
                 <button className={'button_main_color'} onClick={() => router.push(Auth_path.ACTIVATION)}>

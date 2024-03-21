@@ -4,6 +4,7 @@ import {
     GetPhotoInterfaceAPI,
     SetAvatarInterfaceAPI, SetCoverInterfaceAPI, SetPostPhotoInterfaceAPI
 } from "@/api/photo/photoIntefraceAPI";
+import Cookies from "js-cookie";
 
 export const PhotoAPI = {
 
@@ -23,10 +24,6 @@ export const PhotoAPI = {
             const response = await instance.delete(
                 Paths.FILE + '/social',
                 {
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                        'Content-Type': 'application/json'
-                    },
                     data: {
                         url: data.deleteAvatarUrl,
                         source: 'AVATAR'
@@ -93,7 +90,7 @@ export const PhotoAPI = {
     async GetPhotoCountAPI() {
         try {
             const response = await instance.get(
-                Paths.BLOG + `/photo/count/${localStorage.getItem('idUser')}`
+                Paths.BLOG + `/photo/count/${Cookies.get('id_current')}`
             );
             return [response.status, response.data];
         } catch (error: any) {

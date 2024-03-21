@@ -1,12 +1,13 @@
 @import "@/app/scss/global/color";
+@import "@/app/scss/for_components/blog_pages/post/one_comment.module";
 
-$border: 1px solid $chat-border-color;
 $padding: 25px;
 
 $route-gap: 15px;
 $header-gap: 10px;
 
 $avatar-size: 50px;
+$avatar-radius: 50px;
 
 $name-nickname-gap: 5px;
 
@@ -22,6 +23,8 @@ $post-buttons-gap: 25px;
 $one-post-buttons-gap: 5px;
 $one-post-buttons-height: 19px;
 
+$one-post-buttons-size: 20px;
+$post-buttons-edit-gap: 15px;
 
 $one-post-input-border: 1px solid $chat-border-color;
 $one-post-input-gap: 10px;
@@ -31,8 +34,12 @@ $one-post-input-gap: 10px;
   flex-flow: column;
   gap: $route-gap;
 
-  border-top: $border;
   padding: $padding 0;
+
+  .main_header {
+    display: flex;
+    justify-content: space-between;
+  }
 
   .header {
     display: flex;
@@ -44,9 +51,23 @@ $one-post-input-gap: 10px;
       width: $avatar-size;
       height: $avatar-size;
 
+      border-radius: $avatar-radius;
+
       object-fit: cover;
     }
+
+    .name {
+      display: flex;
+      flex-flow: column;
+      gap: $one-post-buttons-gap;
+    }
   }
+}
+
+.main {
+  display: flex;
+  flex-flow: column;
+  gap: $route-gap;
 }
 
 .post_data {
@@ -116,8 +137,29 @@ $one-post-input-gap: 10px;
   }
 }
 
-.name_nickname {
+.edit {
   display: flex;
-  flex-flow: column;
-  gap: $name-nickname-gap;
+  gap: $post-buttons-edit-gap;
+
+  .edit_button {
+    width: $one-post-buttons-size;
+    height: $one-post-buttons-size;
+
+  }
+
+  button {
+    font-weight: $edit-button-weight;
+
+    img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+    }
+  }
+}
+
+.no_comments {
+  padding: $padding;
+  text-align: center;
 }

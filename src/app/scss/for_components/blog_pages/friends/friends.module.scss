@@ -37,9 +37,12 @@ $no-friends-gap: 10px;
   .no_users {
     display: grid;
     justify-content: center;
+    align-items: center;
 
     font-size: $no-users-size;
     font-weight: $no-users-weight;
+
+    padding: $page-padding;
 
 
     .no_friends {

@@ -6,6 +6,7 @@ import {
     GetPostDataInterfaceAPI, LikeCommentInterfaceAPI, LikePostInterfaceAPI,
     NewPostInterfaceAPI, SetCommentInterfaceAPI
 } from "@/api/post/postsInterface";
+import Cookies from "js-cookie";
 
 export const BlogAPI = {
 
@@ -71,7 +72,7 @@ export const BlogAPI = {
     async GetPostsAPI() {
         try {
             const response = await instance.get(
-                Paths.BLOG + `/user/${localStorage.getItem('idUser')}`
+                Paths.BLOG + `/user/${Cookies.get('id_current')}`
             );
             return [response.status, response.data];
         } catch (error: any) {

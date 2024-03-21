@@ -16,6 +16,9 @@ $photo-size: 275px;
 $photo-border-radius: 10px;
 
 $border: 1px solid $chat-border-color;
+$font-weight: 600;
+
+$no-padding: 20px;
 
 .page {
 
@@ -54,13 +57,26 @@ $border: 1px solid $chat-border-color;
 
     gap: $photo-gap;
   }
+
+  .no_photo {
+    padding: $no-padding;
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    font-weight: $font-weight;
+  }
 }
 
 .one_photo {
+
   width: $photo-size;
   height: $photo-size;
 
   img {
+    cursor: pointer;
+
     width: 100%;
     height: 100%;
 

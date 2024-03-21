@@ -1,12 +1,5 @@
-import {Main_path} from "@/app/paths/main";
-
 export const Profile_path = {
-    PROFILE_USER:
-        Main_path.PROFILE,
-    PROFILE_ONE_POST:
-        Main_path.PROFILE + '/post',
-    PROFILE_CREATE_POST:
-        Main_path.PROFILE + '/post/new',
-    PROFILE_EDIT:
-        Main_path.PROFILE + '/edit'
+    PROFILE_ONE_POST: '/post',
+    PROFILE_CREATE_POST:  '/new',
+    PROFILE_EDIT: '/edit'
 }

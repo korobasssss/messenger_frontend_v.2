@@ -1,12 +1,15 @@
 import {Dispatch} from "redux";
 import {
-    setUserFriendsCount, setUserNickname,
+    setUserChangeStatus,
+    setUserFriendsCount,
     setUsers,
     setUserSubscribersCount,
     setUserSubscriptionsCount
 } from "@/redux/reducers/usersReducer";
 import {UsersAPI} from "@/api/users/usersAPI";
-import {AuthAPI} from "@/api/auth/authAPI";
+import {CookieClear} from "@/redux/thunks/authThunk";
+import Cookies from "js-cookie";
+import {Actions, Status} from "@/app/interfaces/friends/friendsInterface";
 
 export const usersThunk = {
 
@@ -23,7 +26,7 @@ export const usersThunk = {
                             break
                         }
                         case 401 : {
-                            localStorage.setItem('token', '')
+                            CookieClear()
                             break
                         }
                     }
@@ -41,7 +44,7 @@ export const usersThunk = {
                             break
                         }
                         case 401 : {
-                            localStorage.setItem('token', '')
+                            CookieClear()
                             break
                         }
                     }
@@ -59,7 +62,7 @@ export const usersThunk = {
                             break
                         }
                         case 401 : {
-                            localStorage.setItem('token', '')
+                            CookieClear()
                             break
                         }
                     }
@@ -77,7 +80,7 @@ export const usersThunk = {
                             break
                         }
                         case 401 : {
-                            localStorage.setItem('token', '')
+                            CookieClear()
                             break
                         }
                     }
@@ -91,21 +94,41 @@ export const usersThunk = {
                 idOtherUser: id,
                 action: action,
             }).then(response => {
-                debugger
                 switch (response[0]) {
                     case 200 : {
-
+                        switch (action) {
+                            case Actions.CREATE: {
+                                dispatch(setUserChangeStatus(id, Status.SEND_FIRST))
+                                break
+                            }
+                            case Actions.DELETE_FRIEND: {
+                                dispatch(setUserChangeStatus(id, Status.SEND_SECOND))
+                                break
+                            }
+                            case Actions.ACCEPT: {
+                                dispatch(setUserChangeStatus(id, Status.FRIENDS))
+                                break
+                            }
+                            case Actions.REJECT: {
+                                dispatch(setUserChangeStatus(id, Status.NULL))
+                                break
+                            }
+                            case Actions.DELETE_REQUEST: {
+                                dispatch(setUserChangeStatus(id, Status.NULL))
+                                break
+                            }
+                        }
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        Cookies.remove('token')
                         break
                     }
                     case 404 : {
                         break
                     }
                     case 400 : {
-                        // relation has already exist
+                        CookieClear()
                         break
                     }
                 }
@@ -114,24 +137,24 @@ export const usersThunk = {
         }
     },
 
-    GetUserFromListAuthData(id: string) {
-        return (dispatch: Dispatch) => {
-            AuthAPI.AuthDataAPI({
-                id: id
-            }).then(response => {
-                switch (response[0]) {
-                    case 200 : {
-                        dispatch(setUserNickname(id, response[1].nickname))
-                        break
-                    }
-                    case 401 : {
-                        localStorage.setItem('token', '')
-                        break
-                    }
-                }
-            })
-        }
-    },
+    // GetUserFromListAuthData(id: string) {
+    //     return (dispatch: Dispatch) => {
+    //         AuthAPI.AuthDataAPI({
+    //             id: id
+    //         }).then(response => {
+    //             switch (response[0]) {
+    //                 case 200 : {
+    //                     dispatch(setUserNickname(id, response[1].nickname))
+    //                     break
+    //                 }
+    //                 case 401 : {
+    //                     localStorage.setItem('token', '') // no
+    //                     break
+    //                 }
+    //             }
+    //         })
+    //     }
+    // },
 
     GetFriends() {
         return (dispatch: Dispatch) => {
@@ -143,7 +166,7 @@ export const usersThunk = {
                             break
                         }
                         case 401 : {
-                            localStorage.setItem('token', '')
+                            CookieClear()
                             break
                         }
                     }
@@ -161,7 +184,7 @@ export const usersThunk = {
                             break
                         }
                         case 401 : {
-                            localStorage.setItem('token', '')
+                            CookieClear()
                             break
                         }
                     }
@@ -179,7 +202,7 @@ export const usersThunk = {
                             break
                         }
                         case 401 : {
-                            localStorage.setItem('token', '')
+                            CookieClear()
                             break
                         }
                     }
@@ -197,11 +220,13 @@ export const usersThunk = {
                             break
                         }
                         case 401 : {
-                            localStorage.setItem('token', '')
+                            CookieClear()
                             break
                         }
                     }
                 })
         }
     }
+
+
 }

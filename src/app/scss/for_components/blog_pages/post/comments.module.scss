@@ -4,4 +4,6 @@ $comments-gap: 25px;
   display: flex;
   flex-flow: column;
   gap: $comments-gap;
+
+  padding: $comments-gap 0 ;
 }

@@ -1,5 +1,6 @@
 import {instance, Paths} from "@/api/api_init";
 import {ActionUsersInterfaceAPI} from "@/api/users/usersInterface";
+import Cookies from "js-cookie";
 
 export const UsersAPI = {
     async GetSearchAPI() {
@@ -16,7 +17,7 @@ export const UsersAPI = {
     async GetSubscribersAPI() {
         try {
             const response = await instance.get(
-                Paths.SOCIAL + `/relation/subscribers/${localStorage.getItem('idUser')}`
+                Paths.SOCIAL + `/relation/subscribers/${Cookies.get('id_current')}`
             );
             return [response.status, response.data];
         } catch (error: any) {
@@ -27,7 +28,7 @@ export const UsersAPI = {
     async GetSubscriptionsAPI() {
         try {
             const response = await instance.get(
-                Paths.SOCIAL + `/relation/subscriptions/${localStorage.getItem('idUser')}`
+                Paths.SOCIAL + `/relation/subscriptions/${Cookies.get('id_current')}`
             );
             return [response.status, response.data];
         } catch (error: any) {
@@ -38,7 +39,7 @@ export const UsersAPI = {
     async GetFriendsAPI() {
         try {
             const response = await instance.get(
-                Paths.SOCIAL + `/relation/friends/${localStorage.getItem('idUser')}`
+                Paths.SOCIAL + `/relation/friends/${Cookies.get('id_current')}`
             );
             return [response.status, response.data];
         } catch (error: any) {
@@ -49,7 +50,7 @@ export const UsersAPI = {
     async GetRandomFriendsAPI() {
         try {
             const response = await instance.get(
-                Paths.SOCIAL + `/relation/friends/random/${localStorage.getItem('idUser')}`
+                Paths.SOCIAL + `/relation/friends/random/${Cookies.get('id_current')}`
             );
             return [response.status, response.data];
         } catch (error: any) {
@@ -60,7 +61,7 @@ export const UsersAPI = {
     async GetCountFriendsAPI() {
         try {
             const response = await instance.get(
-                Paths.SOCIAL + `/count/friends/${localStorage.getItem('idUser')}`
+                Paths.SOCIAL + `/count/friends/${Cookies.get('id_current')}`
             );
             return [response.status, response.data];
         } catch (error: any) {
@@ -71,7 +72,7 @@ export const UsersAPI = {
     async GetCountSubscriptionsAPI() {
         try {
             const response = await instance.get(
-                Paths.SOCIAL + `/count/subscriptions/${localStorage.getItem('idUser')}`
+                Paths.SOCIAL + `/count/subscriptions/${Cookies.get('id_current')}`
             );
             return [response.status, response.data];
         } catch (error: any) {
@@ -82,7 +83,7 @@ export const UsersAPI = {
     async GetCountSubscribersAPI() {
         try {
             const response = await instance.get(
-                Paths.SOCIAL + `/count/subscribers/${localStorage.getItem('idUser')}`
+                Paths.SOCIAL + `/count/subscribers/${Cookies.get('id_current')}`
             );
             return [response.status, response.data];
         } catch (error: any) {

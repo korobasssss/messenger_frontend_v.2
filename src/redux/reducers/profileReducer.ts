@@ -20,6 +20,7 @@ export const profileReducer = (state = initialState, action: any) => {
     let stateCopy = {...state}
     switch (action.type) {
         case SET_USER_DATA : {
+
             stateCopy.name = action.name
             stateCopy.birthDate = action.birthDate
             stateCopy.bio = action.bio

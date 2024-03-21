@@ -52,6 +52,7 @@ $friend-photo-radius: 50px;
       .image {
         width: $photo-size;
         height: $photo-size;
+        object-fit: cover;
 
         border-radius: $photo-radius;
       }

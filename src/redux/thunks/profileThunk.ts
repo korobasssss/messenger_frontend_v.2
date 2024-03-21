@@ -1,13 +1,19 @@
+'use client'
+
 import {Dispatch} from "redux";
 import {ProfileAPI} from "@/api/profile/profileAPI";
-import {setUserData} from "@/redux/reducers/profileReducer";
+import {setBio, setName, setUserData} from "@/redux/reducers/profileReducer";
+import Cookies from "js-cookie";
+import {AuthThunk, CookieClear} from "@/redux/thunks/authThunk";
+import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {Main_path, MAIN_PATH} from "@/app/paths/main";
 
 export const profileThunk = {
 
-    ProfileData(id: string) {
+    ProfileData() {
         return (dispatch: Dispatch) => {
             ProfileAPI.ProfileGetDataAPI({
-                id: id
+                id: Cookies.get('id_current') as string
             }).then(responseSocial => {
                 switch (responseSocial[0]) {
                     case 200 : {
@@ -20,7 +26,7 @@ export const profileThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                 }
@@ -28,24 +34,28 @@ export const profileThunk = {
         }
     },
 
-    ChangeProfileData(input_name: string, input_birthDate: string,
-                      input_bio: string, avatarUrl: string, coverUrl: string) {
+    ChangeProfileData(input_name: string, input_bio: string, router: AppRouterInstance, flag: boolean) {
         return (dispatch: Dispatch) => {
             ProfileAPI.ChangeProfileDataAPI({
                 input_name: input_name,
-                input_birthDate: input_birthDate,
+                input_birthDate: '',
                 input_bio: input_bio
             }).then(response => {
                 switch (response[0]) {
                     case 200 : {
-                        setUserData(input_name, input_birthDate, input_bio, avatarUrl, coverUrl, '')
+                        dispatch(setName(input_name))
+                        dispatch(setBio(input_bio))
+                        if (!flag) {
+                            router.push(MAIN_PATH + Cookies.get('id_current') + Main_path.PROFILE)
+                        }
+
                         break
                     }
                     case 400 : {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                 }

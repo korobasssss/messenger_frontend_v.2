@@ -1,7 +1,7 @@
-import {Main_AuthComponent} from "@/app/components/auth/login_registration/Main_auth";
+import {Main_authContainer} from "@/app/components/auth/Main-authContainer";
 
 const Login = () => {
-    return <Main_AuthComponent/>
+    return <Main_authContainer/>
 }
 
 export default Login

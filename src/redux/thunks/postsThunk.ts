@@ -1,11 +1,20 @@
 import {SetPhotoInterface} from "@/api/photo/photoIntefraceAPI";
 import {Dispatch} from "redux";
-import {setComments, setPosts} from "@/redux/reducers/postsReducer";
+import {
+    clearComments,
+    setDeletePost,
+    setOneCommentUserData,
+    setOnePostOpened,
+    setPosts
+} from "@/redux/reducers/postsReducer";
 import {BlogAPI} from "@/api/post/postsAPI";
 import {PhotoAPI} from "@/api/photo/photoAPI";
-import {clearMessage, setMessage} from "@/redux/reducers/authReducer";
-import {AuthAPI} from "@/api/auth/authAPI";
+import {setMessage} from "@/redux/reducers/authReducer";
 import {ProfileAPI} from "@/api/profile/profileAPI";
+import {CookieClear} from "@/redux/thunks/authThunk";
+import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {Main_path, MAIN_PATH} from "@/app/paths/main";
+import Cookies from "js-cookie";
 
 export const postsThunk = {
 
@@ -21,7 +30,7 @@ export const postsThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                 }
@@ -29,27 +38,18 @@ export const postsThunk = {
         }
     },
 
-    GetOnePostData(postId: string) { // todo what
+    GetOnePostData(postId: string) {
         return (dispatch: Dispatch) => {
             BlogAPI.GetPostDataAPI({
                 postId: postId
             }).then(response => {
                 switch (response[0]) {
                     case 200: {
-                        let post = {
-                            postId: response[1].postId,
-                            time: response[1].time,
-                            text: response[1].text,
-                            photoUrl: response[1].photoUrl,
-                            likeCount: response[1].likeCount,
-                            commentCount: response[1].commentCount,
-                            isLiked: response[1].isLiked
-                        }
-                        dispatch(setPosts([]))
+                        dispatch(setOnePostOpened(response[1]))
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                     case 400 : {
@@ -59,48 +59,24 @@ export const postsThunk = {
         }
     },
 
-    EditPost(postId: string, input_postText: string, input_postPhoto: SetPhotoInterface[], deletePhotoPostUrl: string[]) {
+    CreatePost(input_postText: string, input_postPhoto: SetPhotoInterface[], router: AppRouterInstance) {
         return (dispatch: Dispatch) => {
-            BlogAPI.EditPostAPI({
-                postId: postId,
-                input_postText:  input_postText
+            BlogAPI.NewPostAPI({
+                input_postText: input_postText
             }).then(response => {
                 switch (response[0]) {
-                    case 200 : {
-                        deletePhotoPostUrl.map((data: string) => {
-                            response[1].photoUrl.map((url: { url: string, photoId: string }) => {
-                                if (data === url.url) {
-                                    PhotoAPI.DeletePhotoPostAPI({
-                                        url: data,
-                                        photoId: url.photoId,
-                                        postId: postId,
-                                    }).then(response => {
-                                        switch (response[0]) {
-                                            case 200 : {
-                                                //ok
-                                                break
-                                            }
-                                            case 400 : {
-                                                dispatch(setMessage('Плохое имя файла, выберите другой'))
-                                                break
-                                            }
-                                            case 401: {
-                                                // bad token
-                                                break
-                                            }
-                                        }
-                                    })
-                                }
-                            })
-                        })
-                        for(let i = 0; i < input_postPhoto.length; i++) {
-                            if (!input_postPhoto[i].flag) {
+                    case 200: {
+                        if (input_postPhoto.length === 0 ) {
+                            router.push(MAIN_PATH + Cookies.get('id') + Main_path.PROFILE)
+                        } else {
+                            for(let i = 0; i < input_postPhoto.length; i++) {
                                 PhotoAPI.SetPostPhotoAPI({
                                     input_postPhoto: input_postPhoto[i].input_postPhoto,
-                                    postId: postId
+                                    postId: response[1]
                                 }).then(response => {
                                     switch (response[0]) {
                                         case 200 : {
+                                            router.push(MAIN_PATH + Cookies.get('id') + Main_path.PROFILE)
                                             break
                                         }
                                         case 400 : {
@@ -119,52 +95,7 @@ export const postsThunk = {
                                 })
                             }
                         }
-                        dispatch(clearMessage())
-                        break
-                    }
-                    case 400 : {
-                        break
-                    }
-                    case 401 : {
-                        localStorage.setItem('token', '')
-                        break
-                    }
-                }
-            })
-        }
-    },
 
-    CreatePost(input_postText: string, input_postPhoto: SetPhotoInterface[]) {
-        return (dispatch: Dispatch) => {
-            BlogAPI.NewPostAPI({
-                input_postText: input_postText
-            }).then(response => {
-                switch (response[0]) {
-                    case 200: {
-                        for(let i = 0; i < input_postPhoto.length; i++) {
-                            PhotoAPI.SetPostPhotoAPI({
-                                input_postPhoto: input_postPhoto[i].input_postPhoto,
-                                postId: response[1]
-                            }).then(response => {
-                                switch (response[0]) {
-                                    case 200 : {
-                                        break
-                                    }
-                                    case 400 : {
-                                        if (response[1] === 'File too big') {
-                                            dispatch(setMessage('Файл слишком большой'))
-                                        } else if (response[1] === 'Bad file name') {
-                                            dispatch(setMessage('Плохое имя файла, выберите другой'))
-                                        }
-                                        break
-                                    }
-                                    case 401: {
-                                        // bad token
-                                        break
-                                    }
-                                }
-                            })
-                        }
                         break
                     }
                     case 400: {
@@ -172,7 +103,7 @@ export const postsThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                 }
@@ -188,11 +119,31 @@ export const postsThunk = {
             }).then(response => {
                 switch (response[0]) {
                     case 200 : {
-                        dispatch(setComments(response[1]))
+                        const comments = JSON.parse(JSON.stringify(response[1]));
+                        for (let i = 0; i < comments.length; i++) {
+                            ProfileAPI.ProfileGetDataAPI( {
+                                id: comments[i].userId
+                            }).then(response => {
+                                switch (response[0]) {
+                                    case 200 : {
+                                        comments[i].name = response[1].name
+                                        comments[i].avatarUrl = response[1].avatarUrl
+                                        if (i === 0) {
+                                            dispatch(setOneCommentUserData(comments[i], true))
+                                        } else {
+                                            dispatch(setOneCommentUserData(comments[i], false))
+                                        }
+                                    }
+                                }
+                            })
+                        }
+                        if (comments.length === 0) {
+                            dispatch(clearComments())
+                        }
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                     case 400 : {
@@ -203,9 +154,7 @@ export const postsThunk = {
         }
     },
 
-    SetComment(postId: string, input_comment: string,
-                               name: string, nickname: string, avatarUrl: string,
-                               commentCount: string) {
+    SetComment(postId: string, input_comment: string) {
         return (dispatch: Dispatch) => {
             BlogAPI.SetCommentAPI({
                 postId: postId,
@@ -216,7 +165,7 @@ export const postsThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                     case 400 : {
@@ -227,7 +176,7 @@ export const postsThunk = {
         }
     },
 
-    LikePost(postId: string, isLiked: boolean, likeCount: string) {
+    LikePost(postId: string) {
         return (dispatch: Dispatch) => {
             BlogAPI.LikePostAPI({
                 postId: postId
@@ -237,7 +186,7 @@ export const postsThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                     case 400: {
@@ -248,7 +197,7 @@ export const postsThunk = {
         }
     },
 
-    LikeComment(commentId: string, isLiked: boolean, likeCount: string) {
+    LikeComment(commentId: string) {
         return (dispatch: Dispatch) => {
             BlogAPI.LikeCommentAPI({
                 commentId: commentId
@@ -258,7 +207,7 @@ export const postsThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                     case 400 : {
@@ -276,13 +225,14 @@ export const postsThunk = {
             }).then(response => {
                 switch (response[0]) {
                     case 200: {
+                        dispatch(setDeletePost(postId))
                         break
                     }
                     case 400: {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                 }
@@ -290,7 +240,7 @@ export const postsThunk = {
         }
     },
 
-    DeleteComment(commentId: string, postId: string, commentsCount: string) {
+    DeleteComment(commentId: string) {
         return (dispatch: Dispatch) => {
             BlogAPI.DeleteCommentAPI({
                 commentId: commentId
@@ -300,7 +250,7 @@ export const postsThunk = {
                         break
                     }
                     case 401 : {
-                        localStorage.setItem('token', '')
+                        CookieClear()
                         break
                     }
                     case 400 : {
@@ -310,34 +260,4 @@ export const postsThunk = {
             })
         }
     },
-
-    GetOneCommentData(userId: string, commentId: string) {
-        return (dispatch: Dispatch) => {
-            AuthAPI.AuthDataAPI({
-                id: userId as string
-            }).then(response => {
-                switch (response[0]) {
-                    case 200 : {
-                        ProfileAPI.ProfileGetDataAPI({
-                            id: userId as string
-                        }).then(responseSocial => {
-                            switch (responseSocial[0]) {
-                                case 200 : {
-                                    break
-                                }
-                                case 400: {
-                                    break
-                                }
-                                case 401 : {
-                                    localStorage.setItem('token', '')
-                                    break
-                                }
-                            }
-                        })
-                    }
-                }
-
-            })
-        }
-    }
 }

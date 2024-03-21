@@ -5,13 +5,16 @@ import create_post_icon from '@/assets/icons/post/create_post_icon.svg'
 import Image from "next/image";
 import {useRouter} from "next/navigation";
 import {Profile_path} from "@/app/paths/profile";
+import {Main_path, MAIN_PATH} from "@/app/paths/main";
+import Cookies from "js-cookie";
 
 export const CreatePostButtonComponent = () => {
     const router = useRouter()
 
     return (
         <button className={'button_main_color ' + create_post_scss.button}
-                onClick={() => router.push(Profile_path.PROFILE_CREATE_POST)}>
+                onClick={() => router.push(MAIN_PATH + Cookies.get('id') + Main_path.PROFILE +
+                    Profile_path.PROFILE_ONE_POST + Profile_path.PROFILE_CREATE_POST)}>
             <Image src={create_post_icon} alt={'create post'}/>
             Создать
         </button>

@@ -1,16 +1,17 @@
-import {instance, Paths} from "@/api/api_init";
+import {instance, instanceAuth, Paths} from "@/api/api_init";
 import {
     AuthDataInterfaceAPI, RequestChangingEmailInterfaceAPI, ChangeNicknameInterfaceAPI,
     GetCodeForChangingPasswordInterfaceAPI, RecoveryInterfaceAPI, ChangePasswordInterfaceAPI,
     RegistrationInterfaceAPI, RegistrationOrAuthorizationAxiosInterface, ConfirmChangingEmailInterfaceAPI,
     DeleteAccountInterfaceAPI
 } from "@/api/auth/authInterfaceAPI";
+import Cookies from "js-cookie";
 
 export const AuthAPI = {
 
     async AuthorizationAPI(data: RegistrationOrAuthorizationAxiosInterface) {
         try {
-            const response = await instance.post(
+            const response = await instanceAuth.post(
                 Paths.AUTH + '/login',
                 {
                     email: data.input_email,
@@ -26,7 +27,7 @@ export const AuthAPI = {
 
     async RegistrationAPI(data: RegistrationInterfaceAPI) { // registration
         try {
-            const response = await instance.post(
+            const response = await instanceAuth.post(
                 Paths.AUTH + '/registration',
                 {
                     email: data.input_email,
@@ -43,7 +44,7 @@ export const AuthAPI = {
 
     async RecoveryAccountAPI(data: RecoveryInterfaceAPI) {
         try {
-            const response = await instance.put(
+            const response = await instanceAuth.put(
                 Paths.AUTH + '/forget/password',
                 {
                     email: data.input_email
@@ -57,10 +58,10 @@ export const AuthAPI = {
 
     async ActivationAccountAPI() {
         try {
-            const response = await instance.put(
+            const response = await instanceAuth.put(
                 Paths.AUTH + '/active/account',
                 {
-                    "id": localStorage.getItem('id')
+                    "id": Cookies.get('id')
                 }
             );
             return [response.status, response.data];
