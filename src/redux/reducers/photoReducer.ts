@@ -16,6 +16,7 @@ export const photoReducer = (state = initialState, action : any) => {
     switch (action.type) {
 
         case SET_USER_PHOTO : {
+            stateCopy.photoUrl = []
             stateCopy = {...state, photoUrl: [...action.photoUrl]}
 
             return stateCopy
