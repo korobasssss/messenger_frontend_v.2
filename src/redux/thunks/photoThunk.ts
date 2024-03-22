@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {setCountPhoto, setPhotoUrl} from "@/redux/reducers/photoReducer";
+import {clearPhoto, setCountPhoto, setPhotoUrl} from "@/redux/reducers/photoReducer";
 import {PhotoAPI} from "@/api/photo/photoAPI";
 import {setFetching, setMessage} from "@/redux/reducers/authReducer";
 import {setAvatarUrl, setCoverUrl} from "@/redux/reducers/profileReducer";
@@ -35,6 +35,7 @@ export const photoThunk = {
 
     GetPhoto() {
         return (dispatch: Dispatch) => {
+            dispatch(clearPhoto())
             PhotoAPI.GetPhotoAPI({
                 id: Cookies.get(Cookie_names.ID_CURRENT) as string
             }).then(response => {

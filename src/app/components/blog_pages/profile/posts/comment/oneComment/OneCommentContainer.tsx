@@ -12,7 +12,8 @@ const mapStateToProps = (state: PostsInterfaceState ) => {
 
 const mapDispatchToProps = {
     likeComment: postsThunk.LikeComment,
-    deleteComment: postsThunk.DeleteComment
+    deleteComment: postsThunk.DeleteComment,
+    getOnePost: postsThunk.GetOnePostData
 }
 
 export const OneCommentContainer = connect(mapStateToProps, mapDispatchToProps)(OneComment)

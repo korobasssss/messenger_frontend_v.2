@@ -10,7 +10,7 @@ import {Auth_path} from "@/app/paths/auth";
 import {Main_path, MAIN_PATH_FOR_AUTH} from "@/app/paths/main";
 import {setToken} from "@/api/api_init";
 import {AuthMessagesEN, AuthMessagesRU} from "@/redux/messages/authMessages";
-import {clearPhoto} from "@/redux/reducers/photoReducer";
+import {clearPhotoReducer} from "@/redux/reducers/photoReducer";
 import {clearPosts} from "@/redux/reducers/postsReducer";
 import {clearUsers} from "@/redux/reducers/usersReducer";
 import {Cookie_names} from "@/redux/messages/cookie_names";
@@ -28,7 +28,7 @@ export const setMessageThunk = (message: string) => (dispatch: Dispatch) => {
 export const clearReducers = () => {
     return (dispatch: Dispatch) => {
         dispatch(clearAuth())
-        dispatch(clearPhoto())
+        dispatch(clearPhotoReducer())
         dispatch(clearPosts())
         dispatch(clearProfile())
         dispatch(clearUsers())

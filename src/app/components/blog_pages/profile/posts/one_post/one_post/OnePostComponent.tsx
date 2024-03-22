@@ -5,8 +5,6 @@ import Image from "next/image";
 
 import '@/app/scss/global/globals.scss'
 import one_post_scss from '@/app/scss/for_components/blog_pages/post/one_post.module.scss'
-import {useRouter} from "next/navigation";
-import {Profile_path} from "@/app/paths/profile";
 import {
     OnePostInterfacesComponent,
     OnePostUserDataInterface,
@@ -50,7 +48,8 @@ export const OnePostComponent = (props: OnePostInterfacesComponent & OnePostUser
             </header>
             <main className={one_post_scss.main}>
                 <section className={one_post_scss.post_data}>
-                    <ul className={one_post_scss.post_photos356}>
+                    <ul className={props.onePost.photoUrl.length === 1 || props.onePost.photoUrl.length === 2 ||
+                        props.onePost.photoUrl.length === 4 ? one_post_scss.post_photos124 : one_post_scss.post_photos356}>
                         {props.onePost.photoUrl.map((onePhoto: PostPhotoInterface) => {
                             return (
                                 <li key={onePhoto.photoId}>

@@ -4,6 +4,7 @@ const SET_USER_PHOTO = 'SET_USER_PHOTO'
 const SET_USER_COUNT_PHOTO = 'SET_USER_COUNT_PHOTO'
 
 const CLEAR_PHOTO = 'CLEAR_PHOTO'
+const CLEAR_PHOTO_ONLY = 'CLEAR_PHOTO'
 
 const initialState: {photoUrl: OnePhoto[], countPhoto: number} = {
     photoUrl: [],
@@ -22,6 +23,12 @@ export const photoReducer = (state = initialState, action : any) => {
 
         case SET_USER_COUNT_PHOTO : {
             stateCopy.countPhoto = action.countPhoto
+
+            return stateCopy
+        }
+
+        case CLEAR_PHOTO_ONLY : {
+            stateCopy.photoUrl = []
 
             return stateCopy
         }
@@ -50,8 +57,14 @@ export const setCountPhoto = (countPhoto : number) => {
     }
 }
 
-export const clearPhoto = () => {
+export const clearPhotoReducer = () => {
     return {
         type: CLEAR_PHOTO
+    }
+}
+
+export const clearPhoto = () => {
+    return {
+        type: CLEAR_PHOTO_ONLY
     }
 }

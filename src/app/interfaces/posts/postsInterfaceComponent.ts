@@ -57,6 +57,9 @@ export interface OnePostInterfaces {
     likePost(postId: string): void
 
     setAction(flag: boolean): void
+
+    getPhoto(): void
+    getPhotoCount(): void
 }
 
 export interface OnePostInterfacesComponent {

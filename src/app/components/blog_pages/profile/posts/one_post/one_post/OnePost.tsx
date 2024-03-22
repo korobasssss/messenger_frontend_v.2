@@ -24,6 +24,9 @@ export const OnePost = (props: OnePostInterfaces & OnePostUserDataInterface) => 
             }, 100)
             if (currPathname === Cookies.get(Cookie_names.ID_POST)) {
                 toProfile()
+            } else {
+                props.getPhoto()
+                props.getPhotoCount()
             }
         }
         setIsButtonDeletePostPressed(false)
