@@ -36,10 +36,11 @@ export const ActionButtonsComponent = (props: TypeButtons) => {
                 props.status === Status.SEND_SECOND ?
                     <main className={one_user_scss.subscribersButtons}>
                         <button className={'button_3rd_plane'}
-                                onClick={() => props.action(Actions.REJECT)}>
+                                onClick={() => props.action(Actions.ACCEPT)}>
                              <Image src={sent_request_icon} alt={'friends icon'}/>
                         </button>
-                        <button className={'button_3rd_plane'}>
+                        <button className={'button_3rd_plane'}
+                                onClick={() => props.action(Actions.REJECT)}>
                             <Image src={delete_icon} alt={'friends icon'}/>
                         </button>
                     </main> : null
