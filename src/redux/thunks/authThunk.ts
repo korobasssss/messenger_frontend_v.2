@@ -254,7 +254,7 @@ const AuthThunk = {
     AuthGetData() {
         return async (dispatch: Dispatch) => {
             AuthAPI.AuthDataAPI({
-                id: Cookies.get('id_current') as string // todo вынести
+                id: Cookies.get('id_current') as string
             }).then(response => {
                 switch (response[0]) {
                     case 200 : {

@@ -13,6 +13,7 @@ import {RestoreComponent} from "@/app/components/auth/account/restore/RestoreCom
 import {Main_authInterface} from "@/app/interfaces/auth/authInterface";
 
 import settings_scss from '@/app/scss/for_components/blog_pages/settings/settings.module.scss'
+import {Recovery} from "@/app/components/auth/account/recovery/Recovery";
 
 export const Main_AuthComponent = (props: Main_authInterface) => {
     const router = useRouter()
@@ -33,7 +34,7 @@ export const Main_AuthComponent = (props: Main_authInterface) => {
                        {pathname === Auth_path.LOGIN ? <Login authorization={props.authorization}
                                                               clearMessage={props.clearMessage}/> :
                         pathname === Auth_path.REGISTRATION ? <Registration registration={props.registration}/> :
-                        pathname === Auth_path.FORGOT_PASSWORD ? <RecoveryComponent recovery={props.recovery}/> :
+                        pathname === Auth_path.FORGOT_PASSWORD ? <Recovery recovery={props.recovery}/> :
                         pathname === Auth_path.RESTORE ? <RestoreComponent/>: null}
                         <p className={settings_scss.message}>{props.message}</p>
                     </section>

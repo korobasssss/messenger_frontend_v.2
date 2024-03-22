@@ -12,7 +12,7 @@ import {Main_path, MAIN_PATH} from "@/app/paths/main";
 import Cookies from "js-cookie";
 import {Cookie_names} from "@/redux/messages/cookie_names";
 
-export const OnePhotoComponent = () => { // todo разобраться с путем и отображением фото
+export const OnePhotoComponent = () => {
     const router = useRouter();
 
     return (
@@ -20,7 +20,7 @@ export const OnePhotoComponent = () => { // todo разобраться с пу�
             <section className={one_photo_scss.dark_bgc}
                      onClick={() => {
                          Cookies.remove(Cookie_names.ID_PHOTO)
-                         Cookies.remove(Cookie_names.URL_PHOTO) // todo
+                         Cookies.remove(Cookie_names.URL_PHOTO)
                          Cookies.remove(Cookie_names.ID_POST)
                          router.push(MAIN_PATH + Cookies.get(Cookie_names.ID_CURRENT) + Main_path.PHOTO)}
             }></section>

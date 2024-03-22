@@ -1,3 +1,3 @@
 export const Photo_path = {
-    ONE_PHOTO: '/one_photo' // todo id photo
+    ONE_PHOTO: '/one_photo'
 }
