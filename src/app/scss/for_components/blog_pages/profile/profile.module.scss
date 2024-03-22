@@ -1,0 +1,33 @@
+@import '@/app/scss/global/color';
+
+$width: 615px;
+$radius: 20px;
+
+$route-gap: 15px;
+$aside-gap: 25px;
+
+
+.route {
+  overflow-x: hidden;
+
+  display: flex;
+  gap: $route-gap;
+
+  .center {
+    width: $width;
+
+    display: flex;
+    flex-flow: column;
+
+    background-color: $white-color;
+    border-radius: $radius;
+
+    overflow-y: auto;
+  }
+
+  .aside {
+    display: flex;
+    flex-flow: column;
+    gap: $aside-gap;
+  }
+}

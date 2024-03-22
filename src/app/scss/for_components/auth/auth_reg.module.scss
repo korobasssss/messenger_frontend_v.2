@@ -1,0 +1,53 @@
+@import '@/app/scss/global/color';
+
+$rout-gap: 10px;
+$form-gap: 20px;
+
+$inputs-gap: 10px;
+
+$more-gap: 10px;
+
+$or-widths: 190px 29px 190px;
+$or-gap: 10px;
+
+$hr-h: 1px;
+
+.rout {
+  display: flex;
+  flex-flow: column;
+  gap: $rout-gap;
+}
+
+.form {
+  width: 100%;
+  display: grid;
+  row-gap: $form-gap;
+}
+
+.inputs {
+  width: 100%;
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  gap: $inputs-gap;
+}
+
+.more {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  gap: $more-gap;
+}
+
+.or {
+  display: grid;
+  grid-template-columns: $or-widths;
+  column-gap: $or-gap;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.likeHr {
+  height: $hr-h;
+  background-color: $hr-color;
+}

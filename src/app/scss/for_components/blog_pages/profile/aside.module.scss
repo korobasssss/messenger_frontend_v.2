@@ -1,0 +1,92 @@
+@import "@/app/scss/global/color";
+
+$route-width: 255px;
+$route-radius: 15px;
+$route-padding: 25px;
+$route-gap: 15px;
+
+$header-gap: 5px;
+
+$name-weight: 600;
+$name-size: 1em;
+
+$photo-size: 65px;
+$photo-radius: 3px;
+$photos-gap: 5px;
+
+$friend-photo-size: 50px;
+$friend-photo-radius: 50px;
+
+
+.padding {
+  cursor: pointer;
+
+  padding: $route-padding;
+  background-color: $white-color;
+  border-radius: $route-radius;
+
+  * {
+    cursor: pointer;
+  }
+
+  .route {
+    cursor: pointer;
+
+    width: $route-width - 2 * $route-padding;
+
+    display: flex;
+    flex-flow: column;
+    gap: $route-gap;
+
+
+    .photos {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: $photos-gap;
+
+      li {
+        width: min-content;
+        height: min-content;
+      }
+
+      .image {
+        width: $photo-size;
+        height: $photo-size;
+        object-fit: cover;
+
+        border-radius: $photo-radius;
+      }
+    }
+    .friends {
+      display: flex;
+
+
+      li {
+        width: min-content;
+        height: min-content;
+      }
+
+      .friend_avatar {
+        width: $friend-photo-size;
+        height: $friend-photo-size;
+
+        border-radius: $friend-photo-radius;
+      }
+    }
+  }
+}
+
+.header {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: $header-gap;
+}
+
+.name {
+  font-weight: $name-weight;
+  font-size: $name-size;
+}
+
+.count {
+  color: $not_important_data_color;
+}

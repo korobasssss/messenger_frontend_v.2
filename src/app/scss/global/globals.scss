@@ -1,0 +1,164 @@
+@import '@/app/scss/global/color';
+@import '@/app/scss/global/main_values';
+
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  cursor: default;
+
+  font-family: $font-family;
+}
+
+html,
+body {
+  max-width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+
+  background-color: $bgc;
+}
+
+button {
+  cursor: pointer;
+
+  height: $button-height;
+
+  border-radius: 10px;
+  border: none;
+
+  font-weight: $button-font-weight;
+  font-size: $font-size-input-button;
+
+  padding: $button-padding;
+
+  text-align: center;
+
+  * {
+    cursor: pointer;
+  }
+}
+
+.main_root {
+  height: 100vh;
+}
+
+.button_main_color {
+  background-color: $dark-purple-color;
+  color: $white-color;
+}
+
+.button_not_main_color {
+  background-color: $transparent-color;
+  border: 2px solid $dark-purple-color;
+  color: $dark-purple-color;
+}
+
+.button_cancel {
+  background-color: $cancel_color;
+  border: none;
+  color: $cancel_text_color;
+}
+
+.button_3rd_plane {
+  height: min-content;
+
+  padding: 0;
+  background-color: $transparent-color;
+  border: none;
+  color: $black-color;
+  font-weight: $button-3rd-plane-weight;
+}
+
+input, textarea {
+  cursor: text;
+  height: $input-height;
+
+  border-radius: 10px;
+  border: $input-border;
+
+  padding: $input-padding;
+
+  font-size: $font-size-input-button;
+}
+
+textarea {
+  padding: 10px;
+  resize: none;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+p {
+  margin: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+ol {
+  padding: 0;
+  margin: 0;
+}
+
+.name {
+  font-size: $name-font-size;
+  font-weight: $name-font-weight;
+}
+.name_small {
+  font-size: $name-font-size_small;
+  font-weight: $name-font-weight-small;
+}
+
+.nickname {
+  font-size: $nickname-font-size;
+  color: $not_important_data_color;
+}
+
+.footer_buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+
+.scrollBar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.scrollBar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.scrollBar::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 2px;
+}
+
+
+
+
+
+body::-webkit-scrollbar {
+  width: 5px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 2px;
+}
+
+

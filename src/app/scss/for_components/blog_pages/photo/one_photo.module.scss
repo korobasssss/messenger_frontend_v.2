@@ -1,0 +1,75 @@
+@import "@/app/scss/global/color";
+@import "@/app/scss/global/main_values";
+
+$route-w: 932px;
+$route-h: 604px;
+
+$photo-radius: $modal-window-radius 0px 0px $modal-window-radius;
+$photo-min-size: 400px;
+$photo-w: 604px;
+$photo-h: $route-h;
+
+$main-gap: 25px;
+$main-padding: 25px 15px 25px 15px;
+
+$user-post-data-gap: 10px;
+$post-gap: 10px;
+$post-w: 328px;
+
+$user-avatar-size: 45px;
+$user-name-nickname-gap: 5px;
+
+.page {
+  overflow-y: auto;
+
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+
+  display: grid;
+  align-items: center;
+  justify-items: center;
+
+  .dark_bgc {
+    width: 100vw;
+    height: 100vh;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+
+    background-color: $black-color;
+    opacity: 0.4;
+  }
+
+  .post_width {
+    width: $post-w;
+  }
+
+  .route {
+
+    width: $route-w;
+    height: $route-h;
+
+    position: absolute;
+
+    display: flex;
+
+    background-color: $white-color;
+    border-radius: $modal-window-radius;
+
+    .photo {
+      width: $photo-w;
+      height: $photo-h;
+
+      aspect-ratio: attr(width) / attr(height);
+
+      object-fit: cover;
+
+      border-radius: $photo-radius;
+    }
+  }
+}

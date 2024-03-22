@@ -1,0 +1,130 @@
+@import "@/app/scss/global/main_values";
+@import "@/app/scss/global/color";
+
+$page-gap: 15px;
+
+$route-w: 615px;
+$route-padding: 35px;
+
+$form-gap: 45px;
+$form-margin: 45px;
+
+$section-gap: 10px;
+$section-name-w: 200px;
+$section-name-weight: 700;
+$section-data-w: 250px;
+
+$section-edit-gap: 10px;
+$inputs-gap: 5px;
+
+$input-h: 31px;
+$input-radius: 5px;
+
+$button-height: 37px;
+$button-padding: 10px 20px;
+
+$delete-button-margin: 25px;
+
+$message-weight: 600;
+
+
+.page {
+  display: flex;
+  gap: $page-gap;
+}
+
+.route {
+  width: $route-w;
+  height: min-content;
+  padding: $route-padding;
+
+  border-radius: $page-radius;
+  background-color: $white-color;
+
+  .form {
+    display: flex;
+    flex-flow: column;
+    gap: $form-gap;
+
+    margin-bottom: $form-margin;
+
+
+    .form_elements {
+      display: flex;
+      justify-content: space-between;
+      gap: $section-gap;
+
+      .section {
+        display: flex;
+        gap: $section-gap;
+
+        .section_name {
+          width: $section-name-w;
+          font-weight: $section-name-weight;
+        }
+
+        .section_data_or_edit {
+          width: $section-data-w;
+
+          .section_edit {
+            display: flex;
+            flex-flow: column;
+            gap: $section-edit-gap;
+
+            font-size: 0.9em;
+
+            .input_section {
+              display: flex;
+              flex-flow: column;
+              gap: $inputs-gap;
+            }
+
+            input {
+              height: $input-h;
+              border-radius: $input-radius;
+            }
+
+            .section_footer {
+              display: flex;
+              justify-content: space-between;
+
+              button {
+                padding: $button-padding;
+
+                height: $button-height;
+                border-radius: $input-radius;
+              }
+            }
+          }
+
+          .section_data {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+    }
+  }
+
+  .footer {
+    display: flex;
+    justify-content: center;
+
+    border-top: $chat-border;
+
+    button {
+      margin-top: $delete-button-margin;
+    }
+  }
+}
+
+
+.hidden_aside {
+  width: 255px;
+}
+
+.message {
+  color: $red-color;
+  font-weight: $message-weight;
+}

@@ -1,0 +1,110 @@
+@import "@/app/scss/global/color";
+
+$width: 150px;
+$section_gap: 35px;
+
+$header-size: 1.75em;
+$header-weight: 700;
+$header-gap: 10px;
+
+$title-icon-size: 34px;
+
+$nav-button-gap: 10px;
+
+$icon-size: 20px;
+
+$padding-button: 10px;
+$button-weight: 600;
+$button-radius: 5px;
+
+$button_enter_padding: 5px 40px;
+
+.route {
+  width: $width;
+  display: flex;
+  flex-flow: column;
+  gap: $section_gap;
+
+  .header_section {
+    display: grid;
+
+    .header_button {
+      padding: 0;
+      display: flex;
+      gap: $header-gap;
+      align-items: center;
+
+      .title_icon {
+        width: $title-icon-size;
+        height: $title-icon-size;
+      }
+
+      .header {
+        font-size: $header-size;
+        font-weight: 700;
+      }
+    }
+  }
+
+  .buttons {
+    display: flex;
+    flex-flow: column;
+
+    .nav_button {
+      width: 100%;
+      height: min-content;
+      padding: $padding-button;
+
+      display: flex;
+      gap: $nav-button-gap;
+      justify-content: stretch;
+      align-items: center;
+
+      border-radius: $button-radius;
+    }
+
+    .nav_button:hover {
+      background-color: $chat-border-color;
+    }
+
+    .icon {
+      width: $icon-size;
+      height: $icon-size;
+    }
+
+    .text_button {
+      font-weight: $button-weight;
+
+    }
+
+    .more_button {
+      width: 100%;
+      height: min-content;
+      display: grid;
+      grid-template-columns: $icon-size auto $icon-size;
+      column-gap: $nav-button-gap;
+      align-items: center;
+      justify-items: start;
+
+      padding: $padding-button;
+    }
+
+    .arrow {
+      width: 100%;
+      display: grid;
+      justify-self: end;
+    }
+  }
+
+  .more_section {
+    width: 100%;
+  }
+
+  .enter {
+    height: min-content;
+    padding: $button_enter_padding;
+    font-weight: $button-weight;
+  }
+}
+
+

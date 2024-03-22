@@ -1,0 +1,49 @@
+
+$route-gap: 15px;
+
+$avatar-size: 75px;
+$avatar-border-radius: 50px;
+
+$data-padding: 10px 0px;
+
+$subscriber-buttons-gap: 15px;
+
+
+.data_and_buttons {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+
+  .rout {
+
+    display: flex;
+    gap: $route-gap;
+
+
+    .avatar {
+      cursor: pointer;
+      width: $avatar-size;
+      height: $avatar-size;
+
+      border-radius: $avatar-border-radius;
+
+      object-fit: cover;
+    }
+    .data {
+      padding: $data-padding;
+
+      height: 100%;
+
+      display: grid;
+      align-content: space-between;
+    }
+  }
+}
+
+
+
+.subscribersButtons {
+  display: flex;
+  gap: $subscriber-buttons-gap;
+}

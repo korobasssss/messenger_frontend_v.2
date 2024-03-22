@@ -1,0 +1,138 @@
+@import "@/app/scss/global/main_values";
+@import "@/app/scss/global/color";
+
+@import "@/app/scss/for_components/blog_pages/post/one_comment.module";
+@import "@/app/scss/for_components/blog_pages/profile/header_profile.module";
+
+$route-width: 671px;
+$route-padding: 35px 45px 35px 45px;
+$route-gap: 15px;
+
+$cover-h: 139px;
+$cover-radius: $modal-window-radius;
+
+$avatar-top: -70px;
+$avatar-left: 20px;
+
+$form-margin: 60px;
+$form-gap: 25px;
+
+$input-gap: 5px;
+
+$input-w: 261px;
+$input-h: 38px;
+$input-radius: 5px;
+
+$textarea-w: 100%;
+$textarea-h: 101px;
+
+$edit-w: 207px;
+$edit-section-gap: 15px;
+
+
+.route {
+  position: absolute;
+
+  width: $route-width;
+
+  border-radius: $modal-window-radius;
+  padding: $route-padding;
+
+  display: flex;
+  flex-flow: column;
+  gap: $route-gap;
+
+  background-color: $white-color;
+
+  .cover_section {
+    height: $cover-h;
+
+    .cover {
+      border-radius: $cover-radius;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+    }
+  }
+
+  .avatar_section {
+    height: 20px;
+
+    position: absolute;
+    width: $avatar-size + $avatar-left + 40px;
+  }
+
+  .avatar {
+    position: relative;
+    top: $avatar-top;
+    left: $avatar-left;
+
+    border-radius: $avatar-border-radius;
+    border: $avatar-border;
+    width: $avatar-size;
+    height: $avatar-size;
+
+    object-fit: cover;
+  }
+
+  .form {
+    margin-top: $form-margin;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: $form-gap;
+  }
+
+  .input_section {
+    display: flex;
+    flex-flow: column;
+    gap: $input-gap;
+
+    input {
+      width: $input-w;
+      height: $input-h;
+
+      border-radius: $input-radius;
+    }
+
+    textarea {
+      width: $textarea-w;
+      height: $textarea-h;
+
+      border-radius: $input-radius;
+    }
+  }
+}
+
+.edit_profile_section {
+  position: relative;
+  left: 80%;
+
+  width: $edit-w;
+
+  display: flex;
+  flex-flow: column;
+
+  gap: $edit-section-gap;
+
+  padding: $edit-padding;
+  border: $edit-border;
+  border-radius: $edit-border-radius;
+
+  background-color: $white-color;
+
+  button {
+    text-align: start;
+
+    font-weight: $edit-button-weight;
+  }
+
+  .button_download {
+    input, label {
+      cursor: pointer;
+    }
+  }
+}

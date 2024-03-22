@@ -1,0 +1,61 @@
+@import '@/app/scss/global/color';
+@import '@/app/scss/global/main_values';
+
+@keyframes scroll {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+$main-block-width: 1059px;
+$animation: scroll 1s linear infinite;
+
+$auth-form-width: 550px;
+
+.root {
+  height: 100%;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.mainBLock {
+  height: 100%;
+  width: $main-block-width;
+
+  display: grid;
+  grid-template-columns: 408px 551px;
+  column-gap: 100px;
+  align-items: center;
+  justify-self: center;
+}
+
+.img {
+  animation: $animation;
+}
+
+.authForm {
+  width: $auth-form-width;
+  background-color: $white-color;
+  border-radius: $auth-block-border-radius;
+}
+
+.section {
+  padding: 60px;
+  display: flex;
+  flex-flow: column;
+  row-gap: 10px;
+}
+
+.header {
+  height: 78px;
+  font-size: 2.8em;
+  font-weight: 700;
+  text-align: center;
+
+  background-color: $transparent-color;
+  color: $black-color;
+}

@@ -1,0 +1,17 @@
+@import "@/app/scss/for_components/blog_pages/profile/header_profile.module";
+$route-padding: 20px;
+
+$no-data-padding: 35px 0px;
+
+.route {
+  padding: 0 $route-padding;
+}
+
+.no_data {
+  text-align: center;
+  padding: $no-data-padding;
+}
+
+.li {
+  border-top: $border;
+}

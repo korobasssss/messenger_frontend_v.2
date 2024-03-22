@@ -1,0 +1,68 @@
+@import "@/app/scss/global/color";
+@import "@/app/scss/global/main_values";
+
+$route-w: 500px;
+$route-padding: 35px 70px 35px 70px;
+$route-gap: 30px;
+
+$second-step-gap: 10px;
+
+$header-size: 1.25em;
+$header-weight: 600;
+
+$button-h: 35px;
+
+.route {
+  position: absolute;
+
+  width: $route-w;
+  padding: $route-padding;
+  background-color: $white-color;
+  border-radius: $modal-window-radius;
+
+  display: flex;
+  flex-flow: column;
+  gap: $route-gap;
+
+  justify-content: center;
+
+
+  .header {
+    font-weight: $header-weight;
+    font-size: $header-size;
+
+    text-align: center;
+  }
+
+  .first_step {
+    display: flex;
+    flex-flow: column;
+    gap: $route-gap;
+  }
+
+  .second_step {
+    display: flex;
+    flex-flow: column;
+    gap: $second-step-gap;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+
+    .button_cancel {
+      background-color: $chat-border-color;
+      color: $button-cancel-color;
+    }
+    .button_delete {
+      background-color: $red-color;
+      color: $white-color;
+    }
+
+    button {
+      height: $button-h;
+      display: flex;
+      align-items: center;
+    }
+  }
+}

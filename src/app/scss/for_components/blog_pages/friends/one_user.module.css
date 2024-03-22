@@ -1,0 +1,29 @@
+.data_and_buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.data_and_buttons .rout {
+  display: flex;
+  gap: 15px;
+}
+.data_and_buttons .rout .avatar {
+  cursor: pointer;
+  width: 75px;
+  height: 75px;
+  border-radius: 50px;
+  object-fit: cover;
+}
+.data_and_buttons .rout .data {
+  padding: 10px 0px;
+  height: 100%;
+  display: grid;
+  align-content: space-between;
+}
+
+.subscribersButtons {
+  display: flex;
+  gap: 15px;
+}
+
+/*# sourceMappingURL=one_user.module.css.map */

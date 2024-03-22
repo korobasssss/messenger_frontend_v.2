@@ -1,0 +1,39 @@
+@import '@/app/scss/global/color';
+
+$border: 1px solid $chat-border-color;
+
+$buttons-gap: 25px;
+$buttons-padding: 15px;
+
+$button-padding: 5px 15px;
+$button-height: 32px;
+
+.route {
+  display: flex;
+  justify-content: space-between;
+
+  border-bottom: $border;
+
+  .buttons {
+    padding-bottom: $buttons-padding;
+
+    display: flex;
+    gap: $buttons-gap;
+
+    li {
+      height: min-content;
+    }
+
+    .button {
+      height: $button-height;
+      padding: $button-padding;
+
+      display: flex;
+      justify-content: center;
+    }
+
+    .activeButton {
+      background-color: $bgc;
+    }
+  }
+}

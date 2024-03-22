@@ -1,0 +1,62 @@
+@import "@/app/scss/global/color";
+@import "@/app/scss/global/main_values";
+
+$user-post-data-gap: 10px;
+
+$user-avatar-size: 45px;
+$user-name-nickname-gap: 5px;
+
+$user-avatar-radius: 50px;
+
+$max-post-text: 400px;
+
+$edit-padding: 15px;
+$edit-h: 5px;
+$edit-border: 1px solid $chat-border-color;
+$edit-gap: 1px;
+$edit-border-radius: 10px;
+$edit-button-weight: 600;
+
+$button-size: 20px;
+
+.user_post_data {
+  display: flex;
+  gap: $user-post-data-gap;
+
+  .user_avatar {
+    width: $user-avatar-size;
+    height: $user-avatar-size;
+
+    border-radius: $user-avatar-radius;
+    object-fit: cover;
+  }
+
+  .info {
+    width: 100%;
+
+    display: flex;
+    flex-flow: column;
+    gap: $user-post-data-gap;
+
+    .user_data {
+      display: flex;
+      gap: $user-name-nickname-gap;
+    }
+
+    .user_data_with_edit {
+      height: min-content;
+
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+
+.deleteIcon {
+  width: $button-size;
+  height: $button-size;
+}
+
+.gap_buttons {
+  gap: $user-post-data-gap;
+}

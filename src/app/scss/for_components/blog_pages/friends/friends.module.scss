@@ -1,0 +1,59 @@
+@import "@/app/scss/global/color";
+@import "@/app/scss/global/main_values";
+
+$page-width: 885px;
+$page-padding: 25px;
+
+$route-gap: 20px;
+
+$users-gap: 20px;
+
+$no-users-weight: 600;
+$no-users-size: 1em;
+
+$no-friends-gap: 10px;
+
+.page {
+  width: $page-width;
+  height: 100%;
+  padding: $page-padding;
+
+  background-color: $white-color;
+  border-radius: $page-radius;
+
+
+  .route {
+    display: flex;
+    flex-flow: column;
+    gap: $route-gap;
+  }
+
+  .users {
+    display: flex;
+    flex-flow: column;
+    gap:$users-gap;
+  }
+
+  .no_users {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+
+    font-size: $no-users-size;
+    font-weight: $no-users-weight;
+
+    padding: $page-padding;
+
+
+    .no_friends {
+      display: flex;
+      gap: $no-friends-gap;
+
+
+      .find_friends {
+        color: $dark-purple-color;
+        font-weight: $no-users-weight;
+      }
+    }
+  }
+}
