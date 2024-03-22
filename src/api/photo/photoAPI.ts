@@ -123,24 +123,5 @@ export const PhotoAPI = {
         } catch (error: any) {
             return [error.response.status, error.response.data];
         }
-    },
-
-    async DeletePhotoPostAPI(data: DeletePhotoPostInterfaceAPI) { // todo
-        setToken(Cookies.get(Cookie_names.TOKEN) as string)
-        try {
-            const response = await instance.delete(
-                Paths.FILE + '/blog',
-                {
-                    data: {
-                        url: data.url,
-                        photoId: data.photoId,
-                        postId: data.postId
-                    }
-                }
-            );
-            return [response.status, response.data];
-        } catch (error: any) {
-            return [error.response.status, error.response.data];
-        }
     }
 }

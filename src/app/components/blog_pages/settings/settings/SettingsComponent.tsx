@@ -13,7 +13,7 @@ import {Cookie_names} from "@/redux/messages/cookie_names";
 import {Main_path, MAIN_PATH} from "@/app/paths/main";
 import {DeleteAccountContainer} from "@/app/components/blog_pages/settings/settings/delete/DeleteAccountContainer";
 
-export const SettingsComponent = (props: SettingsComponentInterface) => { // todo вынести все в отдельные компоненты
+export const SettingsComponent = (props: SettingsComponentInterface) => {
     const pathname = usePathname().split('/')
     const lastPathname = '/' + pathname[pathname.length - 2] + '/' + pathname[pathname.length - 1]
 

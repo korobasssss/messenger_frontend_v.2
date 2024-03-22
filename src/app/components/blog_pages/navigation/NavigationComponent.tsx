@@ -20,7 +20,7 @@ import Cookies from "js-cookie";
 import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {Cookie_names} from "@/redux/messages/cookie_names";
 
-export const NavigationComponent = (props: {logout(router: AppRouterInstance): void}) => { // todo потом добавить все разделы в редакс вместе с иконками (все кроме еще)
+export const NavigationComponent = (props: {logout(router: AppRouterInstance): void}) => {
     const router = useRouter()
     const [isMoreSectionOpened, setMoreSectionOpened] = useState(false)
 

@@ -41,7 +41,7 @@ export const Header_friendsComponent = (props: HeaderComponentInterface) => {
         setActiveIndex(-1)
     }, [isActiveIndex, router, props])
 
-    return ( // todo  я думаю тут также можно из store подтянуть данные чтобы красиво было
+    return (
         <nav className={header_friends_scss.route}>
             <ul className={header_friends_scss.buttons}>
                 <li>

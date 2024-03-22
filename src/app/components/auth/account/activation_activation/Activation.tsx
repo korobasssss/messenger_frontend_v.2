@@ -18,6 +18,6 @@ export const Activation = (props: ActivationInterface) => {
     }
 
     return <ActivationComponent message={props.message}
-                                title={'Активация аккаунта'} // todo
+                                title={'Активация аккаунта'}
                                 toLogin={toLogin}/>
 }
