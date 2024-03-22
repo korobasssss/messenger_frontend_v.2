@@ -23,6 +23,10 @@ export interface CommentsInterface {
     getComments(postId: string): void
 
     setComment(postId: string, input_comment: string): void
+
+    setAction(flag: boolean): void
+
+    getOnePost(postId: string): void
 }
 
 export interface CommentsInterfaceComponent {
@@ -46,6 +50,8 @@ export interface OneCommentInterface {
     likeComment(commentId: string): void
 
     deleteComment(commentId: string): void
+
+    getOnePost(postId: string): void
 }
 export interface OneCommentComponentInterface {
     oneComment: Comment,

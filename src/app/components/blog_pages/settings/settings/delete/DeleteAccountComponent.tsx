@@ -1,22 +1,19 @@
 import one_photo_scss from "@/app/scss/for_components/blog_pages/photo/one_photo.module.scss";
 import '@/app/scss/global/globals.scss'
-import {useRouter} from "next/navigation";
 
 import delete_account_scss from '@/app/scss/for_components/blog_pages/settings/delete_account.module.scss'
-import {Settings_path} from "@/app/paths/settings";
-import {Auth_path} from "@/app/paths/auth";
 import {useEffect, useState} from "react";
+import {DeleteAccountComponentInterface} from "@/app/interfaces/settings/deleteAccount";
 
-export const DeleteAccountComponent = () => {
-    const router = useRouter()
+export const DeleteAccountComponent = (props: DeleteAccountComponentInterface) => {
 
     const [isButtonDeletePassed, setButtonDeletePassed] = useState(false)
 
     const pressedDeleteButton = () => {
         switch (isButtonDeletePassed) {
             case true : {
-                router.push(Auth_path.LOGIN)
                 setButtonDeletePassed(false)
+                props.setButtonDeleteAccountPressed(true)
                 break
             }
 
@@ -31,7 +28,7 @@ export const DeleteAccountComponent = () => {
     return (
         <section className={one_photo_scss.page}>
             <section className={one_photo_scss.dark_bgc}
-                     onClick={() => router.push(Settings_path.SETTINGS)}></section>
+                     onClick={() => props.toSettings()}></section>
             <section className={delete_account_scss.route}>
                 <header className={delete_account_scss.header}>
                     Удаление аккаунта
@@ -39,7 +36,10 @@ export const DeleteAccountComponent = () => {
                 {isButtonDeletePassed ?
                     <section className={delete_account_scss.second_step}>
                         <p>Для подтверждения действия, введите Ваш пароль</p>
-                        <input placeholder={'Пароль'}/>
+                        <input type={'password'}
+                               value={props.input_password}
+                               onChange={(event) => props.setInput_password(event.target.value)}
+                               placeholder={'Пароль'}/>
                     </section>
                     :
                     <section className={delete_account_scss.first_step}>
@@ -51,8 +51,8 @@ export const DeleteAccountComponent = () => {
                 <footer className={delete_account_scss.footer}>
                     <button className={delete_account_scss.button_cancel}
                             onClick={() => {
-                                router.push(Settings_path.SETTINGS)
                                 setButtonDeletePassed(false)
+                                props.toSettings()
                             }}>
                         Отмена
                     </button>

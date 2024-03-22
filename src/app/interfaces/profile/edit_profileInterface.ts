@@ -1,5 +1,6 @@
 import React from "react";
 import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {SetPhotoInterface} from "@/api/photo/photoIntefraceAPI";
 
 export interface EditProfileInterface {
     message: string
@@ -17,8 +18,8 @@ export interface EditProfileInterface {
 
     deleteAvatar(deleteAvatarUrl: string): void
     deleteCover(deleteCoverUrl: string): void
-    setAvatar(avatarUrl: File): void
-    setCover(coverUrl: File): void
+    setAvatar(avatarUrl: SetPhotoInterface): void
+    setCover(coverUrl: SetPhotoInterface): void
 
     clearMessage(): void
     setMessageThunk(message: string): void

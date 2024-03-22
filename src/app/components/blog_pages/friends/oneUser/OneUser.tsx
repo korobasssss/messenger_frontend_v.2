@@ -1,8 +1,7 @@
 import {OneUserComponent} from "@/app/components/blog_pages/friends/oneUser/OneUserComponent";
 import {OneUserInterface} from "@/app/interfaces/friends/friendsInterface";
-import {useEffect} from "react";
 import {useRouter} from "next/navigation";
-import {Main_path, MAIN_PATH, MAIN_PATH_FOR_AUTH} from "@/app/paths/main";
+import {Main_path,  MAIN_PATH_FOR_AUTH} from "@/app/paths/main";
 import Cookies from "js-cookie";
 import {Cookie_names} from "@/redux/messages/cookie_names";
 

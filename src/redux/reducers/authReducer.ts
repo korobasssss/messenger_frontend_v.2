@@ -7,11 +7,14 @@ const CLEAR_MESSAGE = 'CLEAR_MESSAGE'
 
 const CLEAR_AUTH = 'CLEAR_AUTH'
 
+const SET_FETCHING = 'SET_FETCHING'
+
 const initialState = {
     email: '',
     nickname: '',
 
-    message: ''
+    message: '',
+    isFetching: false
 }
 
 export const authReducer = (state = initialState, action : any) => {
@@ -56,6 +59,12 @@ export const authReducer = (state = initialState, action : any) => {
             return stateCopy
         }
 
+        case SET_FETCHING : {
+            stateCopy.isFetching = action.isFetching
+
+            return stateCopy
+        }
+
         default : {
             return stateCopy
         }
@@ -95,5 +104,11 @@ export const clearMessage = () => {
 export const clearAuth = () => {
     return {
         type: CLEAR_AUTH
+    }
+}
+
+export const setFetching = (isFetching: boolean) => {
+    return {
+        type: SET_FETCHING, isFetching
     }
 }

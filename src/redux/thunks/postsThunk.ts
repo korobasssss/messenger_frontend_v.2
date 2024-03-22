@@ -9,7 +9,7 @@ import {
 } from "@/redux/reducers/postsReducer";
 import {BlogAPI} from "@/api/post/postsAPI";
 import {PhotoAPI} from "@/api/photo/photoAPI";
-import {clearMessage, setMessage} from "@/redux/reducers/authReducer";
+import {clearMessage, setFetching, setMessage} from "@/redux/reducers/authReducer";
 import {ProfileAPI} from "@/api/profile/profileAPI";
 import {CookieClear} from "@/redux/thunks/authThunk";
 import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
@@ -64,6 +64,7 @@ export const postsThunk = {
 
     CreatePost(input_postText: string, input_postPhoto: SetPhotoInterface[], router: AppRouterInstance) {
         return (dispatch: Dispatch) => {
+            dispatch(setFetching(true))
             BlogAPI.NewPostAPI({
                 input_postText: input_postText
             }).then(response => {
@@ -71,6 +72,7 @@ export const postsThunk = {
                     case 200: {
                         if (input_postPhoto.length === 0 ) {
                             router.push(MAIN_PATH + Cookies.get(Cookie_names.ID) + Main_path.PROFILE)
+                            dispatch(setFetching(false))
                         } else {
                             for(let i = 0; i < input_postPhoto.length; i++) {
                                 PhotoAPI.SetPostPhotoAPI({
@@ -79,11 +81,13 @@ export const postsThunk = {
                                 }).then(response => {
                                     switch (response[0]) {
                                         case 200 : {
+                                            dispatch(setFetching(false))
                                             dispatch(clearMessage())
                                             router.push(MAIN_PATH + Cookies.get(Cookie_names.ID) + Main_path.PROFILE)
                                             break
                                         }
                                         case 400 : {
+                                            dispatch(setFetching(false))
                                             if (response[1] === PostMessagesEN.FILE_TOO_BIG) {
                                                 dispatch(setMessage(ProfileMessagesRU.FILE_TOO_BIT))
                                             } else if (response[1] === PostMessagesEN.BAD_NAME) {
@@ -92,6 +96,7 @@ export const postsThunk = {
                                             break
                                         }
                                         case 401: {
+                                            dispatch(setFetching(false))
                                             CookieClear()
                                             break
                                         }
@@ -103,16 +108,17 @@ export const postsThunk = {
                         break
                     }
                     case 400: {
+                        dispatch(setFetching(false))
                         dispatch(setMessage(PostMessagesRU.SYMBOLS_LIMIT))
                         break
                     }
                     case 401 : {
+                        dispatch(setFetching(false))
                         CookieClear()
                         break
                     }
                 }
             })
-
         }
     },
 

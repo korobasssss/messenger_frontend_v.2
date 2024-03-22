@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {AuthAPI} from "@/api/auth/authAPI";
-import {clearAuth, clearMessage, setEmail, setMessage, setNickname} from "@/redux/reducers/authReducer";
+import {clearAuth, clearMessage, setEmail, setFetching, setMessage, setNickname} from "@/redux/reducers/authReducer";
 import {ProfileAPI} from "@/api/profile/profileAPI";
 import {clearProfile} from "@/redux/reducers/profileReducer";
 
@@ -10,7 +10,7 @@ import {Auth_path} from "@/app/paths/auth";
 import {Main_path, MAIN_PATH_FOR_AUTH} from "@/app/paths/main";
 import {setToken} from "@/api/api_init";
 import {AuthMessagesEN, AuthMessagesRU} from "@/redux/messages/authMessages";
-import {clearPhoto} from "@/redux/reducers/photoReducer";
+import {clearPhotoReducer} from "@/redux/reducers/photoReducer";
 import {clearPosts} from "@/redux/reducers/postsReducer";
 import {clearUsers} from "@/redux/reducers/usersReducer";
 import {Cookie_names} from "@/redux/messages/cookie_names";
@@ -28,7 +28,7 @@ export const setMessageThunk = (message: string) => (dispatch: Dispatch) => {
 export const clearReducers = () => {
     return (dispatch: Dispatch) => {
         dispatch(clearAuth())
-        dispatch(clearPhoto())
+        dispatch(clearPhotoReducer())
         dispatch(clearPosts())
         dispatch(clearProfile())
         dispatch(clearUsers())
@@ -40,15 +40,21 @@ export const CookieClear = () => {
     Cookies.remove(Cookie_names.ID_POST)
     Cookies.remove(Cookie_names.ID_PHOTO)
     Cookies.remove(Cookie_names.EMAIL)
-
     clearReducers()
     clearMessages()
+
+    return {
+        redirect: {
+            destination: Auth_path.LOGIN
+        },
+    }
 }
 
     export
 const AuthThunk = {
     Authorization(input_email: string, input_nickname: string, input_password: string, router: AppRouterInstance) {
         return (dispatch: Dispatch) => {
+            dispatch(setFetching(true))
             AuthAPI.AuthorizationAPI({
                 input_email, input_nickname, input_password
             }).then(response => {
@@ -81,6 +87,7 @@ const AuthThunk = {
                         break
                     }
                 }
+                dispatch(setFetching(false))
             })
         }
     },
@@ -88,6 +95,7 @@ const AuthThunk = {
     Registration(input_email: string, input_nickname: string, input_password: string, input_confirmPassword: string,
                  input_name: string, input_birthDate: string, router: AppRouterInstance) {
         return (dispatch: Dispatch) => {
+            dispatch(setFetching(true))
             AuthAPI.RegistrationAPI({
                 input_email, input_nickname, input_password, input_confirmPassword
             }).then(response => {
@@ -130,6 +138,7 @@ const AuthThunk = {
                     default:
                 }
             })
+            dispatch(setFetching(false))
         }
     },
 
@@ -340,7 +349,7 @@ const AuthThunk = {
         }
     },
 
-    DeleteAccount(input_password: string, router: AppRouterInstance) { // todo !!!!!!!!
+    DeleteAccount(input_password: string, router: AppRouterInstance) {
         return (dispatch: Dispatch) => {
             AuthAPI.DeleteAccountAPI({
                 input_password

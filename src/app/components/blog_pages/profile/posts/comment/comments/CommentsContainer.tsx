@@ -12,6 +12,8 @@ const mapStateToProps = (state: CommentsInterfaceState ) => {
 const mapDispatchToProps = {
     getComments: postsThunk.GetCommentsToPost,
     setComment: postsThunk.SetComment,
+
+    getOnePost: postsThunk.GetOnePostData
 }
 
 export const CommentsContainer = connect(mapStateToProps, mapDispatchToProps)(Comments)

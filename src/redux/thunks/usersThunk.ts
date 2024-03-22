@@ -11,6 +11,7 @@ import {CookieClear} from "@/redux/thunks/authThunk";
 import Cookies from "js-cookie";
 import {Actions, Status} from "@/app/interfaces/friends/friendsInterface";
 import {Cookie_names} from "@/redux/messages/cookie_names";
+import {setFetching} from "@/redux/reducers/authReducer";
 
 export const usersThunk = {
 
@@ -141,14 +142,17 @@ export const usersThunk = {
 
     GetFriends() {
         return (dispatch: Dispatch) => {
+            dispatch(setFetching(true))
             UsersAPI.GetFriendsAPI()
                 .then(response => {
                     switch (response[0]) {
                         case 200 : {
+                            dispatch(setFetching(false))
                             dispatch(setUsers(response[1]))
                             break
                         }
                         case 401 : {
+                            dispatch(setFetching(false))
                             CookieClear()
                             break
                         }
@@ -159,55 +163,67 @@ export const usersThunk = {
 
     GetSubscriptions() {
         return (dispatch: Dispatch) => {
+            dispatch(setFetching(true))
             UsersAPI.GetSubscriptionsAPI()
                 .then(response => {
                     switch (response[0]) {
                         case 200 : {
+                            dispatch(setFetching(false))
                             dispatch(setUsers(response[1]))
                             break
                         }
                         case 401 : {
+                            dispatch(setFetching(false))
                             CookieClear()
                             break
                         }
                     }
                 })
+            dispatch(setFetching(false))
         }
     },
 
     GetSubscribers() {
-        return (dispatch: Dispatch) => {
+        return (dispatch: Dispatch)=> {
+            dispatch(setFetching(true))
             UsersAPI.GetSubscribersAPI()
                 .then(response => {
                     switch (response[0]) {
                         case 200 : {
+                            dispatch(setFetching(false))
                             dispatch(setUsers(response[1]))
                             break
                         }
                         case 401 : {
+                            dispatch(setFetching(false))
                             CookieClear()
                             break
                         }
                     }
                 })
+            dispatch(setFetching(false))
         }
     },
 
     GetSearch() {
         return (dispatch: Dispatch) => {
+            dispatch(setFetching(true))
             UsersAPI.GetSearchAPI()
                 .then(response => {
                     switch (response[0]) {
                         case 200 : {
+                            dispatch(setFetching(false))
                             dispatch(setUsers(response[1]))
                             break
                         }
                         case 401 : {
+                            dispatch(setFetching(false))
                             CookieClear()
                             break
                         }
                     }
                 })
+            dispatch(setFetching(false))
         }
     }
 

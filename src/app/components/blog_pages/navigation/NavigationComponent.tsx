@@ -15,7 +15,7 @@ import more_arrow_close_icon from '@/assets/icons/nav/more_arrow_close_icon.svg'
 import more_arrow_open_icon from '@/assets/icons/nav/more_arrow_open_icon.svg'
 import {Friends_path} from "@/app/paths/friends";
 import {useState} from "react";
-import {Main_path, MAIN_PATH_MY} from "@/app/paths/main";
+import {MAIN_PATH, Main_path, MAIN_PATH_MY} from "@/app/paths/main";
 import Cookies from "js-cookie";
 import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {Cookie_names} from "@/redux/messages/cookie_names";
@@ -34,7 +34,7 @@ export const NavigationComponent = (props: {logout(router: AppRouterInstance): v
                 <button className={'button_3rd_plane ' + nav_scss.header_button}
                         onClick={() => {
                             changeCookieId()
-                            router.push(MAIN_PATH_MY + Main_path.PROFILE)
+                            router.push(MAIN_PATH  + Cookies.get(Cookie_names.ID) + Main_path.PROFILE)
                         }}>
                     <Image src={title_icon} className={nav_scss.title_icon} alt={'title icon'}/>
                     <div className={nav_scss.header}>SimOn</div>
@@ -45,7 +45,7 @@ export const NavigationComponent = (props: {logout(router: AppRouterInstance): v
                     <button className={'button_3rd_plane ' + nav_scss.nav_button}
                             onClick={() => {
                                 changeCookieId()
-                                router.push(MAIN_PATH_MY + Main_path.PROFILE)}}>
+                                router.push(MAIN_PATH  + Cookies.get(Cookie_names.ID) + Main_path.PROFILE)}}>
                         <Image src={profile_icon} className={nav_scss.icon} alt={'icon'}/>
                         <div className={nav_scss.text_button}>Профиль</div>
                     </button>
@@ -54,7 +54,7 @@ export const NavigationComponent = (props: {logout(router: AppRouterInstance): v
                     <button className={'button_3rd_plane ' + nav_scss.nav_button}
                             onClick={() => {
                                 changeCookieId()
-                                router.push(MAIN_PATH_MY + Main_path.USERS + Friends_path.FRIENDS_USER)}
+                                router.push(MAIN_PATH  + Cookies.get(Cookie_names.ID) + Main_path.USERS + Friends_path.FRIENDS_USER)}
                             }>
                         <Image src={friends_icon} className={nav_scss.icon} alt={'icon'}/>
                         <div className={nav_scss.text_button}>Друзья</div>
@@ -64,7 +64,7 @@ export const NavigationComponent = (props: {logout(router: AppRouterInstance): v
                     <button className={'button_3rd_plane ' + nav_scss.nav_button}
                             onClick={() => {
                                 changeCookieId()
-                                router.push(MAIN_PATH_MY + Main_path.SETTINGS)}}>
+                                router.push(MAIN_PATH + Cookies.get(Cookie_names.ID) + Main_path.SETTINGS)}}>
                         <Image src={settings_icon} className={nav_scss.icon} alt={'icon'}/>
                         <div className={nav_scss.text_button}>Настройки</div>
                     </button>

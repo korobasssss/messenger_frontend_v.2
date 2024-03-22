@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {Main_AuthComponent} from "@/app/components/auth/Main_auth";
 import {AuthThunk, clearMessages} from "@/redux/thunks/authThunk";
 import {Main_authState} from "@/app/interfaces/auth/authInterface";
+import {LoaderHOC} from "@/app/components/loader/LoaderHOC";
 
 const mapStateToProps = (state: Main_authState) => {
     return {
@@ -19,4 +20,4 @@ const mapDispatchToProps = {
 }
 
 export const Main_authContainer =
-    connect(mapStateToProps, mapDispatchToProps)(Main_AuthComponent)
+    connect(mapStateToProps, mapDispatchToProps)(LoaderHOC(Main_AuthComponent))

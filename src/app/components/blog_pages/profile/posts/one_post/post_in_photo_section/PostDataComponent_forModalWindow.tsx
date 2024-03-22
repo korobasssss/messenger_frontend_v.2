@@ -9,7 +9,8 @@ export const PostDataComponent_forModalWindow = (props: OnePostComponentInterfac
             <section className={one_opened_post_scss.post_data + ' scrollBar'}>
                 <OnePostContainer onePost={props.onePostOpened}
                                   setAction={props.setAction}/>
-                <CommentsContainer postId={props.onePostOpened.postId}/>
+                <CommentsContainer postId={props.onePostOpened.postId}
+                                   setAction={props.setAction}/>
             </section>
         </section>
 

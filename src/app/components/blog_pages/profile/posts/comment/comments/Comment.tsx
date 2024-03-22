@@ -19,6 +19,7 @@ export const Comments = (props: CommentsInterface) => {
             setTimeout(() => {
                 props.getComments(Cookies.get(Cookie_names.ID_POST) as string)
             }, 100)
+            props.setAction(true)
         }
         setButtonClicked(false)
     }, [isButtonClicked])
@@ -30,6 +31,8 @@ export const Comments = (props: CommentsInterface) => {
                 props.setComment(props.postId, input_comment)
                 setInput_comment('')
                 setButtonClicked(true)
+                props.setAction(true)
+                props.getOnePost(Cookies.get(Cookie_names.ID_POST) as string)
             }
         }
         setButtonSetCommentClicked(false)
