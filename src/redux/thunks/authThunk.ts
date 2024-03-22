@@ -40,9 +40,14 @@ export const CookieClear = () => {
     Cookies.remove(Cookie_names.ID_POST)
     Cookies.remove(Cookie_names.ID_PHOTO)
     Cookies.remove(Cookie_names.EMAIL)
-
     clearReducers()
     clearMessages()
+
+    return {
+        redirect: {
+            destination: Auth_path.LOGIN
+        },
+    }
 }
 
     export

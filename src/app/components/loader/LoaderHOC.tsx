@@ -19,7 +19,6 @@ export const LoaderHOC = <P extends object>(WrappedComponent: ComponentType<P>) 
 
     const Loader: React.FC<P & Loader> = (props) => {
         const {isFetching, ...rest} = props;
-
         return (
             <>
                 <WrappedComponent {...rest as P}/>

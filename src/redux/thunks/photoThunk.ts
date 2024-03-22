@@ -103,7 +103,6 @@ export const photoThunk = {
 
     SetAvatar(input_avatarUrl: File) {
         return (dispatch: Dispatch) => {
-            dispatch(setFetching(true))
             PhotoAPI.SetAvatarAPI( {
                 input_avatarUrl: input_avatarUrl
             }).then(response => {
@@ -126,13 +125,11 @@ export const photoThunk = {
                     }
                 }
             })
-            dispatch(setFetching(false))
         }
     },
 
     SetCover(input_coverUrl: File) {
         return (dispatch: Dispatch) => {
-            dispatch(setFetching(true))
             PhotoAPI.SetCoverAPI({
                 input_coverUrl: input_coverUrl,
             }).then(response => {
@@ -155,7 +152,6 @@ export const photoThunk = {
                     }
                 }
             })
-            dispatch(setFetching(false))
         }
     }
 }

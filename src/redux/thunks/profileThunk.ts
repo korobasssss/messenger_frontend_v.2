@@ -22,21 +22,23 @@ export const profileThunk = {
             }).then(responseSocial => {
                 switch (responseSocial[0]) {
                     case 200 : {
+                        dispatch(setFetching(false))
                         dispatch(setUserData(responseSocial[1].name, responseSocial[1].birthDate,
                             responseSocial[1].bio, responseSocial[1].avatarUrl,
                             responseSocial[1].coverUrl, responseSocial[1].status))
                         break
                     }
                     case 400: {
+                        dispatch(setFetching(false))
                         break
                     }
                     case 401 : {
+                        dispatch(setFetching(false))
                         CookieClear()
                         break
                     }
                 }
             })
-            dispatch(setFetching(false))
         }
     },
 

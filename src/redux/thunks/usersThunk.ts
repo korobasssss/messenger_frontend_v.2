@@ -147,16 +147,17 @@ export const usersThunk = {
                 .then(response => {
                     switch (response[0]) {
                         case 200 : {
+                            dispatch(setFetching(false))
                             dispatch(setUsers(response[1]))
                             break
                         }
                         case 401 : {
+                            dispatch(setFetching(false))
                             CookieClear()
                             break
                         }
                     }
                 })
-            dispatch(setFetching(false))
         }
     },
 
@@ -167,10 +168,12 @@ export const usersThunk = {
                 .then(response => {
                     switch (response[0]) {
                         case 200 : {
+                            dispatch(setFetching(false))
                             dispatch(setUsers(response[1]))
                             break
                         }
                         case 401 : {
+                            dispatch(setFetching(false))
                             CookieClear()
                             break
                         }
@@ -187,10 +190,12 @@ export const usersThunk = {
                 .then(response => {
                     switch (response[0]) {
                         case 200 : {
+                            dispatch(setFetching(false))
                             dispatch(setUsers(response[1]))
                             break
                         }
                         case 401 : {
+                            dispatch(setFetching(false))
                             CookieClear()
                             break
                         }
@@ -207,10 +212,12 @@ export const usersThunk = {
                 .then(response => {
                     switch (response[0]) {
                         case 200 : {
+                            dispatch(setFetching(false))
                             dispatch(setUsers(response[1]))
                             break
                         }
                         case 401 : {
+                            dispatch(setFetching(false))
                             CookieClear()
                             break
                         }
