@@ -1,13 +1,14 @@
 import {Dispatch} from "redux";
 import {clearPhoto, setCountPhoto, setPhotoUrl} from "@/redux/reducers/photoReducer";
 import {PhotoAPI} from "@/api/photo/photoAPI";
-import {setFetching, setMessage} from "@/redux/reducers/authReducer";
+import {setMessage} from "@/redux/reducers/authReducer";
 import {setAvatarUrl, setCoverUrl} from "@/redux/reducers/profileReducer";
 import {CookieClear} from "@/redux/thunks/authThunk";
 import Cookies from "js-cookie";
 import {Cookie_names} from "@/redux/messages/cookie_names";
 import {PostMessagesEN, PostMessagesRU} from "@/redux/messages/postMessages";
 import {ProfileMessagesRU} from "@/redux/messages/profileMessages";
+import {SetPhotoInterface} from "@/api/photo/photoIntefraceAPI";
 
 export const fileSize = 2097152
 
@@ -101,10 +102,11 @@ export const photoThunk = {
         }
     },
 
-    SetAvatar(input_avatarUrl: File) {
+    SetAvatar(input_avatarUrl: SetPhotoInterface) {
+        debugger
         return (dispatch: Dispatch) => {
             PhotoAPI.SetAvatarAPI( {
-                input_avatarUrl: input_avatarUrl
+                input_avatarUrl: input_avatarUrl.input_postPhoto
             }).then(response => {
                 switch (response[0]) {
                     case 200 : {
@@ -128,10 +130,10 @@ export const photoThunk = {
         }
     },
 
-    SetCover(input_coverUrl: File) {
+    SetCover(input_coverUrl: SetPhotoInterface) {
         return (dispatch: Dispatch) => {
             PhotoAPI.SetCoverAPI({
-                input_coverUrl: input_coverUrl,
+                input_coverUrl: input_coverUrl.input_postPhoto,
             }).then(response => {
                 switch (response[0]) {
                     case 200 : {

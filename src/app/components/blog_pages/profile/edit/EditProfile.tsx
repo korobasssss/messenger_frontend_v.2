@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import {fileSize} from "@/redux/thunks/photoThunk";
 import {Cookie_names} from "@/redux/messages/cookie_names";
 import {ProfileMessagesRU} from "@/redux/messages/profileMessages";
+import {SetPhotoInterface} from "@/api/photo/photoIntefraceAPI";
 
 export const EditProfile = (props: EditProfileInterface) => {
 
@@ -17,9 +18,9 @@ export const EditProfile = (props: EditProfileInterface) => {
     const [input_bio, setInput_bio] = useState(props.bio)
 
     const [input_avatarUrl, setInput_avatarUrl] = useState(props.avatarUrl)
-    const [input_avatarFile, setInput_avatarFile] = useState<File | string>('');
+    const [input_fileAvatar, setInput_fileAvatar] = useState<SetPhotoInterface[]>([]);
     const [input_coverUrl, setInput_coverUrl] = useState(props.coverUrl)
-    const [input_coverFile, setInput_coverFile] = useState<File | string>('');
+    const [input_fileCover, setInput_fileCover] = useState<SetPhotoInterface[]>([]);
 
     const [isAvatarDeleteFile, setAvatarDeleteFile] = useState(false)
     const [isCoverDeleteFile, setCoverDeleteFile] = useState(false)
@@ -35,7 +36,6 @@ export const EditProfile = (props: EditProfileInterface) => {
 
     useEffect(() => {
         if (isButtonSavePressed) {
-
             if (isAvatarDeleteFile && props.avatarUrl !== '') {
                 props.deleteAvatar(props.avatarUrl)
                 setAvatarDeleteFile(false)
@@ -44,11 +44,11 @@ export const EditProfile = (props: EditProfileInterface) => {
                 props.deleteCover(props.coverUrl)
                 setCoverDeleteFile(false)
             }
-            if (input_avatarUrl.length != 0 && input_avatarFile !== null) {
-                props.setAvatar(input_avatarFile as File)
+            if (input_avatarUrl.length != 0 && input_fileAvatar.length != 0) {
+                props.setAvatar(input_fileAvatar[0])
             }
-            if (input_coverUrl.length != 0 && input_coverFile !== null ) {
-                props.setCover(input_coverFile as File)
+            if (input_coverUrl.length != 0 && input_fileCover.length != 0) {
+                props.setCover(input_fileCover[0])
             }
 
             if (input_name.length != 0 && input_bio.length != 0)
@@ -62,25 +62,75 @@ export const EditProfile = (props: EditProfileInterface) => {
         router.push(MAIN_PATH + Cookies.get(Cookie_names.ID) + Main_path.PROFILE)
     }
 
-    const setPhoto = (photoFile: FileList, setPhotoUrl: (photoUrl: string) => void,
-                      setPhotoFile: (photoFile: File) => void,
-                      setDeletePhoto: (flag: boolean) => void) => {
+    // const setPhoto = (photoFile: FileList, setPhotoUrl: (photoUrl: string) => void,
+    //                   setPhotoFile: (photoFile: SetPhotoInterface[]) => void,
+    //                   setDeletePhoto: (flag: boolean) => void) => {
+    //     props.clearMessage()
+    //     if (photoFile !== null) {
+    //         const file = photoFile[0];
+    //         if (photoFile[0].size <= fileSize) {
+    //             const reader = new FileReader();
+    //
+    //             reader.onload = (event) => {
+    //                 if (event.target !== null && event.target.result !== null) {
+    //                     setPhotoUrl(event.target.result.toString());
+    //                 }
+    //
+    //             };
+    //             reader.readAsDataURL(file);
+    //             debugger
+    //             const photo: SetPhotoInterface = {
+    //                 flag: true,
+    //                 input_postPhoto: photoFile[0]
+    //             }
+    //             setPhotoFile([photo])
+    //             if (props.avatarUrl !== '') {
+    //                 setDeletePhoto(true)
+    //             }
+    //         } else {
+    //             props.setMessageThunk(ProfileMessagesRU.FILE_TOO_BIT)
+    //         }
+    //     }
+    // }
+
+    useEffect(() => {
+        if (isAvatarDeleteFile) {
+            setInput_avatarUrl('')
+            setInput_fileAvatar([])
+        }
+    }, [isAvatarDeleteFile]);
+
+    useEffect(() => {
+        if (isCoverDeleteFile) {
+            setInput_coverUrl('')
+            setInput_fileCover([])
+        }
+    }, [isCoverDeleteFile]);
+
+    const setCover = (event: React.ChangeEvent<HTMLInputElement>) => {
+        //setPhoto(event.target.files as FileList, setInput_coverUrl, setInput_fileCover, setCoverDeleteFile)
+
         props.clearMessage()
-        if (photoFile !== null) {
-            const file = photoFile[0];
-            if (photoFile[0].size <= fileSize) {
+        if (event.target.files !== null) {
+            const file = event.target.files[0];
+            if (event.target.files[0].size <= fileSize) {
                 const reader = new FileReader();
 
                 reader.onload = (event) => {
                     if (event.target !== null && event.target.result !== null) {
-                        setPhotoUrl(event.target.result.toString());
+                        setInput_coverUrl(event.target.result.toString());
                     }
 
                 };
                 reader.readAsDataURL(file);
-                setPhotoFile(photoFile[0])
+                debugger
+                const photo: SetPhotoInterface = {
+                    flag: true,
+                    input_postPhoto: event.target.files[0]
+                }
+                setInput_fileCover([photo])
                 if (props.avatarUrl !== '') {
-                    setDeletePhoto(true)
+                    setCoverDeleteFile(true)
                 }
             } else {
                 props.setMessageThunk(ProfileMessagesRU.FILE_TOO_BIT)
@@ -88,26 +138,35 @@ export const EditProfile = (props: EditProfileInterface) => {
         }
     }
 
-    useEffect(() => {
-        if (isAvatarDeleteFile) {
-            setInput_avatarUrl('')
-            setInput_avatarFile('')
-        }
-    }, [isAvatarDeleteFile]);
-
-    useEffect(() => {
-        if (isCoverDeleteFile) {
-            setInput_coverUrl('')
-            setInput_coverFile('')
-        }
-    }, [isCoverDeleteFile]);
-
-    const setCover = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPhoto(event.target.files as FileList, setInput_coverUrl, setInput_coverFile, setCoverDeleteFile)
-    }
-
     const setAvatar = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPhoto(event.target.files as FileList, setInput_avatarUrl, setInput_avatarFile, setAvatarDeleteFile)
+        //setPhoto(event.target.files as FileList, setInput_avatarUrl, setInput_fleAvatar, setAvatarDeleteFile)
+
+        props.clearMessage()
+        if (event.target.files !== null) {
+            const file = event.target.files[0];
+            if (event.target.files[0].size <= fileSize) {
+                const reader = new FileReader();
+
+                reader.onload = (event) => {
+                    if (event.target !== null && event.target.result !== null) {
+                        setInput_avatarUrl(event.target.result.toString());
+                    }
+
+                };
+                reader.readAsDataURL(file);
+                debugger
+                const photo: SetPhotoInterface = {
+                    flag: true,
+                    input_postPhoto: event.target.files[0]
+                }
+                setInput_fileAvatar([photo])
+                if (props.avatarUrl !== '') {
+                    setAvatarDeleteFile(true)
+                }
+            } else {
+                props.setMessageThunk(ProfileMessagesRU.FILE_TOO_BIT)
+            }
+        }
     }
 
 
