@@ -7,7 +7,7 @@
 ---
 
 Стек технологий:
-- HTML, CSS (SCSS). TypeScript
+- HTML, CSS (SCSS), TypeScript
 - React
 - Redux
 
